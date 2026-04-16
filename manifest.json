@@ -1,9 +1,9 @@
 {
-  "name": "FitCore",
-  "short_name": "FitCore",
+  "name": "Corefy",
+  "short_name": "Corefy",
   "description": "Ton programme fitness personnalisé",
-  "start_url": "/Fitcore/",
-  "scope": "/Fitcore/",
+  "start_url": "/corefy/",
+  "scope": "/corefy/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0a0f",

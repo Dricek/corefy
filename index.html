@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#00f5a0">
 <link rel="manifest" href="manifest.json">
-<title>FitCore</title>
+<title>COREFY</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -361,7 +361,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <!-- SPLASH -->
 <div id="splash">
-  <h1>FITCORE</h1>
+  <h1>COREFY</h1>
   <p>Ton programme. Ton rythme.</p>
   <div class="splash-dot"></div>
 </div>
@@ -436,7 +436,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
     <div class="app-header-top">
       <div>
         <div class="app-greeting" id="greeting">Bonjour</div>
-        <div class="app-name" id="user-display-name">FITCORE</div>
+        <div class="app-name" id="user-display-name">COREFY</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
         <div class="profile-badge" onclick="showScreen('profil')" style="font-size:10px;color:var(--muted);background:transparent;border-color:transparent;padding:2px 4px">👤 Mon profil</div>
@@ -4781,14 +4781,14 @@ function playFinish() {
 
 // ── INIT ──
 function init() {
-  const saved = localStorage.getItem('fitcore_v2');
+  const saved = localStorage.getItem('corefy_v1');
   if (saved) {
     try {
       state = {...state, ...JSON.parse(saved)};
       state.completedExercises = state.completedExercises || [];
       state.cart = state.cart || [];
       state.history = state.history || [];
-    } catch(e) { localStorage.removeItem('fitcore_v2'); }
+    } catch(e) { localStorage.removeItem('corefy_v1'); }
     setTimeout(() => {
       document.getElementById('splash').classList.add('hide');
       setTimeout(() => {
@@ -4810,7 +4810,7 @@ function init() {
 }
 
 function saveState() {
-  localStorage.setItem('fitcore_v2', JSON.stringify(state));
+  localStorage.setItem('corefy_v1', JSON.stringify(state));
 }
 
 // ── ONBOARDING ──
@@ -4890,7 +4890,7 @@ function updateHeader() {
   const greet = hour < 12 ? 'Bonjour' : hour < 18 ? 'Bon après-midi' : 'Bonsoir';
   document.getElementById('greeting').textContent = greet;
   const name = state.user?.name || '';
-  document.getElementById('user-display-name').textContent = name ? name.toUpperCase() : 'FITCORE';
+  document.getElementById('user-display-name').textContent = name ? name.toUpperCase() : 'COREFY';
   const p = PROFILES[state.profile];
   document.getElementById('profile-display').textContent = p ? p.name.toUpperCase() : '';
 }
@@ -6452,7 +6452,7 @@ function resetApp() {
     <div style="font-size:13px;color:var(--text);margin-bottom:12px;line-height:1.6">Réinitialiser complètement l'application ? Toutes tes données seront perdues.</div>
     <div style="display:flex;gap:8px;">
       <button onclick="document.getElementById('reset-confirm').remove()" style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Annuler</button>
-      <button onclick="localStorage.removeItem('fitcore_v2');location.reload();" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--red);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Confirmer</button>
+      <button onclick="localStorage.removeItem('corefy_v1');location.reload();" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--red);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">Confirmer</button>
     </div>`;
   document.querySelector('.settings-list').appendChild(div);
 }
@@ -6745,7 +6745,7 @@ init();
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/Fitcore/service-worker.js');
+    navigator.serviceWorker.register('/corefy/service-worker.js');
   });
 }
 </script>
