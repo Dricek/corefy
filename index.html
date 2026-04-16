@@ -457,12 +457,30 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
         </div>
       </div>
       <div class="week-band" id="week-band"></div>
+      <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:-12px;margin-bottom:16px;letter-spacing:0.3px">Appuie sur un jour pour faire du rab · la séance ne sera pas comptabilisée</div>
       <div class="next-session">
-        <div class="next-label">Prochaine séance</div>
+        <div class="next-label">Séance du jour</div>
         <div class="next-title" id="next-session-title">JAMBES</div>
         <div class="level-badge" id="level-badge">⭐ Débutant — Semaine 1</div>
         <div class="next-meta" id="next-session-meta">5 exercices · 45 min</div>
-        <button class="start-btn" onclick="startWorkout()">Commencer la séance →</button>
+        <button class="start-btn" id="start-btn" onclick="startWorkout()">Commencer la séance →</button>
+      </div>
+      <div id="level-progress-card" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px 20px;margin-bottom:16px;display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Progression</div>
+          <div style="font-size:11px;font-weight:600;color:var(--accent)" id="level-progress-label"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px" id="level-dots"></div>
+        <div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden">
+          <div id="level-progress-fill" style="height:100%;background:var(--accent);border-radius:2px;transition:width 0.4s ease;width:0%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px">
+          <div style="font-size:10px;color:var(--muted)" id="level-progress-sub"></div>
+          <div style="font-size:10px;color:var(--muted)" id="level-progress-next"></div>
+        </div>
+        <div style="border-top:1px solid var(--border);margin-top:12px;padding-top:10px;font-size:10px;color:var(--muted);text-align:center;line-height:1.5">
+          Appuie sur N1 · N2 · N3 · N4 pour changer de niveau à tout moment
+        </div>
       </div>
     </div>
 
@@ -649,7 +667,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 </div>
 
 <!-- GYM MODE MODAL -->
-<div class="modal-overlay" id="gym-mode-modal">
+<div class="modal-overlay" id="gym-mode-modal" onclick="if(event.target===this)document.getElementById('gym-mode-modal').classList.remove('open')">
   <div class="modal-sheet">
     <div class="modal-title">Où tu t'entraînes ?</div>
     <div class="modal-sub">On adapte les exercices à ton environnement.</div>
@@ -666,6 +684,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
       </div>
     </div>
     <button class="modal-btn" id="gym-mode-confirm-btn" onclick="confirmGymMode()" style="opacity:0.4;pointer-events:none">Commencer la séance →</button>
+    <button onclick="document.getElementById('gym-mode-modal').classList.remove('open')" style="width:100%;margin-top:10px;background:transparent;border:none;color:var(--muted);font-size:14px;padding:10px;cursor:pointer;font-family:Inter,sans-serif;">Annuler</button>
   </div>
 </div>
 
@@ -829,6 +848,468 @@ const SF_HOME_DAYS = [
   },
   {id:"rest_total",name:"REPOS TOTAL",icon:"🛌",rest:true}
 ];
+
+// ── SKINNY FAT — 4 NIVEAUX ──
+// ── SKINNY FAT NIVEAU 1 ──
+const SF_N1_WEEK_INFO=["Semaine 1 · Prise de repères — charges légères, apprentissage des patterns, 2–3 reps en réserve minimum sur chaque série.","Semaine 2 · Progression charge — +5% sur les mouvements de force principaux, +1 rep sur les accessoires.","Semaine 3 · Augmentation du volume — passage à 4 séries sur les exercices principaux, maintien des charges S2.","Semaine 4 · Deload — -20% sur toutes les charges, retour à 3 séries. Le corps reconstruit pendant cette semaine.","Semaine 5 · Nouveau palier — charges semaine 3 +2,5%, consolidation technique.","Semaine 6 · Peak du niveau — charges maximales du niveau 1, prêt pour le niveau 2."];
+const SF_N1_GYM_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",exercises:[
+{name:"Développé couché barre",variant:"Développé couché haltères",charge:["60% de ton max","65% de ton max","70% de ton max","55% de ton max (deload)","72% de ton max","75% de ton max"],weeks:["3×10","3×10","4×8","3×8","4×8","4×8"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Développé incliné haltères",variant:"Machine pec-deck inclinée",charge:["Charge permettant 12 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×12","3×12","3×10","3×10","3×10","4×10"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Élévations latérales câble",variant:"Élévations latérales haltères debout",charge:["Charge légère — brûlure sur les 3 dernières reps","Même charge +1 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×15","3×15","3×12","3×12","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Développé militaire haltères",variant:"Machine press épaules",charge:["Charge permettant 10 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×10","3×10","3×10","3×8","3×10","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Pushdown triceps câble",variant:"Extensions triceps haltère unilatéral au-dessus de la tête",charge:["Charge légère — brûlure sur les 3 dernières reps","Même charge +1 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×15","3×15","3×12","3×12","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Tapis de course incliné",variant:"Vélo elliptique résistance modérée",charge:["Pente 8%, vitesse 5–6 km/h","Même allure","Pente 10%","Pente 6%, 20 min seulement","Pente 10%","Pente 10%"],weeks:["25 min","30 min","30 min","20 min","35 min","35 min"],rest:["–","–","–","–","–","–"]},
+{name:"Gainage planche avant",variant:null,charge:null,weeks:["3×30 s","3×40 s","3×45 s","3×30 s","3×50 s","3×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Crunchs câble",variant:"Crunchs classiques au sol",charge:["Charge légère — sentir les abdos, pas le cou","Même charge","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×12","3×15","3×15","3×12","3×15","4×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]},
+{name:"Mountain climbers lents",variant:null,charge:null,weeks:["3×16 reps","3×18 reps","3×20 reps","3×14 reps","3×20 reps","3×20 reps"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",exercises:[
+{name:"Tractions (assistées si besoin)",variant:"Lat pulldown prise large",charge:["Assistance permettant 6 reps propres — réduire chaque semaine","Assistance –1 kg","Assistance –1 kg","Assistance +20% (plus facile)","Assistance de la semaine 3","Viser 1–2 reps de plus"],weeks:["3×6","3×8","4×8","3×6","4×8","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Rowing barre Pendlay",variant:"Rowing haltère unilatéral (appui banc)",charge:["60% de ton max","65% de ton max","70% de ton max","55% de ton max (deload)","72% de ton max","75% de ton max"],weeks:["3×8","3×8","4×8","3×6","4×8","4×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Facepull câble",variant:"Rowing élastique basse poulie (fixé dans une porte)",charge:["Charge légère — sentir les épaules arrière, pas les trapèzes","Même charge","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×15","3×15","3×15","3×12","4×15","4×15"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl biceps barre EZ",variant:"Curl haltères alterné avec supination",charge:["Charge permettant 10 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10","3×12","3×12","3×10","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl Zottman haltères",variant:"Curl câble basse poulie",charge:["Charge légère — descente 3 s obligatoire","Même charge","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["2×12","2×12","3×12","2×10","3×12","3×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",exercises:[
+{name:"Squat barre (back squat)",variant:"Goblet squat haltère",charge:["60% de ton max","65% de ton max","70% de ton max","55% de ton max (deload)","72% de ton max","77% de ton max"],weeks:["3×8","3×8","4×8","3×6","4×8","4×6"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Leg press 45°",variant:"Bulgarian split squat haltères",charge:["Charge permettant 12 reps — les 3 dernières difficiles","Même charge +5 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +5 kg","Charge de la semaine 5"],weeks:["3×12","3×12","3×10","3×10","4×10","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Romanian deadlift haltères",variant:"Leg curl machine",charge:["60% de ton max soulevé de terre","65% de ton max","68% de ton max","55% de ton max (deload)","70% de ton max","73% de ton max"],weeks:["3×10","3×10","4×10","3×8","4×10","4×10"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Hip thrust barre",variant:"Pont fessier avec haltère sur le bassin",charge:["Charge permettant 12 reps — contraction fessiers en haut 1 s","Même charge +5 kg","Même charge +5 kg","Réduire de 20%","Charge de la semaine 3 +5 kg","Charge de la semaine 5"],weeks:["3×12","3×12","4×12","3×10","4×12","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Extension quadriceps machine",variant:"Fentes marchées haltères",charge:["Charge légère — brûlure sur les 3 dernières reps","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×15","3×15","3×12","3×12","3×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Mollets presse",variant:"Élévations mollets debout unilatéral (bord de marche)",charge:["Charge permettant 15 reps amplitude complète","Même charge","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×15","4×15","4×15","3×12","4×15","4×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 6",label:"Full body HIIT léger",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"3 rounds",ratio:"30 s effort / 30 s repos",pause:"2 min 30 entre rounds"},{rounds:"3 rounds",ratio:"35 s effort / 25 s repos",pause:"2 min 30 entre rounds"},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"2 rounds",ratio:"30 s effort / 30 s repos",pause:"3 min entre rounds",deload:true},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"90 s entre rounds"}],
+exercises:[{name:"Kettlebell swing",variant:"Romanian deadlift sauté haltère léger"},{name:"Box jump",variant:"Squat jump au sol"},{name:"Battle ropes",variant:"Jumping jacks avec haltères légers"},{name:"Burpee + rowing TRX",variant:"Burpee simple"},{name:"Gainage latéral dynamique",variant:null}]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+const SF_N1_HOME_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",exercises:[
+{name:"Pompes pieds surélevés (chaise)",variant:null,charge:null,weeks:["3×10 lentes","3×12","4×10","3×8 (deload)","4×12","4×12 tempo 2-0-1"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Pompes prise serrée (triceps)",variant:null,charge:null,weeks:["3×10","3×10","3×10","3×8","3×12","4×12"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Élévations latérales haltères",variant:null,charge:["Haltères légers — brûlure sur les 3 dernières reps","Même charge +1 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×15","3×15","3×12","3×12","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Développé épaules haltères assis",variant:"Pike push-up (mains au sol, fesses en l'air)",charge:["Charge permettant 10 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["3×10","3×10","3×10","3×8","3×10","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Dips sur chaise",variant:null,charge:null,weeks:["3×12","3×12","3×12","3×10","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Marche rapide / footing dehors",variant:"Jumping jacks + step-touch en intérieur (même durée)",charge:null,weeks:["25 min","30 min","30 min","20 min","35 min","35 min"],rest:["–","–","–","–","–","–"]},
+{name:"Planche avant",variant:null,charge:null,weeks:["3×30 s","3×40 s","3×45 s","3×30 s","3×50 s","3×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Crunchs au sol",variant:null,charge:null,weeks:["3×12","3×15","3×15","3×12","3×15","4×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]},
+{name:"Mountain climbers lents",variant:null,charge:null,weeks:["3×16 reps","3×18 reps","3×20 reps","3×14 reps","3×20 reps","3×20 reps"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",exercises:[
+{name:"Tractions barre de porte",variant:"Rowing sous table (allongé sous une table solide, tirer vers soi)",charge:["Poids de corps — viser 5 reps propres","Même — viser 1 rep de plus","Même","Réduire de 1–2 reps","Viser les reps de la semaine 3","Viser 2 reps de plus"],weeks:["3×5","3×6","4×6","3×5","4×8","4×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Rowing haltères unilatéral (appui chaise)",variant:"Rowing sac à dos lesté unilatéral",charge:["Charge permettant 10 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10/côté","3×10/côté","4×10/côté","3×8/côté","4×10/côté","4×10/côté"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Face pull élastique (fixé dans une porte)",variant:"Rétraction scapulaire isométrique (coudes tirés en arrière, tenir 5 s)",charge:["Élastique léger — sentir les épaules arrière, pas les trapèzes","Même élastique","Même","Élastique plus léger","Élastique de la semaine 3","Élastique de la semaine 5 +1 série"],weeks:["3×15","3×15","3×15","3×12","4×15","4×15"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl biceps haltères",variant:null,charge:["Charge permettant 10 reps — les 2 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10","3×12","3×12","3×10","4×12","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl marteau haltères",variant:"Curl en supination avec serviette (une main tire, l'autre résiste)",charge:["Charge légère — descente 3 s obligatoire","Même charge","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["2×12","2×12","3×12","2×10","3×12","3×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",exercises:[
+{name:"Goblet squat haltère / sac lesté",variant:"Squat poids de corps tempo 4-0-1 (descente en 4 secondes)",charge:["Charge permettant 12 reps — les 3 dernières difficiles","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×12","3×12","4×10","3×10","4×10","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Bulgarian split squat (pied arrière sur chaise)",variant:"Fentes marchées haltères",charge:["Poids de corps d'abord — maîtriser l'équilibre avant d'ajouter du poids","Haltères légers si équilibre maîtrisé","Même charge","Réduire de 20% ou poids de corps","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×8/côté","3×10/côté","3×10/côté","3×8/côté","4×10/côté","4×10/côté"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Romanian deadlift haltères",variant:"Good morning avec bâton ou balai (barre sur les épaules, pencher le buste)",charge:["Charge permettant 10 reps — sentir l'étirement des ischio en bas","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10","3×10","4×10","3×8","4×10","4×10"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Hip thrust (dos sur canapé)",variant:"Pont fessier unilatéral poids de corps (une jambe tendue)",charge:["Haltère sur le bassin — charge permettant 12 reps avec contraction forte en haut","Même charge +2 kg","Même charge +2 kg","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×12","3×12","4×12","3×10","4×12","4×12"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Wall sit (chaise murale)",variant:null,charge:null,weeks:["3×30 s","3×40 s","3×45 s","3×30 s","3×50 s","3×60 s"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Élévations mollets (bord de marche)",variant:null,charge:null,weeks:["3×15/côté","4×15/côté","4×15/côté","3×12/côté","4×15/côté","4×15/côté"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 6",label:"Full body HIIT léger",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"3 rounds",ratio:"30 s effort / 30 s repos",pause:"2 min 30 entre rounds"},{rounds:"3 rounds",ratio:"35 s effort / 25 s repos",pause:"2 min 30 entre rounds"},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"2 rounds",ratio:"30 s effort / 30 s repos",pause:"3 min entre rounds",deload:true},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"90 s entre rounds"}],
+exercises:[{name:"Squat jump",variant:null},{name:"Pompes explosives",variant:null},{name:"Fentes sautées alternées",variant:null},{name:"Burpees",variant:null},{name:"Gainage latéral dynamique",variant:null}]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+
+// ── SKINNY FAT NIVEAU 2 ──
+const SF_N2_WEEK_INFO=["Semaine 1 · Reprise — charge de la 6e semaine du niveau 1 +2,5%. 4 séries sur tous les mouvements principaux.","Semaine 2 · Progression charge — +5% sur les mouvements de force. Tempo 3-1-1 introduit sur les tirages.","Semaine 3 · +volume — 5 séries sur les mouvements principaux, introduction des supersets sur les accessoires.","Semaine 4 · Deload — -20% charge, retour à 3 séries, suppression des supersets.","Semaine 5 · Nouveau palier — charges de la semaine 3 +2,5%, supersets maintenus.","Semaine 6 · Peak du niveau 2 — charges maximales, prêt pour le niveau 3."];
+const SF_N2_GYM_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Supersets S3/S5/S6 : élévations latérales + pushdown triceps enchaînés sans repos entre les deux.",
+exercises:[
+{name:"Développé couché barre",isNew:false,variant:"Développé couché haltères",charge:["77% de ton max","80% de ton max","82% de ton max","65% de ton max (deload)","82% de ton max","85% de ton max"],weeks:["4×8","4×8","5×6","3×6","5×6","5×5"],rest:["90 s","90 s","90 s","90 s","90 s","2 min"]},
+{name:"Développé incliné haltères",isNew:false,variant:"Machine pec-deck inclinée",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge, tempo 3-0-1","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×10","4×8"],rest:["75 s","75 s","60 s","75 s","60 s","60 s"]},
+{name:"Élévations latérales câble + pushdown triceps",isNew:false,variant:"Élévations latérales haltères + extensions triceps haltère au-dessus de la tête",charge:["Élévations : brûlure sur les 3 dernières · Pushdown : charge permettant 12 reps propres","Même +1 kg sur chaque","Même charge","Réduire de 20%, pas de superset","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["4×12 superset","4×12 superset","4×12 superset","3×10 séparé","4×12 superset","5×12 superset"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Développé militaire haltères",isNew:false,variant:"Machine press épaules",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×10","4×8"],rest:["90 s","75 s","75 s","90 s","75 s","75 s"]},
+{name:"Pushdown triceps câble (S1/S2 isolé)",isNew:false,variant:"Extensions triceps haltère unilatéral au-dessus de la tête",charge:["Charge permettant 12 reps — brûlure sur les 3 dernières (S1 et S2 uniquement)","Même charge +1 kg","En superset avec élévations","En superset","En superset","En superset"],weeks:["4×12","4×12","(superset)","(superset)","(superset)","(superset)"],rest:["60 s","60 s","–","–","–","–"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Tapis de course incliné",isNew:false,variant:"Vélo elliptique résistance modérée à élevée",charge:["Pente 10%, vitesse 5–6 km/h","Même allure","Même, durée augmentée","Pente 6%, 25 min seulement","Pente 12%","Pente 12%"],weeks:["35 min","35 min","40 min","25 min","40 min","45 min"],rest:["–","–","–","–","–","–"]},
+{name:"Gainage planche avant",isNew:false,variant:null,charge:null,weeks:["3×50 s","3×55 s","4×55 s","3×40 s","4×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Crunchs câble",isNew:false,variant:"Crunchs classiques au sol",charge:["Charge légère — sentir les abdos, pas le cou","Même charge","Même charge +1 série","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["4×15","4×15","4×15","3×12","4×15","4×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]},
+{name:"Mountain climbers lents",isNew:false,variant:null,charge:null,weeks:["3×20 reps","3×22 reps","4×20 reps","3×16 reps","4×22 reps","4×24 reps"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Ab wheel (roue abdominale)",isNew:true,variant:"Planche dynamique (avancer les mains en planche, reculer)",charge:["Poids de corps — aller jusqu'à ce que le bas du dos ne creuse pas","Même, viser 1–2 reps de plus","Même","Réduire de 2 reps","Amplitude de la semaine 3","Amplitude semaine 5 +1 série"],weeks:["3×8","3×10","3×10","3×6","4×10","4×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Supersets S3/S5/S6 : facepull + curl Zottman enchaînés sans repos entre les deux.",
+exercises:[
+{name:"Tractions (assistées ou lestées)",isNew:false,variant:"Lat pulldown prise large tempo 3-1-1",charge:["Assistance permettant 8 reps propres · tempo 3-1-1 dès S2","Assistance –1 kg · tempo 3-1-1","Même · tempo 3-1-1","Assistance +20%","Assistance de la semaine 3 · tempo 3-1-1","Viser 2 reps de plus"],weeks:["4×8","4×8 tempo 3-1-1","5×8 tempo 3-1-1","3×6","5×8 tempo 3-1-1","5×6"],rest:["90 s","90 s","90 s","90 s","90 s","2 min"]},
+{name:"Rowing barre Pendlay",isNew:false,variant:"Rowing haltère unilatéral lourd (appui banc)",charge:["77% de ton max","80% de ton max","80% de ton max","65% de ton max (deload)","82% de ton max","85% de ton max"],weeks:["4×8","4×8","5×8","3×6","5×8","5×6"],rest:["90 s","90 s","90 s","90 s","90 s","2 min"]},
+{name:"Facepull câble + curl Zottman",isNew:false,variant:"Rowing élastique basse poulie + curl haltères alterné",charge:["Facepull : charge légère épaules arrière · Zottman : 12 reps contrôlées","Même +1 kg chaque","Même charge","Réduire de 20%, pas de superset","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["4×15 superset","4×15 superset","4×15 superset","3×12 séparé","4×15 superset","5×15 superset"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Curl biceps barre EZ",isNew:false,variant:"Curl haltères alterné avec supination",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×10","4×8"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl Zottman haltères (S1/S2 isolé)",isNew:false,variant:"Curl câble basse poulie",charge:["Charge permettant 12 reps contrôlées — descente 3 s (S1 et S2 uniquement)","Même +1 kg","En superset avec facepull","En superset","En superset","En superset"],weeks:["3×12","3×12","(superset)","(superset)","(superset)","(superset)"],rest:["60 s","60 s","–","–","–","–"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",exercises:[
+{name:"Squat barre (back squat)",isNew:false,variant:"Goblet squat haltère lourd",charge:["77% de ton max","80% de ton max","82% de ton max","65% de ton max (deload)","82% de ton max","85% de ton max"],weeks:["4×6","4×6","5×5","3×5","5×5","5×4"],rest:["2 min","2 min","2 min","2 min","2 min","2 min 30"]},
+{name:"Leg press 45°",isNew:false,variant:"Bulgarian split squat haltères",charge:["Charge de la 6e semaine du niveau 1 +5 kg","Même charge +5 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +5 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×10","4×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Romanian deadlift haltères",isNew:false,variant:"Leg curl machine",charge:["75% de ton max soulevé de terre","77% de ton max","80% de ton max","62% de ton max (deload)","80% de ton max","82% de ton max"],weeks:["4×10","4×10","5×8","3×8","5×8","5×8"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Hip thrust barre",isNew:false,variant:"Pont fessier avec haltère lourd sur le bassin",charge:["Charge de la 6e semaine du niveau 1 +5 kg — contraction fessiers 1 s","Même charge +5 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +5 kg","Charge de la semaine 5"],weeks:["4×12","4×12","4×10","3×10","4×10","4×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Fentes marchées haltères",isNew:true,variant:"Step-up sur box avec haltères",charge:["Haltères légers — maîtriser l'équilibre avant d'augmenter","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10/jambe","3×10/jambe","4×10/jambe","3×8/jambe","4×10/jambe","4×10/jambe"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Mollets presse",isNew:false,variant:"Élévations mollets debout unilatéral (bord de marche)",charge:["Charge permettant 15 reps amplitude complète","Même charge +5 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +5 kg","Charge de la semaine 5 +1 série"],weeks:["4×15","4×15","4×15","3×12","4×15","5×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 6",label:"Full body HIIT",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"4 rounds",ratio:"42 s effort / 18 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"3 rounds",ratio:"35 s effort / 25 s repos",pause:"2 min 30 entre rounds",deload:true},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"60 s entre rounds"}],
+exercises:[{name:"Kettlebell swing",isNew:false,variant:"Romanian deadlift sauté haltère léger"},{name:"Box jump",isNew:false,variant:"Squat jump au sol"},{name:"Battle ropes",isNew:false,variant:"Jumping jacks avec haltères légers"},{name:"Burpee + rowing TRX",isNew:false,variant:"Burpee simple"},{name:"Gainage latéral dynamique",isNew:false,variant:null}]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+const SF_N2_HOME_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Supersets S3/S5/S6 : élévations latérales + dips enchaînés sans repos entre les deux.",
+exercises:[
+{name:"Pompes pieds surélevés (chaise)",isNew:false,variant:null,charge:null,weeks:["4×12 tempo 3-0-1","4×12 tempo 3-0-1","5×10 tempo 3-0-1","3×8","5×12","5×12"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Pompes archer (prise large, pencher d'un côté)",isNew:true,variant:null,charge:null,weeks:["3×6/côté","3×8/côté","4×8/côté","3×6/côté","4×8/côté","4×10/côté"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Élévations latérales haltères",isNew:false,variant:null,charge:["Charge de la 6e semaine du niveau 1 — brûlure sur les 3 dernières reps","Même charge +1 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5 +1 série"],weeks:["4×12 superset","4×12 superset","4×12 superset","3×10 séparé","4×12 superset","5×12 superset"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Développé épaules haltères assis",isNew:false,variant:"Pike push-up (mains au sol, fesses en l'air)",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×12","4×12"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Dips sur chaise",isNew:false,variant:null,charge:null,weeks:["4×12 superset","4×12 superset","4×12 superset","3×10 séparé","4×12 superset","5×12 superset"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Marche rapide / footing dehors",isNew:false,variant:"Jumping jacks + step-touch en intérieur (même durée)",charge:null,weeks:["35 min","35 min","40 min","25 min","40 min","45 min"],rest:["–","–","–","–","–","–"]},
+{name:"Planche avant",isNew:false,variant:null,charge:null,weeks:["3×50 s","3×55 s","4×55 s","3×40 s","4×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Crunchs au sol",isNew:false,variant:null,charge:null,weeks:["4×15","4×15","4×15","3×12","4×15","4×15"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]},
+{name:"Mountain climbers lents",isNew:false,variant:null,charge:null,weeks:["3×20 reps","3×22 reps","4×20 reps","3×16 reps","4×22 reps","4×24 reps"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Dragon flag négatif (bord du lit ou banc)",isNew:true,variant:"Relevé de jambes au sol (dos plat, jambes tendues)",charge:["Poids de corps — descendre lentement en 4 s, remonter en aidant avec les pieds","Même, viser 1 rep de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3","Viser 2 reps de plus"],weeks:["3×5 négatifs","3×6","3×8","3×5","4×8","4×10"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Supersets S3/S5/S6 : face pull + curl marteau enchaînés sans repos entre les deux.",
+exercises:[
+{name:"Tractions barre de porte",isNew:false,variant:"Rowing sous table pieds surélevés (table + chaise)",charge:["Poids de corps · tempo 3-1-1 — viser 6 reps propres","Même, viser 1 rep de plus · tempo 3-1-1","Même · tempo 3-1-1","Réduire de 1–2 reps, tempo normal","Viser les reps de la semaine 3 · tempo 3-1-1","Viser 2 reps de plus"],weeks:["4×6 tempo 3-1-1","4×8 tempo 3-1-1","5×8 tempo 3-1-1","3×5","5×8","5×6"],rest:["90 s","90 s","90 s","90 s","90 s","2 min"]},
+{name:"Rowing haltères unilatéral (appui chaise)",isNew:false,variant:"Rowing sac à dos lesté unilatéral",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10/côté","4×10/côté","5×10/côté","3×8/côté","5×10/côté","5×8/côté"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Face pull élastique (fixé dans une porte)",isNew:false,variant:"Rétraction scapulaire isométrique (coudes tirés en arrière, tenir 5 s)",charge:["Élastique de la 6e semaine du niveau 1","Élastique plus résistant si disponible","Même","Élastique plus léger","Élastique de la semaine 3","Élastique de la semaine 5 +1 série"],weeks:["4×15 superset","4×15 superset","4×15 superset","3×12 séparé","4×15 superset","5×15 superset"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Curl biceps haltères",isNew:false,variant:null,charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10","4×10","4×10","3×8","4×10","4×8"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Curl marteau haltères (S1/S2 isolé)",isNew:false,variant:"Curl en supination avec serviette (une main tire, l'autre résiste)",charge:["Charge permettant 12 reps contrôlées — descente 3 s (S1 et S2 uniquement)","Même +1 kg","En superset avec face pull","En superset","En superset","En superset"],weeks:["3×12","3×12","(superset)","(superset)","(superset)","(superset)"],rest:["60 s","60 s","–","–","–","–"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",exercises:[
+{name:"Goblet squat haltère / sac lesté",isNew:false,variant:"Squat poids de corps tempo 4-0-1 (descente en 4 secondes)",charge:["Charge de la 6e semaine du niveau 1 +3 kg","Même charge +3 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +3 kg","Charge de la semaine 5"],weeks:["4×10","4×10","5×8","3×8","5×8","5×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Bulgarian split squat (pied arrière sur chaise)",isNew:false,variant:"Fentes marchées haltères",charge:["Charge de la 6e semaine du niveau 1 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10/côté","4×10/côté","4×10/côté","3×8/côté","4×10/côté","4×8/côté"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Romanian deadlift haltères",isNew:false,variant:"Good morning avec bâton ou balai",charge:["Charge de la 6e semaine du niveau 1 +3 kg — sentir l'étirement des ischio en bas","Même charge +3 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +3 kg","Charge de la semaine 5"],weeks:["4×10","4×10","5×8","3×8","5×8","5×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Hip thrust (dos sur canapé)",isNew:false,variant:"Pont fessier unilatéral avec haltère léger (une jambe tendue)",charge:["Haltère de la 6e semaine du niveau 1 +3 kg — contraction fessiers 1 s","Même charge +3 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +3 kg","Charge de la semaine 5"],weeks:["4×12","4×12","4×10","3×10","4×10","4×8"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Step-up sur chaise avec haltères",isNew:true,variant:"Fentes latérales poids de corps",charge:["Haltères légers — maîtriser l'équilibre avant d'augmenter","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["3×10/jambe","3×10/jambe","4×10/jambe","3×8/jambe","4×10/jambe","4×10/jambe"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Élévations mollets (bord de marche)",isNew:false,variant:null,charge:null,weeks:["4×15/côté","4×15/côté","5×15/côté","3×12/côté","5×15/côté","5×15/côté"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 6",label:"Full body HIIT",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"4 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min entre rounds"},{rounds:"4 rounds",ratio:"42 s effort / 18 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"3 rounds",ratio:"35 s effort / 25 s repos",pause:"2 min 30 entre rounds",deload:true},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"60 s entre rounds"}],
+exercises:[{name:"Squat jump",isNew:false,variant:null},{name:"Pompes explosives",isNew:false,variant:null},{name:"Fentes sautées alternées",isNew:false,variant:null},{name:"Burpees",isNew:false,variant:null},{name:"Gainage latéral dynamique",isNew:false,variant:null}]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+
+// ── SKINNY FAT NIVEAU 3 ──
+const SF_N3_WEEK_INFO=["Semaine 1 · Reprise — charge de la 6e semaine du niveau 2 +2,5%. Tempo 4-1-1 sur tous les mouvements principaux. Supersets permanents sur les accessoires.","Semaine 2 · Progression charge — +5% sur les mouvements de force. Tempo maintenu.","Semaine 3 · Drop sets — après la dernière série normale : -20% charge, 8 reps bonus sans repos.","Semaine 4 · Deload — -20% charge, suppression des drop sets, retour à 3 séries.","Semaine 5 · Densité — charges de la semaine 3 +2,5%, drop sets maintenus, temps de repos réduits de 10 s.","Semaine 6 · Peak — charges maximales du niveau 3, prêt pour le niveau 4."];
+const SF_N3_GYM_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Supersets permanents : élévations latérales + pushdown triceps. Drop sets S3/S5/S6 : après la dernière série, -20% charge et 8 reps bonus sans repos.",
+exercises:[
+{name:"Développé couché barre",isNew:false,hasDrop:false,variant:"Développé couché haltères",charge:["87% de ton max · tempo 4-1-1","90% de ton max · tempo 4-1-1","92% de ton max · tempo 4-1-1","72% de ton max (deload)","92% de ton max","95% de ton max"],weeks:["5×5","5×5","5×4","3×5","5×4","5×3"],rest:["2 min","2 min","2 min 30","2 min","2 min 30","3 min"]},
+{name:"Développé incliné haltères",isNew:false,hasDrop:false,variant:"Machine pec-deck inclinée",charge:["Charge de la 6e semaine du niveau 2 +2 kg · tempo 4-1-1","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10 tempo 4-1-1","4×10 tempo 4-1-1","4×8 tempo 4-1-1","3×8","4×8 tempo 4-1-1","5×8 tempo 4-1-1"],rest:["75 s","75 s","75 s","75 s","60 s","60 s"]},
+{name:"Élévations latérales câble + pushdown triceps",isNew:false,hasDrop:true,variant:"Élévations latérales haltères + extensions triceps haltère au-dessus de la tête",charge:["Élévations : brûlure sur les 3 dernières · Pushdown : 12 reps propres","Même +1 kg sur chaque","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×12 superset","4×12 superset","4×12 superset + drop set","3×10 superset","4×12 superset + drop set","5×12 superset + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Développé militaire haltères",isNew:false,hasDrop:false,variant:"Machine press épaules",charge:["Charge de la 6e semaine du niveau 2 +2 kg · tempo 4-1-1","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10 tempo 4-1-1","4×8 tempo 4-1-1","4×8 tempo 4-1-1","3×8","4×8 tempo 4-1-1","4×6 tempo 4-1-1"],rest:["90 s","90 s","90 s","90 s","75 s","75 s"]},
+{name:"Écarté haltères couché (fly)",isNew:true,hasDrop:true,variant:"Écarté câble croisé (crossover)",charge:["Haltères légers — sentir l'étirement pectoraux en bas, pas les épaules","Même charge +1 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 + drop set"],weeks:["3×12","4×12","4×12 + drop set","3×10","4×12 + drop set","4×12 + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Tapis de course incliné",isNew:false,hasDrop:false,variant:"Vélo elliptique résistance élevée",charge:["Pente 12%, vitesse 5–6 km/h","Même allure","Même, durée augmentée","Pente 6%, 25 min seulement","Pente 14%","Pente 14%"],weeks:["40 min","40 min","45 min","25 min","45 min","50 min"],rest:["–","–","–","–","–","–"]},
+{name:"Gainage planche avant",isNew:false,hasDrop:false,variant:null,charge:null,weeks:["4×60 s","4×60 s","4×60 s","3×45 s","4×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Gainage latéral",isNew:false,hasDrop:false,variant:null,charge:null,weeks:["3×45 s/côté","3×50 s/côté","4×50 s/côté","3×35 s/côté","4×55 s/côté","4×60 s/côté"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Ab wheel (roue abdominale)",isNew:false,hasDrop:false,variant:"Planche dynamique (avancer les mains en planche, reculer)",charge:["Poids de corps — amplitude maximale sans creuser le bas du dos","Même, viser 2 reps de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3 +1 série","Viser 2 reps de plus"],weeks:["4×10","4×12","4×12","3×8","4×12","5×12"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Pallof press câble",isNew:true,hasDrop:false,variant:"Gainage avec rotation élastique (fixé dans une porte)",charge:["Charge légère — résister à la rotation sans bouger le buste","Même +1 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×12/côté","3×12/côté","4×12/côté","3×10/côté","4×12/côté","4×12/côté"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Supersets permanents : facepull + curl Zottman. Drop sets S3/S5/S6 sur ces mêmes supersets.",
+exercises:[
+{name:"Tractions lestées",isNew:false,hasDrop:false,variant:"Lat pulldown prise large tempo 4-1-1",charge:["Lest permettant 5 reps propres · tempo 4-1-1","Même lest, viser 1 rep de plus","Même lest","Enlever le lest, poids de corps","Lest de la semaine 3 · tempo 4-1-1","Lest de la semaine 5 + max de reps sur dernière série"],weeks:["5×5 tempo 4-1-1","5×5 tempo 4-1-1","5×4 tempo 4-1-1","3×5","5×4 tempo 4-1-1","5×3"],rest:["2 min","2 min","2 min 30","2 min","2 min 30","3 min"]},
+{name:"Rowing barre Pendlay",isNew:false,hasDrop:false,variant:"Rowing haltère unilatéral lourd (appui banc)",charge:["87% de ton max","90% de ton max","92% de ton max","72% de ton max (deload)","92% de ton max","95% de ton max"],weeks:["5×6","5×6","5×5","3×5","5×5","5×4"],rest:["2 min","2 min","2 min","2 min","2 min","2 min 30"]},
+{name:"Rack pull barre (mi-cuisse)",isNew:true,hasDrop:false,variant:"Romanian deadlift barre (amplitude complète)",charge:["70% de ton max soulevé de terre — dos droit, ne pas arrondir","75% de ton max","78% de ton max","60% de ton max (deload)","78% de ton max","82% de ton max"],weeks:["4×6","4×6","4×5","3×5","4×5","4×4"],rest:["2 min","2 min","2 min","2 min","2 min","2 min 30"]},
+{name:"Facepull câble + curl Zottman",isNew:false,hasDrop:true,variant:"Rowing élastique basse poulie + curl haltères alterné",charge:["Facepull : épaules arrière brûlantes · Zottman : 12 reps contrôlées","Même +1 kg chaque","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×15 superset","4×15 superset","4×15 superset + drop set","3×12 superset","4×15 superset + drop set","5×15 superset + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Curl biceps barre EZ",isNew:false,hasDrop:true,variant:"Curl câble basse poulie",charge:["Charge de la 6e semaine du niveau 2 +2 kg","Même charge +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 + drop set"],weeks:["4×10","4×10","4×10 + drop set","3×8","4×10 + drop set","4×8 + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",
+note:"Drop sets S3/S5/S6 sur les accessoires. Tempo 4-1-1 sur squat et Romanian deadlift.",
+exercises:[
+{name:"Squat barre (back squat)",isNew:false,hasDrop:false,variant:"Goblet squat haltère très lourd",charge:["87% de ton max · tempo 4-1-1","90% de ton max · tempo 4-1-1","92% de ton max · tempo 4-1-1","72% de ton max (deload)","92% de ton max","95% de ton max"],weeks:["5×4 tempo 4-1-1","5×4 tempo 4-1-1","5×3 tempo 4-1-1","3×4","5×3","5×2"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","3 min"]},
+{name:"Romanian deadlift barre",isNew:true,hasDrop:false,variant:"Romanian deadlift haltères",charge:["75% de ton max · tempo 4-1-1","78% de ton max · tempo 4-1-1","80% de ton max · tempo 4-1-1","62% de ton max (deload)","80% de ton max","83% de ton max"],weeks:["4×8 tempo 4-1-1","4×8 tempo 4-1-1","5×6 tempo 4-1-1","3×6","5×6","5×5"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Bulgarian split squat haltères",isNew:false,hasDrop:false,variant:"Fentes marchées lestées",charge:["Charge de la 6e semaine du niveau 2 +2 kg","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["4×10/côté","4×10/côté","4×8/côté","3×8/côté","4×8/côté","4×8/côté"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Hip thrust barre",isNew:false,hasDrop:true,variant:"Pont fessier avec haltère très lourd sur le bassin",charge:["Charge de la 6e semaine du niveau 2 +5 kg — contraction fessiers 2 s","Même charge +5 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×10","4×10","4×10 + drop set","3×8","4×10 + drop set","5×10 + drop set"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Leg press 45° pieds hauts (fessiers)",isNew:true,hasDrop:true,variant:"Step-up box haltères lourds",charge:["Charge permettant 12 reps — pieds hauts sur la plateforme pour cibler les fessiers","Même charge +5 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 + drop set"],weeks:["4×12","4×12","4×12 + drop set","3×10","4×12 + drop set","4×10 + drop set"],rest:["75 s","75 s","60 s","75 s","60 s","60 s"]},
+{name:"Mollets debout unilatéral (machine ou bord de marche)",isNew:false,hasDrop:true,variant:null,charge:["Charge permettant 15 reps amplitude complète","Même charge +2 kg","Même + drop set : enlever le lest, 10 reps poids de corps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×15/côté","4×15/côté","4×15/côté + drop set","3×12/côté","5×15/côté + drop set","5×15/côté + drop set"],rest:["45 s","45 s","30 s","45 s","30 s","30 s"]}
+]},
+{day:"Jour 6",label:"HIIT intense",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"50 s effort / 10 s repos",pause:"90 s entre rounds"},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"75 s entre rounds"},{rounds:"3 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min 30 entre rounds",deload:true},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"75 s entre rounds"},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"60 s entre rounds"}],
+exercises:[
+{name:"Thrusters haltères (squat + press enchaînés)",isNew:true,hasDrop:false,variant:"Squat jump"},
+{name:"Renegade row haltères (pompe + rowing alterné)",isNew:true,hasDrop:false,variant:"Pompe classique + rowing unilatéral haltère au sol"},
+{name:"Box jump descente lente contrôlée",isNew:false,hasDrop:false,variant:"Squat jump atterrissage contrôlé"},
+{name:"Burpees + traction barre",isNew:false,hasDrop:false,variant:"Burpee + saut toucher le plus haut possible"},
+{name:"Sprint sur place (high knees max)",isNew:false,hasDrop:false,variant:"High knees à intensité modérée"}
+]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+const SF_N3_HOME_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Supersets permanents : élévations latérales + dips. Drop sets S3/S5/S6 : version allégée ou variante plus facile en 8 reps bonus.",
+exercises:[
+{name:"Pompes lestées pieds surélevés (sac à dos)",isNew:true,hasDrop:false,variant:null,charge:["Sac permettant 8 reps propres tempo 4-1-1","Même lest, viser 1 rep de plus","Même lest","Enlever le lest, poids de corps","Lest de la semaine 3","Lest de la semaine 5 + max de reps sur dernière série"],weeks:["5×8 tempo 4-1-1","5×8 tempo 4-1-1","5×6 tempo 4-1-1","3×6","5×6 tempo 4-1-1","5×5 + AMRAP"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Pompes archer",isNew:false,hasDrop:false,variant:null,charge:null,weeks:["4×8/côté tempo 4-1-1","4×8/côté","4×8/côté","3×6/côté","4×10/côté","4×10/côté"],rest:["90 s","90 s","90 s","90 s","75 s","75 s"]},
+{name:"Élévations latérales haltères + dips sur chaise",isNew:false,hasDrop:true,variant:null,charge:["Élévations : brûlure sur les 3 dernières · Dips : poids de corps","Élévations +1 kg","Même + drop set : élévations plus légères + pompes prise serrée","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×12 superset","4×12 superset","4×12 superset + drop set","3×10 superset","4×12 superset + drop set","5×12 superset + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Pike push-up lent (tempo 4-1-1)",isNew:false,hasDrop:false,variant:"Développé épaules haltères assis tempo 4-1-1",charge:["Poids de corps — les 2 dernières reps difficiles","Même, viser 1 rep de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3","Viser 2 reps de plus"],weeks:["4×10 tempo 4-1-1","4×10","4×10","3×8","4×12","4×12"],rest:["75 s","75 s","75 s","75 s","75 s","75 s"]},
+{name:"Pompes diamant lestées (sac à dos)",isNew:true,hasDrop:true,variant:null,charge:["Sac permettant 12 reps propres","Même lest, viser 1 rep de plus","Même + drop set : enlever le lest, 8 reps bonus","Enlever le lest, poids de corps","Lest de la semaine 3 + drop set","Lest de la semaine 5 + drop set"],weeks:["3×12","4×12","4×12 + drop set","3×10","4×12 + drop set","4×12 + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Marche rapide / footing dehors",isNew:false,hasDrop:false,variant:"Jumping jacks + step-touch en intérieur (même durée)",charge:null,weeks:["40 min","40 min","45 min","25 min","45 min","50 min"],rest:["–","–","–","–","–","–"]},
+{name:"Planche avant",isNew:false,hasDrop:false,variant:null,charge:null,weeks:["4×60 s","4×60 s","4×60 s","3×45 s","4×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Gainage latéral",isNew:false,hasDrop:false,variant:null,charge:null,weeks:["3×45 s/côté","3×50 s/côté","4×50 s/côté","3×35 s/côté","4×55 s/côté","4×60 s/côté"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Dragon flag négatif (bord du lit ou banc)",isNew:false,hasDrop:false,variant:"Relevé de jambes au sol (dos plat, jambes tendues)",charge:["Poids de corps — descendre en 4 s, remonter en aidant avec les pieds","Même, viser 2 reps de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3 +1 série","Viser 2 reps de plus"],weeks:["4×8","4×10","4×10","3×6","4×10","5×10"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Rotation de tronc debout avec résistance (élastique ou haltère léger)",isNew:true,hasDrop:false,variant:null,charge:["Charge légère — résister à la rotation sans bouger le buste","Même +0,5 kg","Même charge","Réduire de 20%","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×12/côté","3×12/côté","4×12/côté","3×10/côté","4×12/côté","4×12/côté"],rest:["45 s","45 s","45 s","45 s","45 s","45 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Supersets permanents : face pull + curl marteau. Drop sets S3/S5/S6.",
+exercises:[
+{name:"Tractions lestées (sac à dos)",isNew:true,hasDrop:false,variant:"Rowing sous table pieds surélevés (table + chaise) tempo 4-1-1",charge:["Sac permettant 5 reps propres tempo 4-1-1 — sinon poids de corps","Même lest, viser 1 rep de plus","Même lest","Enlever le lest, poids de corps","Lest de la semaine 3 · tempo 4-1-1","Lest de la semaine 5 + max de reps sur dernière série"],weeks:["5×5 tempo 4-1-1","5×5 tempo 4-1-1","5×4 tempo 4-1-1","3×5","5×4","5×3"],rest:["2 min","2 min","2 min 30","2 min","2 min 30","3 min"]},
+{name:"Rowing haltères unilatéral lourd (appui chaise)",isNew:false,hasDrop:false,variant:"Rowing sac à dos lesté au maximum unilatéral",charge:["Charge de la 6e semaine du niveau 2 +2 kg · tempo 4-1-1","Même charge +2 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],weeks:["5×8/côté tempo 4-1-1","5×8/côté","5×6/côté","3×6/côté","5×6/côté","5×5/côté"],rest:["90 s","90 s","90 s","90 s","90 s","2 min"]},
+{name:"Rowing inversé pieds surélevés (table + chaise)",isNew:true,hasDrop:false,variant:null,charge:["Poids de corps — pieds surélevés sur une chaise, tempo 4-1-1","Même, viser 1 rep de plus","Même","Réduire de 2 reps, pieds au sol","Viser les reps de la semaine 3","Viser 2 reps de plus"],weeks:["4×10 tempo 4-1-1","4×10","4×8","3×8","4×8","4×6"],rest:["90 s","90 s","90 s","90 s","90 s","90 s"]},
+{name:"Face pull élastique + curl marteau",isNew:false,hasDrop:true,variant:"Rétraction scapulaire isométrique + curl en supination serviette",charge:["Face pull : épaules arrière brûlantes · Curl : 12 reps contrôlées descente 3 s","Même, élastique plus résistant si possible","Même + drop set : élastique plus léger + curl plus léger 8 reps","Réduire, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×15 superset","4×15 superset","4×15 superset + drop set","3×12 superset","4×15 superset + drop set","5×15 superset + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]},
+{name:"Curl biceps haltères",isNew:false,hasDrop:true,variant:null,charge:["Charge de la 6e semaine du niveau 2 +2 kg","Même charge +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 + drop set"],weeks:["4×10","4×10","4×10 + drop set","3×8","4×10 + drop set","4×8 + drop set"],rest:["60 s","60 s","45 s","60 s","45 s","45 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",
+note:"Drop sets S3/S5/S6 sur les accessoires. Tempo 4-1-1 sur tous les mouvements principaux.",
+exercises:[
+{name:"Squat bulgare lestés (sac lourd)",isNew:true,hasDrop:false,variant:"Bulgarian split squat poids de corps tempo 4-1-1",charge:["Sac permettant 6 reps propres/côté tempo 4-1-1","Même lest +1–2 kg","Même lest","Réduire de 20%","Lest de la semaine 3 +1–2 kg","Lest de la semaine 5"],weeks:["5×6/côté tempo 4-1-1","5×6/côté","5×5/côté","3×5/côté","5×5/côté","5×4/côté"],rest:["2 min","2 min","2 min","2 min","2 min","2 min 30"]},
+{name:"Romanian deadlift haltères lourds",isNew:false,hasDrop:false,variant:"Good morning avec sac à dos très lesté",charge:["Charge de la 6e semaine du niveau 2 +3 kg · tempo 4-1-1","Même charge +3 kg","Même charge","Réduire de 20%","Charge de la semaine 3 +3 kg","Charge de la semaine 5"],weeks:["4×8 tempo 4-1-1","4×8","5×6","3×6","5×6","5×5"],rest:["2 min","2 min","2 min","2 min","2 min","2 min"]},
+{name:"Hip thrust lestés (dos sur canapé)",isNew:false,hasDrop:true,variant:"Pont fessier unilatéral avec haltère lourd (une jambe tendue)",charge:["Charge de la 6e semaine du niveau 2 +3 kg — contraction fessiers 2 s","Même charge +3 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 +1 série + drop set"],weeks:["4×10","4×10","4×10 + drop set","3×8","4×10 + drop set","5×10 + drop set"],rest:["90 s","90 s","75 s","90 s","75 s","75 s"]},
+{name:"Step-up chaise haltères lourds",isNew:false,hasDrop:true,variant:"Fentes latérales lestées",charge:["Charge de la 6e semaine du niveau 2 +2 kg","Même charge +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 20%, pas de drop set","Charge de la semaine 3 + drop set","Charge de la semaine 5 + drop set"],weeks:["4×10/jambe","4×10/jambe","4×10/jambe + drop set","3×8/jambe","4×10/jambe + drop set","4×8/jambe + drop set"],rest:["75 s","75 s","60 s","75 s","60 s","60 s"]},
+{name:"Wall sit lestés (haltères sur les cuisses)",isNew:true,hasDrop:false,variant:null,charge:["Haltères légers sur les cuisses — quadriceps brûlants en fin de série","Même charge +1 kg","Même charge","Pas de lest, poids de corps","Charge de la semaine 3","Charge de la semaine 5"],weeks:["3×50 s","3×55 s","4×55 s","3×40 s","4×60 s","4×60 s"],rest:["60 s","60 s","60 s","60 s","60 s","60 s"]},
+{name:"Élévations mollets (bord de marche)",isNew:false,hasDrop:true,variant:null,charge:["Poids de corps — amplitude complète, talon sous la marche","Même, viser 1 rep de plus","Même + drop set : 10 reps bonus sur 2 pieds au sol","Réduire de 2 reps, pas de drop set","Viser les reps de la semaine 3 + drop set","Viser les reps de la semaine 5 +1 série + drop set"],weeks:["4×15/côté","4×15/côté","4×15/côté + drop set","3×12/côté","5×15/côté + drop set","5×15/côté + drop set"],rest:["45 s","45 s","30 s","45 s","30 s","30 s"]}
+]},
+{day:"Jour 6",label:"HIIT intense",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[{rounds:"5 rounds",ratio:"45 s effort / 15 s repos",pause:"90 s entre rounds"},{rounds:"5 rounds",ratio:"50 s effort / 10 s repos",pause:"90 s entre rounds"},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"75 s entre rounds"},{rounds:"3 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min 30 entre rounds",deload:true},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"75 s entre rounds"},{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"60 s entre rounds"}],
+exercises:[
+{name:"Thrusters haltères (squat + press enchaînés)",isNew:true,hasDrop:false,variant:"Squat jump"},
+{name:"Renegade row haltères (pompe + rowing alterné)",isNew:true,hasDrop:false,variant:"Pompe classique + rowing unilatéral haltère au sol"},
+{name:"Box jump (chaise/step) descente lente contrôlée",isNew:false,hasDrop:false,variant:"Squat jump atterrissage contrôlé"},
+{name:"Burpees + traction barre de porte",isNew:false,hasDrop:false,variant:"Burpee + saut toucher le plus haut possible"},
+{name:"Sprint sur place (high knees max)",isNew:false,hasDrop:false,variant:"High knees à intensité modérée"}
+]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+
+// ── SKINNY FAT NIVEAU 4 ──
+const SF_N4_WEEK_INFO=[
+  "Semaine 1 · Reprise — charge de la 6e semaine du niveau 3 +2,5%. Périodisation ondulante : alterner force (lourds/peu de reps) et hypertrophie (modéré/reps moyennes) selon les jours.",
+  "Semaine 2 · Progression charge — +5% sur les mouvements principaux. Drop sets et supersets maintenus sur tous les accessoires.",
+  "Semaine 3 · Intensité maximale — introduction des séries rest-pause sur les mouvements principaux. Charges les plus lourdes du programme.",
+  "Semaine 4 · Deload — -25% charge, suppression de toutes les techniques intensives. Récupération complète avant le pic final.",
+  "Semaine 5 · Peak force — retour charges semaine 3 +2,5%, focus sur la force pure (3–5 reps lourdes). Dernière ligne droite.",
+  "Semaine 6 · Recomposition finale — volume élevé, charges modérées (70–75%), pump maximum. Fin du programme de 24 semaines."
+];
+const SF_N4_GYM_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Rest-pause S3/S5 : après la dernière série, poser la barre 15 s puis squeeze 2–3 reps bonus. Supersets permanents sur les accessoires. Drop sets S3/S5/S6.",
+exercises:[
+{name:"Développé couché barre",isNew:false,hasDrop:false,variant:"Développé couché haltères",
+charge:["Charge de la 6e semaine du niveau 3 +2,5% · tempo 4-1-1","Même charge +2,5%","Même charge + rest-pause sur dernière série","Réduire de 25% (deload)","Charge de la semaine 3 +2,5% · focus force","70% de ton max · 4×10 pump"],
+weeks:["5×4 tempo 4-1-1","5×4","5×3 + rest-pause","3×4","5×3","4×10"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","75 s"]},
+{name:"Développé incliné haltères",isNew:false,hasDrop:false,variant:"Machine pec-deck inclinée",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg · tempo 4-1-1","Même charge +2 kg","Même charge","Réduire de 25%","Charge de la semaine 3 +2 kg","70% de la charge habituelle · pump"],
+weeks:["5×8 tempo 4-1-1","5×8 tempo 4-1-1","5×6 tempo 4-1-1","3×8","5×6","4×12"],rest:["75 s","75 s","75 s","75 s","60 s","60 s"]},
+{name:"Élévations latérales câble + pushdown triceps",isNew:false,hasDrop:true,variant:"Élévations latérales haltères + extensions triceps haltère",
+charge:["Charge de la semaine 5 du niveau 3 — brûlure sur les 3 dernières","Même +1 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — pump maximum, 15+ reps"],
+weeks:["4×12 superset","4×12 superset","5×12 superset + drop set","3×10 superset","5×12 superset + drop set","4×15 superset"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"Développé militaire haltères",isNew:false,hasDrop:false,variant:"Machine press épaules",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg · tempo 4-1-1","Même charge +2 kg","Même charge + rest-pause sur dernière série","Réduire de 25%","Charge de la semaine 3 +2 kg","70% de la charge habituelle · pump"],
+weeks:["4×8 tempo 4-1-1","4×8 tempo 4-1-1","4×6 + rest-pause","3×8","4×6","4×12"],rest:["90 s","90 s","2 min","90 s","2 min","60 s"]},
+{name:"Écarté haltères couché (fly)",isNew:false,hasDrop:true,variant:"Écarté câble croisé (crossover)",
+charge:["Charge de la semaine 5 du niveau 3 +1 kg","Même +1 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — amplitude maximale, pump"],
+weeks:["4×12","4×12","4×12 + drop set","3×10","4×12 + drop set","4×15"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Tapis de course incliné",isNew:false,hasDrop:false,variant:"Vélo elliptique résistance maximale",
+charge:["Pente 14%, vitesse 5–6 km/h","Même allure","Même, durée augmentée","Pente 6%, 25 min — récupération active","Pente 14%","Pente 10%, durée max — dernière séance cardio du programme"],
+weeks:["45 min","45 min","50 min","25 min","50 min","60 min"],rest:["–","–","–","–","–","–"]},
+{name:"Gainage planche avant",isNew:false,hasDrop:false,variant:null,charge:null,
+weeks:["4×60 s","4×60 s","5×60 s","3×45 s","5×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Gainage latéral",isNew:false,hasDrop:false,variant:null,charge:null,
+weeks:["4×55 s/côté","4×60 s/côté","4×60 s/côté","3×40 s/côté","4×60 s/côté","4×60 s/côté"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Ab wheel (roue abdominale)",isNew:false,hasDrop:false,variant:"Planche dynamique (avancer les mains, reculer)",
+charge:["Poids de corps — amplitude complète, sans creuser","Même, viser 2 reps de plus","Même","Réduire de 3 reps","Amplitude de la semaine 3","Viser max de reps propres"],
+weeks:["4×12","5×12","5×12","3×8","5×12","4×15"],rest:["60 s","60 s","60 s","60 s","60 s","45 s"]},
+{name:"Pallof press câble",isNew:false,hasDrop:false,variant:"Gainage avec rotation élastique (fixé dans une porte)",
+charge:["Charge de la semaine 5 du niveau 3","Même +1 kg","Même charge","Réduire de 25%","Charge de la semaine 3","Charge légère — 15 reps pump"],
+weeks:["4×12/côté","4×12/côté","4×12/côté","3×10/côté","4×12/côté","4×15/côté"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"L-sit (barres parallèles ou chaises)",isNew:true,hasDrop:false,variant:"Relevé de jambes en suspension (barre)",
+charge:["Poids de corps — tenir la position, jambes tendues si possible","Même, viser 3 s de plus","Même","Réduire de 5 s","Durée de la semaine 3","Viser max de tenu"],
+weeks:["3×10 s","3×15 s","4×15 s","3×8 s","4×20 s","4×20 s"],rest:["60 s","60 s","60 s","60 s","60 s","45 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Rest-pause S3/S5 sur les tractions et rowing. Supersets permanents sur les accessoires. Drop sets S3/S5/S6.",
+exercises:[
+{name:"Tractions lestées",isNew:false,hasDrop:false,variant:"Lat pulldown prise large tempo 4-1-1",
+charge:["Lest de la 6e semaine du niveau 3 +1 kg · tempo 4-1-1","Même lest +1 kg","Même lest + rest-pause sur dernière série","Enlever le lest, poids de corps","Lest de la semaine 3 +1 kg","Lest retiré — max de reps poids de corps pump"],
+weeks:["5×4 tempo 4-1-1","5×4","5×3 + rest-pause","3×5","5×3","4×max reps"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","60 s"]},
+{name:"Rowing barre Pendlay",isNew:false,hasDrop:false,variant:"Rowing haltère unilatéral lourd (appui banc)",
+charge:["Charge de la 6e semaine du niveau 3 +2,5%","Même +2,5%","Même + rest-pause sur dernière série","Réduire de 25%","Charge de la semaine 3 +2,5%","70% de ton max — volume pump"],
+weeks:["5×5","5×5","5×4 + rest-pause","3×5","5×4","4×10"],rest:["2 min","2 min","2 min 30","2 min","2 min 30","75 s"]},
+{name:"Soulevé de terre roumain barre",isNew:true,hasDrop:false,variant:"Rack pull barre",
+charge:["82% de ton max soulevé de terre · tempo 4-1-1","85% de ton max","87% de ton max","67% de ton max (deload)","87% de ton max","72% de ton max · 4×8 volume"],
+weeks:["4×5 tempo 4-1-1","4×5","4×4","3×4","4×4","4×8"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","90 s"]},
+{name:"Facepull câble + curl Zottman",isNew:false,hasDrop:true,variant:"Rowing élastique basse poulie + curl haltères alterné",
+charge:["Charge de la semaine 5 du niveau 3 +1 kg chaque","Même +1 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — pump maximum 15+ reps"],
+weeks:["4×15 superset","4×15 superset","5×15 superset + drop set","3×12 superset","5×15 superset + drop set","4×15 superset"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"Curl biceps barre EZ",isNew:false,hasDrop:true,variant:"Curl câble basse poulie",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg","Même +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — 4×15 pump"],
+weeks:["4×8","4×8","4×8 + drop set","3×8","4×8 + drop set","4×15"],rest:["60 s","60 s","45 s","60 s","45 s","30 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",
+note:"Rest-pause S3/S5 sur squat et soulevé de terre. Drop sets sur les accessoires S3/S5/S6.",
+exercises:[
+{name:"Squat barre (back squat)",isNew:false,hasDrop:false,variant:"Goblet squat haltère maximum",
+charge:["Charge de la 6e semaine du niveau 3 +2,5% · tempo 4-1-1","Même +2,5%","Même + rest-pause sur dernière série","Réduire de 25%","Charge de la semaine 3 +2,5%","70% de ton max · 4×10 pump"],
+weeks:["5×3 tempo 4-1-1","5×3","5×2 + rest-pause","3×4","5×2","4×10"],rest:["3 min","3 min","3 min 30","2 min","3 min 30","90 s"]},
+{name:"Soulevé de terre conventionnel barre",isNew:true,hasDrop:false,variant:"Romanian deadlift barre",
+charge:["80% de ton max · tempo 3-1-1","82% de ton max","85% de ton max","65% de ton max (deload)","85% de ton max","72% de ton max · 4×6 volume"],
+weeks:["4×4 tempo 3-1-1","4×4","4×3","3×4","4×3","4×6"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","90 s"]},
+{name:"Bulgarian split squat haltères",isNew:false,hasDrop:false,variant:"Fentes marchées lestées",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg","Même +2 kg","Même charge","Réduire de 25%","Charge de la semaine 3 +2 kg","Charge de la semaine 5"],
+weeks:["4×8/côté","4×8/côté","4×6/côté","3×8/côté","4×6/côté","4×8/côté"],rest:["90 s","90 s","90 s","90 s","90 s","75 s"]},
+{name:"Hip thrust barre",isNew:false,hasDrop:true,variant:"Pont fessier avec haltère très lourd sur le bassin",
+charge:["Charge de la 6e semaine du niveau 3 +5 kg — contraction fessiers 2 s","Même +5 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge modérée — 4×15 pump"],
+weeks:["4×8","4×8","4×8 + drop set","3×8","4×8 + drop set","4×15"],rest:["90 s","90 s","75 s","90 s","75 s","60 s"]},
+{name:"Leg press 45° pieds hauts (fessiers)",isNew:false,hasDrop:true,variant:"Step-up box haltères lourds",
+charge:["Charge de la semaine 5 du niveau 3 +5 kg","Même +5 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge modérée — 4×15 pump"],
+weeks:["4×10","4×10","4×10 + drop set","3×8","4×10 + drop set","4×15"],rest:["75 s","75 s","60 s","75 s","60 s","45 s"]},
+{name:"Mollets debout unilatéral (machine ou bord de marche)",isNew:false,hasDrop:true,variant:null,
+charge:["Charge de la semaine 5 du niveau 3 +2 kg","Même +2 kg","Même + drop set : enlever le lest, 10 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge modérée — amplitude maximale, pump"],
+weeks:["5×15/côté","5×15/côté","5×15/côté + drop set","3×12/côté","5×15/côté + drop set","5×20/côté"],rest:["45 s","45 s","30 s","45 s","30 s","30 s"]}
+]},
+{day:"Jour 6",label:"HIIT performance",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[
+{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"60 s entre rounds"},
+{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"7 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"3 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min 30 entre rounds",deload:true},
+{rounds:"7 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"6 rounds",ratio:"45 s effort / 15 s repos",pause:"60 s entre rounds"}
+],
+exercises:[
+{name:"Thrusters haltères lourds (squat + press enchaînés)",isNew:false,variant:"Thrusters haltères légers"},
+{name:"Renegade row haltères",isNew:false,variant:"Pompe classique + rowing unilatéral haltère au sol"},
+{name:"Box jump avec lest (gilet lesté)",isNew:true,variant:"Box jump poids de corps"},
+{name:"Burpees + traction barre lestée",isNew:true,variant:"Burpee + traction poids de corps"},
+{name:"Sprint sur place (high knees max)",isNew:false,variant:"High knees à intensité modérée"}
+]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true}
+];
+const SF_N4_HOME_DAYS=[
+{day:"Jour 1",label:"Poussée haut du corps",badge:"upper",warmKey:"upper_push",stretchKey:"upper_push",
+note:"Rest-pause S3/S5 : poser 15 s, reprendre 2–3 reps bonus. Supersets permanents accessoires. Drop sets S3/S5/S6.",
+exercises:[
+{name:"Pompes lestées pieds surélevés (sac à dos)",isNew:false,hasDrop:false,variant:null,
+charge:["Lest de la 6e semaine du niveau 3 +lest supplémentaire — 4 reps propres tempo 4-1-1","Même lest, viser 1 rep de plus","Même + rest-pause : poser 15 s, 2–3 reps bonus","Enlever le lest, poids de corps","Lest de la semaine 3","Lest retiré — 4×15 poids de corps pump"],
+weeks:["5×4 tempo 4-1-1","5×4","5×3 + rest-pause","3×6 poids de corps","5×3","4×15 poids de corps"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","45 s"]},
+{name:"Pompes archer lestées (sac à dos)",isNew:true,hasDrop:false,variant:null,
+charge:["Sac permettant 6 reps propres/côté tempo 4-1-1","Même lest, viser 1 rep de plus","Même lest","Enlever le lest, poids de corps","Lest de la semaine 3","Lest retiré — 4×10/côté pump"],
+weeks:["4×6/côté tempo 4-1-1","4×8/côté","4×8/côté","3×6/côté poids de corps","4×8/côté","4×10/côté"],rest:["90 s","90 s","90 s","90 s","75 s","60 s"]},
+{name:"Élévations latérales haltères + dips lestés (sac à dos)",isNew:false,hasDrop:true,variant:null,
+charge:["Élévations : charge de la semaine 5 niv.3 · Dips : sac permettant 12 reps","Élévations +1 kg · Dips même lest","Même + drop set : élévations -20% + dips poids de corps 8 reps","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — pump 15+ reps"],
+weeks:["4×12 superset","4×12 superset","5×12 superset + drop set","3×10 superset","5×12 superset + drop set","4×15 superset"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"Pike push-up lestés (sac à dos)",isNew:false,hasDrop:false,variant:"Développé épaules haltères assis",
+charge:["Sac permettant 8 reps propres tempo 4-1-1","Même lest, viser 1 rep de plus","Même + rest-pause sur dernière série","Enlever le lest, poids de corps","Lest de la semaine 3","Lest retiré — 4×12 pump"],
+weeks:["4×8 tempo 4-1-1","4×8","4×6 + rest-pause","3×8 poids de corps","4×6","4×12"],rest:["90 s","90 s","2 min","90 s","2 min","60 s"]},
+{name:"Pompes diamant lestées (sac à dos)",isNew:false,hasDrop:true,variant:null,
+charge:["Lest de la 6e semaine du niveau 3","Même lest +lest supplémentaire","Même + drop set : enlever le lest, 8 reps bonus","Enlever le lest, poids de corps","Lest de la semaine 3 + drop set","Lest retiré — 4×15 pump"],
+weeks:["4×10","4×10","4×10 + drop set","3×10 poids de corps","4×10 + drop set","4×15"],rest:["60 s","60 s","45 s","60 s","45 s","30 s"]}
+]},
+{day:"Jour 2",label:"Cardio LISS + gainage",badge:"cardio",warmKey:"cardio",stretchKey:"cardio",exercises:[
+{name:"Marche rapide / footing dehors",isNew:false,hasDrop:false,variant:"Jumping jacks + step-touch en intérieur (même durée)",charge:null,
+weeks:["45 min","45 min","50 min","25 min","50 min","60 min"],rest:["–","–","–","–","–","–"]},
+{name:"Gainage planche avant",isNew:false,hasDrop:false,variant:null,charge:null,
+weeks:["4×60 s","4×60 s","5×60 s","3×45 s","5×60 s","4×60 s"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Gainage latéral",isNew:false,hasDrop:false,variant:null,charge:null,
+weeks:["4×55 s/côté","4×60 s/côté","4×60 s/côté","3×40 s/côté","4×60 s/côté","4×60 s/côté"],rest:["30 s","30 s","30 s","30 s","30 s","30 s"]},
+{name:"Dragon flag négatif (bord du lit ou banc)",isNew:false,hasDrop:false,variant:"Relevé de jambes au sol (dos plat, jambes tendues)",
+charge:["Poids de corps — descendre en 5 s, amplitude complète","Même, viser 2 reps de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3","Viser max de reps propres"],
+weeks:["4×10","5×10","5×12","3×6","5×12","4×15"],rest:["60 s","60 s","60 s","60 s","60 s","45 s"]},
+{name:"Rotation de tronc avec résistance (élastique ou haltère)",isNew:false,hasDrop:false,variant:null,
+charge:["Charge de la semaine 5 du niveau 3","Même +0,5 kg","Même charge","Réduire de 25%","Charge de la semaine 3","Charge de la semaine 5"],
+weeks:["4×12/côté","4×12/côté","4×12/côté","3×10/côté","4×12/côté","4×15/côté"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"L-sit entre deux chaises",isNew:true,hasDrop:false,variant:"Relevé de genoux suspendu (barre de porte)",
+charge:["Poids de corps — tenir jambes fléchies d'abord, tendre si possible","Même, viser 3 s de plus","Même","Réduire de 5 s","Durée de la semaine 3","Viser max de tenu"],
+weeks:["3×10 s","3×15 s","4×15 s","3×8 s","4×20 s","4×20 s"],rest:["60 s","60 s","60 s","60 s","60 s","45 s"]}
+]},
+{day:"Jour 3",label:"Tirage haut du corps",badge:"upper",warmKey:"upper_pull",stretchKey:"upper_pull",
+note:"Rest-pause S3/S5 sur les tractions. Supersets permanents accessoires. Drop sets S3/S5/S6.",
+exercises:[
+{name:"Tractions lestées max (sac à dos)",isNew:false,hasDrop:false,variant:"Rowing sous table pieds très surélevés + lest",
+charge:["Lest de la 6e semaine du niveau 3 +1 kg · tempo 4-1-1","Même lest +1 kg","Même + rest-pause : 15 s, 2–3 reps bonus","Enlever le lest, poids de corps","Lest de la semaine 3 +1 kg","Lest retiré — max de reps pump"],
+weeks:["5×4 tempo 4-1-1","5×4","5×3 + rest-pause","3×5 poids de corps","5×3","4×max reps"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","60 s"]},
+{name:"Rowing haltères unilatéral très lourd (appui chaise)",isNew:false,hasDrop:false,variant:"Rowing sac à dos au maximum absolu unilatéral",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg · tempo 4-1-1","Même +2 kg","Même charge","Réduire de 25%","Charge de la semaine 3 +2 kg","70% de la charge habituelle · 4×10 volume"],
+weeks:["5×6/côté tempo 4-1-1","5×6/côté","5×5/côté","3×6/côté","5×5/côté","4×10/côté"],rest:["2 min","2 min","2 min","2 min","2 min","75 s"]},
+{name:"Rowing inversé pieds très surélevés (table + chaise haute)",isNew:false,hasDrop:false,variant:null,
+charge:["Poids de corps — pieds le plus haut possible, tempo 4-1-1","Même, viser 1 rep de plus","Même","Réduire de 2 reps","Viser les reps de la semaine 3","Viser max de reps propres"],
+weeks:["4×8 tempo 4-1-1","4×8","4×6","3×8","4×6","4×max reps"],rest:["90 s","90 s","90 s","90 s","90 s","60 s"]},
+{name:"Face pull élastique + curl marteau",isNew:false,hasDrop:true,variant:"Rétraction scapulaire isométrique + curl serviette",
+charge:["Élastique de la semaine 5 du niveau 3 · Curl : charge permettant 12 reps descente 3 s","Même, élastique plus résistant","Même + drop set : élastique plus léger + curl -20% 8 reps","Réduire, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — 4×15 pump"],
+weeks:["4×15 superset","4×15 superset","5×15 superset + drop set","3×12 superset","5×15 superset + drop set","4×15 superset"],rest:["45 s","45 s","40 s","60 s","40 s","30 s"]},
+{name:"Curl biceps haltères",isNew:false,hasDrop:true,variant:null,
+charge:["Charge de la 6e semaine du niveau 3 +2 kg","Même +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge légère — 4×15 pump"],
+weeks:["4×8","4×8","4×8 + drop set","3×8","4×8 + drop set","4×15"],rest:["60 s","60 s","45 s","60 s","45 s","30 s"]}
+]},
+{day:"Jour 4",label:"Repos actif",badge:"rest",rest:true},
+{day:"Jour 5",label:"Bas du corps — force",badge:"lower",warmKey:"lower",stretchKey:"lower",
+note:"Rest-pause S3/S5 sur les squat bulgares lestés. Drop sets sur les accessoires S3/S5/S6.",
+exercises:[
+{name:"Squat bulgare lestés max (sac à dos)",isNew:false,hasDrop:false,variant:"Squat lestés poids de corps tempo 4-0-1",
+charge:["Lest de la 6e semaine du niveau 3 +lest — 4 reps/côté tempo 4-1-1","Même lest, viser 1 rep de plus","Même + rest-pause : 15 s, 2 reps bonus","Réduire de 25%","Lest de la semaine 3","Lest modéré — 4×10 volume"],
+weeks:["5×4/côté tempo 4-1-1","5×4/côté","5×3/côté + rest-pause","3×5/côté","5×3/côté","4×10/côté"],rest:["2 min 30","2 min 30","3 min","2 min","3 min","75 s"]},
+{name:"Romanian deadlift haltères maximum",isNew:false,hasDrop:false,variant:"Good morning avec sac à dos au maximum absolu",
+charge:["Charge de la 6e semaine du niveau 3 +3 kg · tempo 4-1-1","Même +3 kg","Même charge","Réduire de 25%","Charge de la semaine 3 +3 kg","Charge modérée — 4×10 volume"],
+weeks:["4×6 tempo 4-1-1","4×6","4×5","3×5","4×5","4×10"],rest:["2 min","2 min","2 min","2 min","2 min","75 s"]},
+{name:"Hip thrust lestés max (dos sur canapé)",isNew:false,hasDrop:true,variant:"Pont fessier unilatéral avec haltère très lourd (une jambe tendue)",
+charge:["Charge de la 6e semaine du niveau 3 +3 kg — contraction fessiers 2 s","Même +3 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge modérée — 4×15 pump"],
+weeks:["4×8","4×8","4×8 + drop set","3×8","4×8 + drop set","4×15"],rest:["90 s","90 s","75 s","90 s","75 s","60 s"]},
+{name:"Step-up chaise haltères maximum",isNew:false,hasDrop:true,variant:"Fentes sautées alternées lestées",
+charge:["Charge de la 6e semaine du niveau 3 +2 kg","Même +2 kg","Même + drop set : -20%, 8 reps bonus","Réduire de 25%, pas de drop set","Charge de la semaine 3 + drop set","Charge modérée — 4×12 volume"],
+weeks:["4×8/jambe","4×8/jambe","4×8/jambe + drop set","3×8/jambe","4×8/jambe + drop set","4×12/jambe"],rest:["75 s","75 s","60 s","75 s","60 s","45 s"]},
+{name:"Wall sit lestés maximum (haltères sur les cuisses)",isNew:false,hasDrop:false,variant:null,
+charge:["Haltères de la semaine 5 du niveau 3 +1 kg chaque","Même +1 kg","Même charge","Pas de lest, poids de corps","Charge de la semaine 3","Pas de lest — tenu maximum, brûlure totale"],
+weeks:["4×60 s","4×60 s","4×60 s","3×40 s","4×60 s","3×max durée"],rest:["60 s","60 s","60 s","60 s","60 s","45 s"]},
+{name:"Élévations mollets (bord de marche)",isNew:false,hasDrop:true,variant:null,
+charge:["Poids de corps — amplitude maximale, talon très bas","Même, viser 2 reps de plus","Même + drop set : 12 reps bonus sur 2 pieds","Réduire de 2 reps, pas de drop set","Viser les reps de la semaine 3 + drop set","Viser max de reps — finir le programme en beauté"],
+weeks:["5×15/côté","5×15/côté","5×15/côté + drop set","3×12/côté","5×15/côté + drop set","4×max reps/côté"],rest:["45 s","45 s","30 s","45 s","30 s","20 s"]}
+]},
+{day:"Jour 6",label:"HIIT performance",badge:"hiit",warmKey:"hiit",stretchKey:"hiit",hiit:true,
+weeks:[
+{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"60 s entre rounds"},
+{rounds:"6 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"7 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"3 rounds",ratio:"40 s effort / 20 s repos",pause:"2 min 30 entre rounds",deload:true},
+{rounds:"7 rounds",ratio:"50 s effort / 10 s repos",pause:"45 s entre rounds"},
+{rounds:"6 rounds",ratio:"45 s effort / 15 s repos",pause:"60 s entre rounds"}
+],
+exercises:[
+{name:"Thrusters haltères lourds (squat + press enchaînés)",isNew:false,variant:"Thrusters haltères légers"},
+{name:"Renegade row haltères",isNew:false,variant:"Pompe classique + rowing unilatéral haltère au sol"},
+{name:"Box jump avec lest (sac à dos léger)",isNew:true,variant:"Box jump poids de corps"},
+{name:"Burpees + traction barre de porte lestée",isNew:true,variant:"Burpee + traction poids de corps"},
+{name:"Sprint sur place (high knees max)",isNew:false,variant:"High knees à intensité modérée"}
+]},
+{day:"Jour 7",label:"Repos total",badge:"rest",rest:true,final:true}
+];
+
 
 // ── SURPOIDS DATA ──
 // ── SURPOIDS — 4 NIVEAUX (6 semaines chacun) ──
@@ -4705,7 +5186,7 @@ let state = {
   completedExercises: [], history: [],
   currentWeek: 1, currentLevel: 0, sfWeek: null, sfWeekOverride: false
 };
-let timerInterval = null, timerSeconds = 0, timerTotal = 0, timerRunning = false;
+let timerInterval = null, timerSeconds = 0, timerTotal = 0, timerRunning = false, timerEndTime = 0, timerPauseRemaining = 0;
 let selectedProfile = null, modalSelectedProfile = null;
 let audioCtx = null;
 let currentGymMode = 'home'; // 'gym' or 'home'
@@ -4795,7 +5276,9 @@ function init() {
         document.getElementById('splash').classList.add('hidden');
         document.getElementById('app').style.display = 'flex';
         setTimeout(() => document.getElementById('app').classList.add('show'), 50);
+        autoValidateRestDays();
         launchApp();
+        scheduleMidnightRestValidation();
       }, 500);
     }, 1200);
   } else {
@@ -4807,6 +5290,71 @@ function init() {
       }, 500);
     }, 1800);
   }
+}
+
+function isEmptyRestDay(sessionId) {
+  if (!sessionId) return false;
+  if (sessionId === 'rest_total' || sessionId === 'rest') return true;
+  // Pour les profils avec schedule lundi/mardi, cherche dans les données
+  const prog = PROGRAMS[state.profile];
+  if (!prog) return false;
+  const day = getProgDayByScheduleId(sessionId, 'gym') || getProgDayByScheduleId(sessionId, 'home');
+  if (!day) return false;
+  const exercises = day.blocks || day.exercises || [];
+  return day.rest === true && exercises.length === 0;
+}
+
+function autoValidateRestDays() {
+  if (!state.profile) return;
+  const prog = PROGRAMS[state.profile];
+  if (!prog) return;
+  const today = new Date();
+  const startDate = state.startDate ? new Date(state.startDate) : today;
+
+  // Vérifie seulement à partir de la date de démarrage du profil
+  for (let offset = -6; offset <= 0; offset++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + offset);
+    // Ne pas valider les jours avant le démarrage du profil
+    if (d < startDate) continue;
+    const key = d.toISOString().split('T')[0];
+    if (state.weekLog[key]) continue;
+    const dow = d.getDay();
+    const schedIdx = prog.useSFProgram ? (dow === 0 ? 6 : dow - 1) : (state.currentSessionIdx % (prog.schedule?.length || 7));
+    const sessionId = prog.schedule?.[schedIdx];
+    if (!sessionId) continue;
+    if (sessionId === 'rest_total' || sessionId === 'rest') {
+      state.weekLog[key] = 'rest_auto';
+      continue;
+    }
+    const dayGym = getProgDayByScheduleId(sessionId, 'gym');
+    const dayHome = getProgDayByScheduleId(sessionId, 'home');
+    const day = dayGym || dayHome;
+    if (day && day.rest === true) {
+      const exercises = day.blocks || day.exercises || [];
+      if (exercises.length === 0) {
+        state.weekLog[key] = 'rest_auto';
+      }
+    }
+  }
+  saveState();
+}
+
+function scheduleMidnightRestValidation() {
+  const now = new Date();
+  const tomorrow = new Date(now);
+  tomorrow.setDate(now.getDate() + 1);
+  tomorrow.setHours(0, 1, 0, 0); // 00h01
+  const msUntilMidnight = tomorrow - now;
+  setTimeout(() => {
+    autoValidateRestDays();
+    renderHome();
+    // Relance chaque 24h
+    setInterval(() => {
+      autoValidateRestDays();
+      renderHome();
+    }, 24 * 60 * 60 * 1000);
+  }, msUntilMidnight);
 }
 
 function saveState() {
@@ -4978,7 +5526,8 @@ function getProgDayList(gymMode) {
   if (prog.suProfile === 'skinny') return eval('TON_N'+lvl+'_'+(mode==='gym'?'GYM':'HOME')+'_DAYS') || TON_N1_GYM_DAYS;
   if (prog.suProfile === 'sedentaire') return eval('SED_N'+lvl+'_'+(mode==='gym'?'GYM':'HOME')+'_DAYS') || SED_N1_GYM_DAYS;
   if (prog.suProfile === 'senior') return eval('SEN_N'+lvl+'_'+(mode==='gym'?'GYM':'HOME')+'_DAYS') || SEN_N1_GYM_DAYS;
-  return mode === 'gym' ? SF_GYM_DAYS : SF_HOME_DAYS;
+  // Skinny Fat — charge le bon niveau
+  return eval('SF_N'+lvl+'_'+(mode==='gym'?'GYM':'HOME')+'_DAYS') || SF_N1_GYM_DAYS;
 }
 
 function getProgWeekInfo() {
@@ -4990,7 +5539,7 @@ function getProgWeekInfo() {
   if (prog.suProfile === 'skinny') return eval('TON_N'+lvl+'_WEEK_INFO') || TON_N1_WEEK_INFO;
   if (prog.suProfile === 'sedentaire') return eval('SED_N'+lvl+'_WEEK_INFO') || SED_N1_WEEK_INFO;
   if (prog.suProfile === 'senior') return eval('SEN_N'+lvl+'_WEEK_INFO') || SEN_N1_WEEK_INFO;
-  return SF_WEEK_INFO;
+  return eval('SF_N'+((state.currentLevel||0)+1)+'_WEEK_INFO') || SF_WEEK_INFO;
 }
 
 function getProgWeekIdx() {
@@ -5025,9 +5574,24 @@ function getProgDayByScheduleId(sessionId, gymMode) {
   const days = getProgDayList(gymMode);
   if (!days) return null;
   if (prog.useSFProgram) {
+    // Profils avec schedule lundi/mardi/...
     const suOrder = ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche'];
     const idx = suOrder.indexOf(sessionId);
-    return idx >= 0 ? (days[idx] || null) : null;
+    if (idx >= 0) return days[idx] || null;
+    // Skinny Fat : schedule push/pull/lower/hiit/cardio/rest_actif/rest_total
+    // Les nouveaux niveaux SF utilisent badge au lieu de id
+    const sfIdMap = {
+      'push': d => d.id === 'push' || (d.badge === 'upper' && (d.label||'').toLowerCase().includes('pous')),
+      'pull': d => d.id === 'pull' || (d.badge === 'upper' && (d.label||'').toLowerCase().includes('tir')),
+      'cardio': d => d.id === 'cardio' || d.badge === 'cardio',
+      'lower': d => d.id === 'lower' || d.badge === 'lower',
+      'hiit': d => d.id === 'hiit' || d.badge === 'hiit',
+      'rest_actif': d => d.rest === true && !(d.label||'').toLowerCase().includes('total'),
+      'rest_total': d => d.rest === true && (d.label||'').toLowerCase().includes('total'),
+    };
+    const matcher = sfIdMap[sessionId];
+    if (matcher) return days.find(matcher) || null;
+    return days.find(d => d.id === sessionId) || null;
   }
   return days.find(d => d.id === sessionId) || null;
 }
@@ -5081,11 +5645,11 @@ function renderHome() {
         shortName = (session?.name || sessionId || '').substring(0,3).toUpperCase();
       }
     }
-    const clickable = !isRest;
+    const clickable = true;
     weekBand.innerHTML += `<div class="week-day">
       <div class="week-day-label">${dayLabels[i]}</div>
       <div class="week-day-bubble ${done ? 'done' : ''} ${isToday && !done ? 'today' : ''} ${isRest ? 'rest' : ''}"
-        ${clickable ? `onclick="previewDaySession(${i})" style="cursor:pointer"` : ''}>
+        onclick="previewDaySession(${i})" style="cursor:pointer">
         ${done ? '✓' : `<span class="week-day-type">${shortName}</span>`}
       </div>
     </div>`;
@@ -5094,30 +5658,35 @@ function renderHome() {
   // Next session — find today's session, or next active if today is rest
   const todayIdx = getCurrentScheduleIdx(prog);
   let activeSessionId = schedule[todayIdx];
-  let activeDay = isSF ? getProgDayByScheduleId(activeSessionId, 'gym') : null;
+  let activeDay = isSF ? getProgDayByScheduleId(activeSessionId, currentGymMode || 'gym') : null;
   const isTodayRest = activeDay?.rest || activeSessionId === 'rest_actif' || activeSessionId === 'rest_total' || activeSessionId === 'rest';
 
-  if (isTodayRest && isSF) {
-    // Find next active session in the week
+  // Si aujourd'hui est un repos → afficher REPOS + prochaine séance en meta
+  if (isTodayRest) {
+    const isTotal = activeSessionId === 'rest_total' || activeSessionId === 'rest';
+    document.getElementById('next-session-title').textContent = isTotal ? 'REPOS TOTAL 🛌' : 'REPOS ACTIF 😴';
+    // Trouver la prochaine séance
+    let nextName = '';
     for (let offset = 1; offset <= 6; offset++) {
       const idx = (todayIdx + offset) % schedule.length;
       const sid = schedule[idx];
-      const d = getProgDayByScheduleId(sid, 'gym');
-      if (d && !d.rest) { activeSessionId = sid; activeDay = d; break; }
+      const d = isSF ? getProgDayByScheduleId(sid, currentGymMode || 'gym') : prog.sessions?.find(s => s.id === sid);
+      if (d && !d.rest) { nextName = d.label || d.name || sid; break; }
     }
-  }
-
-  const isAllRest = !activeDay || activeDay.rest;
-  if (isAllRest) {
-    document.getElementById('next-session-title').textContent = 'REPOS';
-    document.getElementById('next-session-meta').textContent = 'Récupération · profites-en !';
-  } else if (isSF) {
-    document.getElementById('next-session-title').textContent = activeDay?.label || activeDay?.name || activeSessionId.toUpperCase();
-    document.getElementById('next-session-meta').textContent = `${activeDay?.exercises?.length || '—'} exercices · ${activeDay?.duration || '—'}`;
+    document.getElementById('next-session-meta').textContent = isTotal
+      ? `Récupération complète · profites-en !${nextName ? ' · Prochaine : ' + nextName : ''}`
+      : `Marche 20–30 min + mobilité${nextName ? ' · Prochaine : ' + nextName : ''}`;
+    document.getElementById('start-btn').style.display = 'none';
   } else {
-    const next = prog.sessions?.find(s => s.id === activeSessionId);
-    document.getElementById('next-session-title').textContent = next?.name || '';
-    document.getElementById('next-session-meta').textContent = next ? `${next.exercises.length} exercices · ${next.duration}` : '';
+    document.getElementById('start-btn').style.display = '';
+    if (isSF) {
+      document.getElementById('next-session-title').textContent = activeDay?.label || activeDay?.name || activeSessionId.toUpperCase();
+      document.getElementById('next-session-meta').textContent = `${activeDay?.exercises?.length || '—'} exercices · ${activeDay?.duration || '—'}`;
+    } else {
+      const next = prog.sessions?.find(s => s.id === activeSessionId);
+      document.getElementById('next-session-title').textContent = next?.name || '';
+      document.getElementById('next-session-meta').textContent = next ? `${next.exercises.length} exercices · ${next.duration}` : '';
+    }
   }
 
   // Level badge + week note
@@ -5131,7 +5700,7 @@ function renderHome() {
     const isSED = prog.suProfile === 'sedentaire';
     const isSEN = prog.suProfile === 'senior';
     const profileLabel = isSU ? 'Surpoids' : prog.suProfile==='pdm_inter' ? 'PDM Inter.' : isPDM ? 'PDM' : isTON ? 'Skinny' : isSED ? 'Sédentaire' : isSEN ? 'Sénior' : 'Skinny Fat';
-    document.getElementById('level-badge').textContent = `⭐ ${profileLabel} N${levelNum} — ${weekLabel}`;
+    document.getElementById('level-badge').textContent = `⭐ ${profileLabel} — Niveau ${levelNum} · ${weekLabel}`;
     // Show week context note
     let noteEl = document.getElementById('sf-week-note');
     if (!noteEl) {
@@ -5151,6 +5720,54 @@ function renderHome() {
     const weekInLevel = ((state.currentSessionIdx / (prog.sessions?.length || 1)) % 4) + 1;
     document.getElementById('level-badge').textContent = `⭐ ${levelName} — ${getWeekLabel(Math.ceil(weekInLevel))}`;
   }
+
+  // ── LEVEL PROGRESS CARD ──
+  const levelCard = document.getElementById('level-progress-card');
+  if (levelCard && isSF) {
+    levelCard.style.display = 'block';
+    const totalLevels = 4;
+    const weeksPerLevel = 6;
+    const currentLevel = (state.currentLevel || 0) + 1;
+    const currentWeek = Math.max(1, getProgWeek());
+    const weekInLevel = currentWeek === 0 ? 1 : ((currentWeek - 1) % weeksPerLevel) + 1;
+    const pct = Math.min(100, Math.round((weekInLevel / weeksPerLevel) * 100));
+
+    // Label
+    document.getElementById('level-progress-label').textContent = `Niveau ${currentLevel}/4 · Semaine ${weekInLevel}/6`;
+
+    // Dots niveaux cliquables
+    const dotsEl = document.getElementById('level-dots');
+    dotsEl.innerHTML = '';
+    const levelNames = ['Fondations', 'Construction', 'Intensification', 'Performance'];
+    for (let l = 1; l <= totalLevels; l++) {
+      const isActive = l === currentLevel;
+      const isDone = l < currentLevel;
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'flex:1;display:flex;flex-direction:column;gap:4px;align-items:center;cursor:pointer;padding:6px 2px;border-radius:8px;transition:background 0.15s';
+      wrap.onclick = () => confirmLevelChange(l);
+      wrap.onmouseenter = () => wrap.style.background = 'rgba(255,255,255,0.05)';
+      wrap.onmouseleave = () => wrap.style.background = 'transparent';
+
+      const dot = document.createElement('div');
+      dot.style.cssText = `width:100%;height:8px;border-radius:4px;transition:all 0.2s;background:${isDone ? 'var(--accent)' : isActive ? 'rgba(0,245,160,0.6)' : 'var(--border)'}`;
+      wrap.appendChild(dot);
+
+      const lbl = document.createElement('div');
+      lbl.style.cssText = `font-size:10px;font-weight:${isActive ? '700' : '500'};color:${isActive ? 'var(--accent)' : 'var(--muted)'};text-align:center`;
+      lbl.textContent = `N${l}`;
+      wrap.appendChild(lbl);
+      dotsEl.appendChild(wrap);
+    }
+
+    // Barre semaine dans le niveau actuel
+    document.getElementById('level-progress-fill').style.width = pct + '%';
+    document.getElementById('level-progress-sub').textContent = `Semaine ${weekInLevel} sur 6`;
+    document.getElementById('level-progress-next').textContent = currentLevel < 4
+      ? `Niveau ${currentLevel + 1} dans ${weeksPerLevel - weekInLevel} sem.`
+      : weekInLevel >= 6 ? '🏆 Programme terminé !' : `Fin dans ${weeksPerLevel - weekInLevel} sem.`;
+  } else if (levelCard) {
+    levelCard.style.display = 'none';
+  }
 }
 
 // ── WORKOUT ──
@@ -5166,6 +5783,37 @@ function startWorkout() {
   btn.style.pointerEvents = 'none';
   document.querySelectorAll('.gym-mode-card').forEach(c => c.classList.remove('selected'));
   document.getElementById('gym-mode-modal').classList.add('open');
+}
+
+function confirmLevelChange(newLevel) {
+  const currentLevel = (state.currentLevel || 0) + 1;
+  if (newLevel === currentLevel) { showToast('Tu es déjà à ce niveau 👌'); return; }
+  const levelNames = ['Fondations', 'Construction', 'Intensification', 'Performance'];
+  const direction = newLevel > currentLevel ? '⬆️ plus intense' : '⬇️ plus accessible';
+  const msg = `Passer au Niveau ${newLevel} — ${levelNames[newLevel-1]} (${direction}) ?`;
+
+  const div = document.createElement('div');
+  div.id = 'level-change-modal';
+  div.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:700;display:flex;align-items:center;justify-content:center;padding:24px;';
+  div.innerHTML = `
+    <div style="background:var(--surface);border-radius:24px;padding:32px 24px;text-align:center;border:1px solid var(--border);max-width:320px;width:100%;">
+      <div style="font-size:36px;margin-bottom:16px">🎯</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);margin-bottom:10px">CHANGER DE NIVEAU</div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7">${msg}</p>
+      <button onclick="applyLevelChange(${newLevel})" style="width:100%;padding:15px;border-radius:12px;border:none;background:var(--accent);color:#0a0a0f;font-size:15px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:8px">Confirmer</button>
+      <button onclick="document.getElementById('level-change-modal').remove()" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">Annuler</button>
+    </div>
+  `;
+  document.body.appendChild(div);
+}
+
+function applyLevelChange(newLevel) {
+  document.getElementById('level-change-modal')?.remove();
+  state.currentLevel = newLevel - 1;
+  state.currentWeek = 1;
+  saveState();
+  renderHome();
+  showToast(`Niveau ${newLevel} activé 🎯`);
 }
 
 function showAlreadyDoneToday() {
@@ -5236,24 +5884,22 @@ function selectGymMode(mode) {
 function previewDaySession(dayOffset) {
   const prog = PROGRAMS[state.profile];
   const isSF = prog.useSFProgram;
-  // For SU: dayOffset (0=Mon...6=Sun) is the direct schedule index
-  // For SF/others: relative to currentSessionIdx
   const schedIdx = prog.useSFProgram ? dayOffset : (state.currentSessionIdx + dayOffset) % prog.schedule.length;
   const sessionId = prog.schedule[schedIdx];
   const isRest = sessionId === 'rest_actif' || sessionId === 'rest_total' || sessionId === 'rest';
-  if (isRest) return;
+  if (isRest) { showToast('Jour de repos 💤 — récupération active'); return; }
 
   // Resolve session data
   let sessionName, exercises, duration;
   if (isSF) {
-        const sfDay = getProgDayByScheduleId(sessionId, currentGymMode);
-    if (!sfDay) return;
+        const sfDay = getProgDayByScheduleId(sessionId, currentGymMode || 'gym');
+    if (!sfDay) { showToast('Séance introuvable'); return; }
     sessionName = sfDay.label || sfDay.name;
     exercises = sfDay.blocks || sfDay.exercises || [];
     duration = sfDay.duration;
   } else {
     const session = prog.sessions?.find(s => s.id === sessionId);
-    if (!session) return;
+    if (!session) { showToast('Séance introuvable'); return; }
     sessionName = session.name;
     exercises = session.exercises || [];
     duration = session.duration;
@@ -5427,7 +6073,16 @@ function buildExBlock(ex, i, weekIdx, isSF, viewOnly) {
     const w = Math.max(0, Math.min(weekIdx, 5));
     setsStr = ex.weeks ? ex.weeks[w] : '';
     const rawRest = ex.rest ? ex.rest[w] : 0;
-    restSec = typeof rawRest === 'string' ? parseInt(rawRest) || 0 : (rawRest || 0);
+    if (typeof rawRest === 'string') {
+      if (rawRest.includes('min')) {
+        const parts = rawRest.match(/(\d+)\s*min(?:\s*(\d+))?/);
+        restSec = parts ? parseInt(parts[1])*60 + (parseInt(parts[2])||0) : 0;
+      } else {
+        restSec = parseInt(rawRest) || 0;
+      }
+    } else {
+      restSec = rawRest || 0;
+    }
     chargeStr = ex.charge ? ex.charge[w] : null;
     if (!chargeStr && ex.isNew) chargeStr = null;
     variantName = ex.variant || null;
@@ -5441,7 +6096,7 @@ function buildExBlock(ex, i, weekIdx, isSF, viewOnly) {
   const isNewBadge = ex.isNew ? '<span style="font-size:10px;background:rgba(0,245,160,0.12);color:var(--accent);border-radius:6px;padding:2px 6px;margin-left:6px;font-weight:600">nouveau</span>' : '';
 
   const dur = detectExoDuration(setsStr);
-  const doneHandler = viewOnly ? `showToast('Mode rab — séance non comptabilisée')` : `markDone(${i})`;
+  const doneHandler = `markDone(${i})`;
 
   div.innerHTML = `
     <div class="ex-block-header" onclick="toggleEx(${i})">
@@ -5801,13 +6456,17 @@ function openTimer(seconds, label) {
   timerTotal = seconds;
   timerSeconds = seconds;
   timerRunning = true;
+  timerEndTime = Date.now() + seconds * 1000;
+  const isRest = !label || label === 'TEMPS DE REPOS';
   document.getElementById('timer-label').textContent = label || 'TEMPS DE REPOS';
   document.getElementById('timer-toggle-btn').textContent = 'Pause';
   document.getElementById('timer-modal').classList.add('open');
   updateTimerDisplay();
-  const isExo = !!(label && label !== 'TEMPS DE REPOS');
-  playStart(isExo);
+  playStart(!isRest);
   startTimerInterval();
+  // Planifie la notification si tel en veille
+  requestNotificationPermission();
+  sendTimerToSW(seconds * 1000, label || 'REPOS', isRest);
 }
 
 // Detect duration in seconds from a sets string like "3 séries de 40 secondes"
@@ -5833,7 +6492,8 @@ function startTimerInterval() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (!timerRunning) return;
-    timerSeconds--;
+    // Calcule le temps restant basé sur l'heure réelle — survit à la mise en veille
+    timerSeconds = Math.max(0, Math.round((timerEndTime - Date.now()) / 1000));
     if (timerSeconds <= 5 && timerSeconds > 0) playBeep(660, 0.1, 0.2);
     if (timerSeconds <= 0) {
       timerSeconds = 0;
@@ -5846,7 +6506,7 @@ function startTimerInterval() {
       return;
     }
     updateTimerDisplay();
-  }, 1000);
+  }, 500); // rafraîchit toutes les 500ms pour plus de réactivité au réveil
 }
 
 function updateTimerDisplay() {
@@ -5864,12 +6524,21 @@ function updateTimerDisplay() {
 
 function toggleTimer() {
   timerRunning = !timerRunning;
+  if (timerRunning) {
+    timerEndTime = Date.now() + timerSeconds * 1000;
+    sendTimerToSW(timerSeconds * 1000, document.getElementById('timer-label').textContent, document.getElementById('timer-label').textContent === 'TEMPS DE REPOS');
+    startTimerInterval();
+  } else {
+    clearInterval(timerInterval);
+    cancelTimerSW();
+  }
   document.getElementById('timer-toggle-btn').textContent = timerRunning ? 'Pause' : 'Reprendre';
 }
 
 function closeTimer() {
   clearInterval(timerInterval);
   timerRunning = false;
+  cancelTimerSW();
   document.getElementById('timer-modal').classList.remove('open');
 }
 
@@ -6432,7 +7101,15 @@ function confirmChangeProfile() {
   if (!modalSelectedProfile) return;
   state.profile = modalSelectedProfile;
   state.currentSessionIdx = 0;
+  state.currentLevel = 0;
+  state.currentWeek = 1;
+  state.weekLog = {};
+  state.streak = 0;
+  state.history = [];
+  state.totalSessions = 0;
+  state.startDate = new Date().toISOString().split('T')[0];
   saveState();
+  autoValidateRestDays();
   document.getElementById('change-profile-modal').classList.remove('open');
   updateHeader();
   renderHome();
@@ -6747,6 +7424,28 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/corefy/service-worker.js');
   });
+}
+
+// ── TIMER NOTIFICATIONS ──
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function sendTimerToSW(delayMs, label, isRest) {
+  if (!navigator.serviceWorker?.controller) return;
+  navigator.serviceWorker.controller.postMessage({
+    type: 'START_TIMER',
+    delay: delayMs,
+    label: label,
+    isRest: isRest
+  });
+}
+
+function cancelTimerSW() {
+  if (!navigator.serviceWorker?.controller) return;
+  navigator.serviceWorker.controller.postMessage({ type: 'CANCEL_TIMER' });
 }
 </script>
 
