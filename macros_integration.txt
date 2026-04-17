@@ -1,0 +1,167 @@
+
+<!-- À AJOUTER DANS LE CSS (dans la section <style>) -->
+
+/* Styles pour les macros nutritionnelles */
+.recipe-macros {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 0;
+  font-size: 11px;
+  border-top: 0.5px solid var(--border);
+  color: var(--muted);
+}
+
+.recipe-macros .kcal {
+  font-weight: 500;
+  color: var(--accent);
+  margin-right: 4px;
+}
+
+.recipe-macros .macro {
+  background: var(--surface2);
+  color: var(--text);
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.recipe-macros .macro.protein {
+  background: rgba(255, 107, 53, 0.1);
+  color: var(--accent2);
+}
+
+.recipe-macros .macro.carbs {
+  background: rgba(255, 211, 42, 0.1); 
+  color: var(--yellow);
+}
+
+.recipe-macros .macro.fats {
+  background: rgba(0, 245, 160, 0.1);
+  color: var(--accent);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 480px) {
+  .recipe-macros {
+    gap: 4px;
+    font-size: 10px;
+  }
+  
+  .recipe-macros .macro {
+    padding: 1px 4px;
+    font-size: 9px;
+  }
+}
+
+
+<!-- À AJOUTER DANS LE JAVASCRIPT (section recettes) -->
+
+// 🔥 BASE DE DONNÉES NUTRITIONNELLE COREFY
+const nutritionDB = {
+  "blanc de poulet": {"kcal": 165, "proteines": 31, "glucides": 0, "lipides": 3.6},
+  "saumon": {"kcal": 208, "proteines": 25, "glucides": 0, "lipides": 12},
+  "thon": {"kcal": 132, "proteines": 30, "glucides": 0, "lipides": 1},
+  "oeuf entier": {"kcal": 155, "proteines": 13, "glucides": 1, "lipides": 11},
+  "yaourt grec 0%": {"kcal": 59, "proteines": 10, "glucides": 4, "lipides": 0.4},
+  "quinoa cuit": {"kcal": 120, "proteines": 4.4, "glucides": 22, "lipides": 1.9},
+  "avoine": {"kcal": 389, "proteines": 17, "glucides": 66, "lipides": 6.9},
+  "avocat": {"kcal": 160, "proteines": 2, "glucides": 2, "lipides": 15},
+  "brocolis": {"kcal": 25, "proteines": 3, "glucides": 2, "lipides": 0.4},
+  "épinards": {"kcal": 23, "proteines": 2.9, "glucides": 1.4, "lipides": 0.4},
+  "salade verte": {"kcal": 13, "proteines": 1.2, "glucides": 1.3, "lipides": 0.2},
+  "huile olive": {"kcal": 884, "proteines": 0, "glucides": 0, "lipides": 100},
+  "banane": {"kcal": 89, "proteines": 1.1, "glucides": 20, "lipides": 0.3},
+  "protéine whey": {"kcal": 400, "proteines": 80, "glucides": 5, "lipides": 5}
+};
+
+// Fonction pour parser les quantités
+function parseQuantity(quantityStr) {
+  if (!quantityStr) return 100;
+  
+  const qty = quantityStr.toLowerCase().trim();
+  const numbers = qty.match(/\d+(?:\.\d+)?/);
+  if (!numbers) return 100;
+  
+  const amount = parseFloat(numbers[0]);
+  
+  if (qty.includes('g')) return amount;
+  if (qty.includes('kg')) return amount * 1000;
+  if (qty.includes('ml')) return amount; // Approximation 1ml ≈ 1g
+  if (qty.includes('cuillère') || qty.includes('càs')) return amount * 15;
+  if (qty.includes('càc')) return amount * 5;
+  if (qty.includes('tasse')) return amount * 150;
+  
+  return amount;
+}
+
+// Fonction pour trouver l'ingrédient dans la DB
+function findNutrition(ingredient) {
+  const ing = ingredient.toLowerCase();
+  
+  // Recherche exacte
+  if (nutritionDB[ing]) return nutritionDB[ing];
+  
+  // Recherche par mots-clés
+  for (const [dbIng, nutrition] of Object.entries(nutritionDB)) {
+    if (dbIng.split(' ').some(word => ing.includes(word))) {
+      return nutrition;
+    }
+  }
+  
+  // Valeur par défaut (légume générique)
+  return {"kcal": 25, "proteines": 2, "glucides": 4, "lipides": 0.2};
+}
+
+// Fonction pour calculer les macros d'une recette
+function calculateRecipeMacros(ingredients) {
+  const total = {"kcal": 0, "proteines": 0, "glucides": 0, "lipides": 0};
+  
+  ingredients.forEach(([ingredient, quantity]) => {
+    const nutrition = findNutrition(ingredient);
+    const grams = parseQuantity(quantity);
+    const multiplier = grams / 100;
+    
+    Object.keys(total).forEach(macro => {
+      total[macro] += nutrition[macro] * multiplier;
+    });
+  });
+  
+  // Arrondir
+  Object.keys(total).forEach(key => {
+    total[key] = Math.round(total[key] * 10) / 10;
+  });
+  
+  return total;
+}
+
+// Fonction pour générer l'affichage des macros
+function generateMacrosHTML(macros) {
+  return `
+    <div class="recipe-macros">
+      <span class="kcal">${macros.kcal} kcal</span>
+      <span class="macro protein">🥩 ${macros.proteines}g</span>
+      <span class="macro carbs">🍞 ${macros.glucides}g</span>
+      <span class="macro fats">🥑 ${macros.lipides}g</span>
+    </div>
+  `;
+}
+
+// EXEMPLE D'UTILISATION DANS UNE CARTE RECETTE :
+/*
+function createRecipeCard(recipeId, recipeData) {
+  const macros = calculateRecipeMacros(recipeData.ingredients);
+  const macrosHTML = generateMacrosHTML(macros);
+  
+  return `
+    <div class="recipe-card" data-recipe="${recipeId}">
+      <h4>${recipeData.nom}</h4>
+      <p class="recipe-meta">${recipeData.temps} • ${recipeData.difficulte}</p>
+      <p class="recipe-desc">${recipeData.description}</p>
+      ${macrosHTML}
+    </div>
+  `;
+}
+*/
