@@ -49,14 +49,14 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   opacity: 0; transition: opacity 0.4s; pointer-events: none;
 }
 #onboarding.show { opacity: 1; pointer-events: all; }
-.ob-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+.ob-title { font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 8px; }
 .ob-sub { font-size: 13px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
 .ob-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-.ob-profiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
-.ob-profile { background: var(--surface); border: 2px solid var(--border); border-radius: 16px; padding: 18px 14px; cursor: pointer; transition: all 0.2s; }
+.ob-profiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; align-items: stretch; }
+.ob-profile { background: var(--surface); border: 2px solid var(--border); border-radius: 16px; padding: 16px 14px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
 .ob-profile.selected { border-color: var(--accent); background: rgba(0,245,160,0.08); }
-.ob-profile-icon { font-size: 28px; margin-bottom: 8px; }
-.ob-profile-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.ob-profile-icon { font-size: 24px; }
+.ob-profile-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
 .ob-profile-goal { font-size: 11px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
 .ob-profile-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
 .ob-input-row { display: flex; gap: 10px; margin-bottom: 32px; }
@@ -368,46 +368,105 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <!-- ONBOARDING -->
 <div id="onboarding">
-  <div class="ob-title">Bienvenue.</div>
-  <p class="ob-sub">Dis-nous qui tu es pour qu'on crée ton programme sur mesure.</p>
+  <div class="ob-title">Tu sais ce que tu veux changer. On s'occupe du reste.</div>
+  <p class="ob-sub">Choisis et démarre.</p>
 
   <div class="ob-label">Ton profil</div>
   <div class="ob-profiles">
-    <div class="ob-profile" data-profile="skinny_fat" onclick="selectProfile(this)">
-      <div class="ob-profile-icon">🪶</div>
-      <div class="ob-profile-name">Skinny Fat</div>
-      <div class="ob-profile-goal">Sculpter</div>
-      <div class="ob-profile-desc">Perdre le gras, révéler le muscle</div>
+    <div class="ob-profile" data-profile="skinny_fat" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Recomposition</div>
+        <div class="ob-profile-icon">✨</div>
+      </div>
+      <div class="ob-profile-desc">Pas gros, mais du ventre et des poignées d'amour ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · 6j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Rééquilibrage · 6j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Définition · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Performance · 6j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
-    <div class="ob-profile" data-profile="surpoids" onclick="selectProfile(this)">
-      <div class="ob-profile-icon">🔥</div>
-      <div class="ob-profile-name">Surpoids</div>
-      <div class="ob-profile-goal">Transformer</div>
-      <div class="ob-profile-desc">Perdre du poids, retrouver l'énergie</div>
+    <div class="ob-profile" data-profile="surpoids" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Perte de poids</div>
+        <div class="ob-profile-icon">🔥</div>
+      </div>
+      <div class="ob-profile-desc">Envie de perdre du gras et retrouver de l'énergie au quotidien ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Démarrage · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Progression · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Intensification · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Consolidation · 6j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
-    <div class="ob-profile" data-profile="skinny" onclick="selectProfile(this)">
-      <div class="ob-profile-icon">✨</div>
-      <div class="ob-profile-name">Skinny</div>
-      <div class="ob-profile-goal">Tonifier</div>
-      <div class="ob-profile-desc">Raffermir, gagner du galbe sans prendre de la masse</div>
+    <div class="ob-profile" data-profile="pdm" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Prise de masse · Débutant</div>
+        <div class="ob-profile-icon">💪</div>
+      </div>
+      <div class="ob-profile-desc">Envie de prendre du muscle et gagner en volume ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Full body ×3 · 3j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Upper/Lower · 4j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">PPL + U/L · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">PPL ×2 · 6j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
-    <div class="ob-profile" data-profile="pdm" onclick="openPDMModal(event)">
-      <div class="ob-profile-icon">💪</div>
-      <div class="ob-profile-name">PDM</div>
-      <div class="ob-profile-goal">Construire</div>
-      <div class="ob-profile-desc">Prendre du muscle, gagner en volume</div>
+    <div class="ob-profile" data-profile="pdm_inter" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Prise de masse · Inter.</div>
+        <div class="ob-profile-icon">🏋️</div>
+      </div>
+      <div class="ob-profile-desc">Envie de prendre du muscle et gagner en volume ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Upper/Lower · 4j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">PPL + U/L · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">PPL intensité · 5j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">PPL ×2 · 6j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
-    <div class="ob-profile" data-profile="sedentaire" onclick="selectProfile(this)">
-      <div class="ob-profile-icon">🛋️</div>
-      <div class="ob-profile-name">Sédentaire</div>
-      <div class="ob-profile-goal">Démarrer</div>
-      <div class="ob-profile-desc">Reprendre une activité, bouger sans se blesser</div>
+    <div class="ob-profile" data-profile="skinny" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Galbe</div>
+        <div class="ob-profile-icon">🪶</div>
+      </div>
+      <div class="ob-profile-desc">Silhouette fine et envie de te tonifier, te raffermir, transformer ce petit excès en muscle ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · Full body ×3 · 3j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Galbe · Lower/Upper ×2 · 4j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Définition · Lower/Upper + cardio · 4j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Performance · Push/Pull/Legs · 5j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
+    </div>
+    <div class="ob-profile" data-profile="sedentaire" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Éveil</div>
+        <div class="ob-profile-icon">🛋️</div>
+      </div>
+      <div class="ob-profile-desc">Marre de rester statique ? Fais le premier pas vers ta remise en forme. Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Éveil · 2j/sem · 25–35 min</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Découverte · 3j/sem · 35–45 min</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Ancrage · 3j/sem · 40–50 min</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Transition · 4j/sem · 45–55 min</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
     <div class="ob-profile" data-profile="senior" onclick="selectProfile(this)">
-      <div class="ob-profile-icon">⭐</div>
-      <div class="ob-profile-name">Sénior</div>
-      <div class="ob-profile-goal">Longévité</div>
-      <div class="ob-profile-desc">Maintenir la mobilité, rester fort et actif</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">Longévité</div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="ob-profile-icon">⭐</div>
+          <span style="font-size:9px;font-weight:700;color:#BA7517;background:#FAEEDA;padding:3px 8px;border-radius:20px;white-space:nowrap">✦ Idéal 50 ans +</span>
+        </div>
+      </div>
+      <div class="ob-profile-desc">Envie de rester mobile, fort et actif le plus longtemps possible ? Ce programme est fait pour toi.</div>
+      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · Full body doux · 3j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Construction · Full body renforcé · 3j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Consolidation · Full body + cardio · 4j/sem</span><br>
+        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Longévité · Upper/Lower + cardio · 4j/sem</span><br>
+        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
+      </div>
     </div>
   </div>
 
@@ -5144,39 +5203,2544 @@ const PROGRAMS = {
 };
 
 const RECIPES = [
-  { id:1, name:'Bowl protéiné', emoji:'🥣', type:'petit-dej', fast:true, kcal:420, prepTime:'5 min',
-    ingredients:[{name:'Flocons d\'avoine',qty:'80g',cat:'féculents'},{name:'Fromage blanc 0%',qty:'200g',cat:'protéines'},{name:'Banane',qty:'1',cat:'fruits'},{name:'Amandes',qty:'20g',cat:'oléagineux'}],
-    steps:['Verser les flocons dans un bol','Ajouter le fromage blanc','Trancher la banane par-dessus','Parsemer les amandes']},
-  { id:2, name:'Œufs brouillés complets', emoji:'🍳', type:'petit-dej', fast:true, kcal:380, prepTime:'8 min',
-    ingredients:[{name:'Œufs entiers',qty:'3',cat:'protéines'},{name:'Jambon de dinde',qty:'60g',cat:'protéines'},{name:'Pain complet',qty:'2 tranches',cat:'féculents'},{name:'Huile d\'olive',qty:'1 cuillère à café',cat:'matières grasses'}],
-    steps:['Battre les œufs dans un bol','Cuire à feu doux en remuant sans arrêt','Couper le jambon en morceaux et mélanger','Servir sur le pain toasté']},
-  { id:3, name:'Pancakes à l\'avoine', emoji:'🥞', type:'petit-dej', fast:false, kcal:450, prepTime:'15 min',
-    ingredients:[{name:'Flocons d\'avoine mixés',qty:'100g',cat:'féculents'},{name:'Œufs',qty:'2',cat:'protéines'},{name:'Fromage blanc',qty:'150g',cat:'protéines'},{name:'Banane écrasée',qty:'1',cat:'fruits'},{name:'Levure chimique',qty:'1/2 cuillère à café',cat:'épices'}],
-    steps:['Mixer les flocons en farine grossière','Mélanger tous les ingrédients jusqu\'à obtenir une pâte lisse','Cuire 2 minutes par face à feu moyen','Servir avec un filet de miel ou des fruits rouges']},
-  { id:4, name:'Bowl riz poulet légumes', emoji:'🍱', type:'dejeuner', fast:false, kcal:580, prepTime:'20 min',
-    ingredients:[{name:'Riz basmati cuit',qty:'150g',cat:'féculents'},{name:'Blanc de poulet',qty:'150g',cat:'protéines'},{name:'Brocolis',qty:'150g',cat:'légumes'},{name:'Huile d\'olive',qty:'1 cuillère à soupe',cat:'matières grasses'},{name:'Sauce soja',qty:'1 cuillère à soupe',cat:'condiments'}],
-    steps:['Faire cuire le riz selon les instructions','Couper le poulet en dés et faire sauter 6 minutes','Cuire les brocolis à la vapeur 5 minutes','Assembler le bowl et napper de sauce soja']},
-  { id:5, name:'Salade thon avocat', emoji:'🥗', type:'dejeuner', fast:true, kcal:520, prepTime:'5 min',
-    ingredients:[{name:'Thon en boîte à l\'eau',qty:'160g',cat:'protéines'},{name:'Avocat',qty:'1/2',cat:'matières grasses'},{name:'Salade mélangée',qty:'100g',cat:'légumes'},{name:'Tomates cerises',qty:'100g',cat:'légumes'},{name:'Citron',qty:'1/2',cat:'condiments'},{name:'Huile d\'olive',qty:'1 cuillère à soupe',cat:'matières grasses'}],
-    steps:['Égoutter le thon','Couper l\'avocat et les tomates en morceaux','Mélanger la salade, le thon, l\'avocat et les tomates','Assaisonner avec le citron et l\'huile d\'olive']},
-  { id:6, name:'Patate douce et bœuf', emoji:'🥩', type:'dejeuner', fast:false, kcal:620, prepTime:'25 min',
-    ingredients:[{name:'Patate douce',qty:'200g',cat:'féculents'},{name:'Bœuf haché 5% de matières grasses',qty:'150g',cat:'protéines'},{name:'Haricots verts',qty:'150g',cat:'légumes'},{name:'Oignon',qty:'1',cat:'légumes'},{name:'Huile d\'olive',qty:'1 cuillère à soupe',cat:'matières grasses'}],
-    steps:['Cuire la patate douce 20 minutes à la vapeur','Faire revenir l\'oignon 2 minutes dans l\'huile','Ajouter le bœuf et cuire 5 minutes en remuant','Cuire les haricots à la vapeur et servir ensemble']},
-  { id:7, name:'Yaourt grec et fruits rouges', emoji:'🫙', type:'collation', fast:true, kcal:180, prepTime:'2 min',
-    ingredients:[{name:'Yaourt grec nature',qty:'200g',cat:'protéines'},{name:'Fruits rouges',qty:'100g',cat:'fruits'},{name:'Miel',qty:'1 cuillère à café',cat:'condiments'}],
-    steps:['Verser le yaourt dans un bol','Ajouter les fruits rouges par-dessus','Terminer par un filet de miel']},
-  { id:8, name:'Œufs durs et amandes', emoji:'🥚', type:'collation', fast:true, kcal:160, prepTime:'10 min',
-    ingredients:[{name:'Œufs durs',qty:'2',cat:'protéines'},{name:'Amandes',qty:'20g',cat:'oléagineux'}],
-    steps:['Faire bouillir les œufs 9 minutes','Refroidir sous l\'eau froide et écaler','Servir avec les amandes']},
-  { id:9, name:'Saumon vapeur et quinoa', emoji:'🐟', type:'diner', fast:false, kcal:540, prepTime:'20 min',
-    ingredients:[{name:'Pavé de saumon',qty:'150g',cat:'protéines'},{name:'Quinoa cuit',qty:'120g',cat:'féculents'},{name:'Courgette',qty:'200g',cat:'légumes'},{name:'Citron',qty:'1/2',cat:'condiments'},{name:'Herbes de Provence',qty:'à votre goût',cat:'épices'}],
-    steps:['Faire cuire le quinoa 15 minutes dans l\'eau salée','Cuire le saumon à la vapeur 12 minutes','Faire revenir la courgette en rondelles à la poêle','Assaisonner avec le citron et les herbes']},
-  { id:10, name:'Omelette aux légumes', emoji:'🍳', type:'diner', fast:true, kcal:420, prepTime:'10 min',
-    ingredients:[{name:'Œufs entiers',qty:'4',cat:'protéines'},{name:'Épinards frais',qty:'100g',cat:'légumes'},{name:'Champignons',qty:'100g',cat:'légumes'},{name:'Fromage râpé allégé',qty:'30g',cat:'protéines'},{name:'Huile d\'olive',qty:'1 cuillère à café',cat:'matières grasses'}],
-    steps:['Faire revenir les champignons 3 minutes','Ajouter les épinards et cuire 1 minute','Verser les œufs battus par-dessus','Replier avec le fromage et cuire encore 2 minutes']},
-  { id:11, name:'Poulet rôti aux légumes', emoji:'🍗', type:'diner', fast:false, kcal:580, prepTime:'35 min',
-    ingredients:[{name:'Escalope de poulet',qty:'180g',cat:'protéines'},{name:'Poivrons',qty:'200g',cat:'légumes'},{name:'Courgette',qty:'150g',cat:'légumes'},{name:'Oignon rouge',qty:'1',cat:'légumes'},{name:'Huile d\'olive',qty:'2 cuillères à soupe',cat:'matières grasses'},{name:'Cumin et paprika',qty:'à votre goût',cat:'épices'}],
-    steps:['Préchauffer le four à 200°C','Couper tous les légumes en gros morceaux','Mélanger avec l\'huile et les épices dans un plat','Poser le poulet par-dessus et enfourner 25 minutes']}
+  {
+    "id": "R001",
+    "name": "Bowl flocons d'avoine, banane et amandes",
+    "emoji": "🥣",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 420,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Flocons d'avoine",
+        "qty": "60 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Lait demi-écrémé",
+        "qty": "200 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Banane",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Amandes effilées",
+        "qty": "15 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Verser les flocons d'avoine et le lait dans une casserole",
+      "Cuire 5 minutes à feu doux en remuant",
+      "Verser dans un bol et ajouter la banane coupée en rondelles",
+      "Saupoudrer d'amandes, de cannelle et arroser de miel"
+    ]
+  },
+  {
+    "id": "R002",
+    "name": "Pancakes protéinés banane-avoine",
+    "emoji": "🥞",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 480,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Banane mûre",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Œufs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Flocons d'avoine",
+        "qty": "50 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Whey vanille",
+        "qty": "20 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Lait",
+        "qty": "50 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Levure chimique",
+        "qty": "1/2 sachet",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Mixer la banane, les œufs, les flocons, la whey, le lait et la levure",
+      "Laisser reposer la pâte 5 minutes",
+      "Cuire de petites louches dans une poêle antiadhésive 2 min par face",
+      "Servir avec des fruits frais"
+    ]
+  },
+  {
+    "id": "R003",
+    "name": "Omelette épinards et feta",
+    "emoji": "🍳",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 380,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Œufs",
+        "qty": "3",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pousses d'épinards",
+        "qty": "50 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Feta",
+        "qty": "40 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Pain complet",
+        "qty": "1 tranche",
+        "cat": "féculents"
+      },
+      {
+        "name": "Sel, poivre",
+        "qty": "selon goût",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Battre les œufs avec sel et poivre",
+      "Faire revenir les épinards 1 minute dans la poêle huilée",
+      "Verser les œufs et émietter la feta dessus",
+      "Cuire 3 minutes à feu moyen, plier en deux et servir avec le pain"
+    ]
+  },
+  {
+    "id": "R004",
+    "name": "Porridge cacao et fruits rouges",
+    "emoji": "🍫",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 410,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Flocons d'avoine",
+        "qty": "60 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "250 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Cacao non sucré",
+        "qty": "1 c. à soupe",
+        "cat": "épices"
+      },
+      {
+        "name": "Fruits rouges",
+        "qty": "100 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Sirop d'érable",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Graines de chia",
+        "qty": "1 c. à café",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Mélanger flocons, lait et cacao dans une casserole",
+      "Cuire 6 minutes à feu doux en remuant",
+      "Verser dans un bol, ajouter les fruits rouges et le sirop",
+      "Saupoudrer de graines de chia"
+    ]
+  },
+  {
+    "id": "R005",
+    "name": "Œufs brouillés avocat sur pain complet",
+    "emoji": "🥑",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 460,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Œufs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Avocat",
+        "qty": "1/2",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Pain complet",
+        "qty": "2 tranches",
+        "cat": "féculents"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Sel, poivre, piment",
+        "qty": "selon goût",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Toaster les tranches de pain",
+      "Écraser l'avocat avec le jus de citron, sel et poivre",
+      "Brouiller les œufs à feu doux dans la poêle huilée",
+      "Étaler l'avocat sur le pain et déposer les œufs dessus"
+    ]
+  },
+  {
+    "id": "R006",
+    "name": "Wrap petit-déjeuner œuf-jambon",
+    "emoji": "🌯",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 440,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Tortilla complète",
+        "qty": "1",
+        "cat": "féculents"
+      },
+      {
+        "name": "Œufs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Jambon de dinde",
+        "qty": "2 tranches",
+        "cat": "protéines"
+      },
+      {
+        "name": "Fromage râpé léger",
+        "qty": "20 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Roquette",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Brouiller les œufs dans une poêle 3 minutes",
+      "Réchauffer la tortilla 30 secondes",
+      "Garnir avec œufs, jambon, fromage, tomate et roquette",
+      "Rouler serré et couper en deux"
+    ]
+  },
+  {
+    "id": "R007",
+    "name": "Bowl quinoa sucré, pomme et noix",
+    "emoji": "🍎",
+    "type": "petit-dej",
+    "fast": false,
+    "kcal": 450,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Quinoa cuit",
+        "qty": "100 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "150 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pomme",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Noix",
+        "qty": "20 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Réchauffer le quinoa avec le lait d'amande 3 minutes",
+      "Couper la pomme en cubes",
+      "Verser le quinoa dans un bol, ajouter pomme et noix",
+      "Arroser de miel et saupoudrer de cannelle"
+    ]
+  },
+  {
+    "id": "R008",
+    "name": "Yaourt grec, miel et granola",
+    "emoji": "🫙",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 340,
+    "prepTime": "3 min",
+    "ingredients": [
+      {
+        "name": "Yaourt grec nature",
+        "qty": "200 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Granola",
+        "qty": "40 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Myrtilles",
+        "qty": "60 g",
+        "cat": "fruits"
+      }
+    ],
+    "steps": [
+      "Verser le yaourt dans un bol",
+      "Ajouter le granola et les myrtilles",
+      "Arroser de miel"
+    ]
+  },
+  {
+    "id": "R009",
+    "name": "Smoothie banane, beurre de cacahuète, whey",
+    "emoji": "🥤",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 420,
+    "prepTime": "3 min",
+    "ingredients": [
+      {
+        "name": "Banane",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Lait demi-écrémé",
+        "qty": "250 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Beurre de cacahuète",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Whey vanille ou chocolat",
+        "qty": "30 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Glaçons",
+        "qty": "3",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Mettre tous les ingrédients dans le blender",
+      "Mixer 30 secondes jusqu'à texture lisse",
+      "Servir immédiatement"
+    ]
+  },
+  {
+    "id": "R010",
+    "name": "Tartine fromage frais, saumon et aneth",
+    "emoji": "🍞",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 360,
+    "prepTime": "4 min",
+    "ingredients": [
+      {
+        "name": "Pain complet ou seigle",
+        "qty": "2 tranches",
+        "cat": "féculents"
+      },
+      {
+        "name": "Fromage frais",
+        "qty": "40 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Saumon fumé",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Aneth",
+        "qty": "1 pincée",
+        "cat": "épices"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Toaster les tranches de pain",
+      "Étaler le fromage frais",
+      "Déposer le saumon, l'aneth et un trait de citron"
+    ]
+  },
+  {
+    "id": "R011",
+    "name": "Overnight oats vanille",
+    "emoji": "🌙",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 400,
+    "prepTime": "5 min",
+    "ingredients": [
+      {
+        "name": "Flocons d'avoine",
+        "qty": "50 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "150 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Yaourt grec",
+        "qty": "100 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Graines de chia",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Sirop d'érable",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Fruits frais",
+        "qty": "80 g",
+        "cat": "fruits"
+      }
+    ],
+    "steps": [
+      "Mélanger flocons, lait, yaourt, chia et sirop dans un bocal",
+      "Réserver au frigo toute la nuit",
+      "Le matin, ajouter les fruits frais et déguster"
+    ]
+  },
+  {
+    "id": "R012",
+    "name": "Skyr, fruits rouges et amandes",
+    "emoji": "🍓",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 290,
+    "prepTime": "2 min",
+    "ingredients": [
+      {
+        "name": "Skyr nature",
+        "qty": "200 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Fruits rouges",
+        "qty": "100 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Amandes",
+        "qty": "15 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Verser le skyr dans un bol",
+      "Ajouter fruits rouges et amandes concassées",
+      "Arroser de miel"
+    ]
+  },
+  {
+    "id": "R013",
+    "name": "Toast beurre d'amande et banane",
+    "emoji": "🍌",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 380,
+    "prepTime": "4 min",
+    "ingredients": [
+      {
+        "name": "Pain complet",
+        "qty": "2 tranches",
+        "cat": "féculents"
+      },
+      {
+        "name": "Beurre d'amande",
+        "qty": "2 c. à café",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Banane",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Toaster les tranches de pain",
+      "Étaler le beurre d'amande",
+      "Déposer la banane en rondelles, cannelle et miel"
+    ]
+  },
+  {
+    "id": "R014",
+    "name": "Smoothie vert épinards-pomme-gingembre",
+    "emoji": "🥦",
+    "type": "petit-dej",
+    "fast": true,
+    "kcal": 310,
+    "prepTime": "4 min",
+    "ingredients": [
+      {
+        "name": "Pousses d'épinards",
+        "qty": "50 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Pomme verte",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Banane",
+        "qty": "1/2",
+        "cat": "fruits"
+      },
+      {
+        "name": "Gingembre frais",
+        "qty": "1 cm",
+        "cat": "épices"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "200 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Graines de lin moulues",
+        "qty": "1 c. à café",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Mettre tous les ingrédients dans le blender",
+      "Mixer 45 secondes",
+      "Servir bien frais"
+    ]
+  },
+  {
+    "id": "R015",
+    "name": "Bowl riz poulet légumes",
+    "emoji": "🍱",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 580,
+    "prepTime": "20 min",
+    "ingredients": [
+      {
+        "name": "Riz basmati cuit",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Blanc de poulet",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Brocolis",
+        "qty": "150 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Sauce soja",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Faire cuire le riz selon les instructions",
+      "Couper le poulet en dés et faire sauter 6 minutes",
+      "Cuire les brocolis à la vapeur 5 minutes",
+      "Assembler le bowl et napper de sauce soja"
+    ]
+  },
+  {
+    "id": "R016",
+    "name": "Pâtes complètes saumon-épinards",
+    "emoji": "🐟",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 620,
+    "prepTime": "20 min",
+    "ingredients": [
+      {
+        "name": "Pâtes complètes",
+        "qty": "100 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Saumon frais",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pousses d'épinards",
+        "qty": "100 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Crème légère",
+        "qty": "50 ml",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Ail",
+        "qty": "1 gousse",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      }
+    ],
+    "steps": [
+      "Cuire les pâtes al dente selon les instructions",
+      "Faire revenir l'ail, ajouter le saumon en cubes 5 minutes",
+      "Ajouter les épinards et la crème, cuire 2 minutes",
+      "Mélanger avec les pâtes égouttées"
+    ]
+  },
+  {
+    "id": "R017",
+    "name": "Buddha bowl quinoa, pois chiches, légumes rôtis",
+    "emoji": "🥙",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 590,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Quinoa cuit",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Pois chiches",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Patate douce",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Courgette",
+        "qty": "100 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Avocat",
+        "qty": "1/2",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Tahini",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Couper la patate douce et la courgette, enfourner 25 min à 200°C",
+      "Réchauffer les pois chiches 3 minutes à la poêle",
+      "Disposer quinoa, légumes rôtis, pois chiches et avocat dans un bol",
+      "Napper de tahini dilué avec un peu d'eau"
+    ]
+  },
+  {
+    "id": "R018",
+    "name": "Wrap poulet, avocat et crudités",
+    "emoji": "🌯",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 540,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Tortilla complète",
+        "qty": "1",
+        "cat": "féculents"
+      },
+      {
+        "name": "Blanc de poulet cuit",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Avocat",
+        "qty": "1/2",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Salade verte",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Yaourt grec",
+        "qty": "2 c. à soupe",
+        "cat": "protéines"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Mélanger le yaourt et le jus de citron pour la sauce",
+      "Réchauffer la tortilla 30 secondes",
+      "Garnir avec poulet, avocat tranché, tomate, salade et sauce",
+      "Rouler serré et couper en deux"
+    ]
+  },
+  {
+    "id": "R019",
+    "name": "Salade de lentilles, feta et grenade",
+    "emoji": "🥗",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 510,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Lentilles vertes cuites",
+        "qty": "180 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Feta",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Grains de grenade",
+        "qty": "60 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Concombre",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Menthe fraîche",
+        "qty": "5 feuilles",
+        "cat": "épices"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Couper le concombre en dés et ciseler la menthe",
+      "Mélanger les lentilles avec concombre, grenade et menthe",
+      "Émietter la feta dessus",
+      "Assaisonner d'huile d'olive et de jus de citron"
+    ]
+  },
+  {
+    "id": "R020",
+    "name": "Curry de poulet et lait de coco",
+    "emoji": "🍛",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 600,
+    "prepTime": "25 min",
+    "ingredients": [
+      {
+        "name": "Blanc de poulet",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Lait de coco light",
+        "qty": "150 ml",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Riz basmati cuit",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Oignon",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Pâte de curry",
+        "qty": "1 c. à soupe",
+        "cat": "épices"
+      },
+      {
+        "name": "Poivron rouge",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Coriandre fraîche",
+        "qty": "5 feuilles",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Faire revenir l'oignon 3 minutes dans une poêle",
+      "Ajouter le poulet en cubes et la pâte de curry, cuire 5 minutes",
+      "Verser le lait de coco et le poivron émincé, mijoter 12 minutes",
+      "Servir avec le riz et parsemer de coriandre"
+    ]
+  },
+  {
+    "id": "R021",
+    "name": "Pavé de cabillaud, riz et ratatouille",
+    "emoji": "🐟",
+    "type": "dejeuner",
+    "fast": false,
+    "kcal": 530,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Pavé de cabillaud",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Riz complet cuit",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Courgette",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Aubergine",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Tomates concassées",
+        "qty": "200 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Herbes de Provence",
+        "qty": "1 c. à café",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Couper courgette et aubergine en cubes",
+      "Faire revenir les légumes 5 min, ajouter tomates et herbes, mijoter 15 min",
+      "Cuire le cabillaud à la poêle 4 minutes par face",
+      "Servir le poisson avec la ratatouille et le riz"
+    ]
+  },
+  {
+    "id": "R022",
+    "name": "Salade thon, haricots blancs et tomate",
+    "emoji": "🥗",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 460,
+    "prepTime": "8 min",
+    "ingredients": [
+      {
+        "name": "Thon au naturel",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Haricots blancs cuits",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Oignon rouge",
+        "qty": "1/4",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Vinaigre balsamique",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Persil",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Égoutter le thon et les haricots",
+      "Couper la tomate en dés et émincer l'oignon",
+      "Mélanger tous les ingrédients dans un saladier",
+      "Assaisonner avec huile, vinaigre et persil"
+    ]
+  },
+  {
+    "id": "R023",
+    "name": "Pita poulet-houmous-crudités",
+    "emoji": "🫓",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 520,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Pain pita complet",
+        "qty": "1",
+        "cat": "féculents"
+      },
+      {
+        "name": "Blanc de poulet cuit",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Houmous",
+        "qty": "2 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Concombre",
+        "qty": "1/4",
+        "cat": "légumes"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Salade",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Réchauffer la pita 1 minute",
+      "Étaler le houmous à l'intérieur",
+      "Garnir avec le poulet émincé, concombre, tomate et salade"
+    ]
+  },
+  {
+    "id": "R024",
+    "name": "Salade de quinoa express, feta et concombre",
+    "emoji": "🥗",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 480,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Quinoa cuit (sachet prêt)",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Feta",
+        "qty": "50 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Concombre",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Tomates cerises",
+        "qty": "100 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Olives noires",
+        "qty": "30 g",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Verser le quinoa dans un saladier",
+      "Ajouter le concombre, les tomates cerises et les olives coupées",
+      "Émietter la feta dessus",
+      "Assaisonner d'huile d'olive et de citron"
+    ]
+  },
+  {
+    "id": "R025",
+    "name": "Omelette jambon-fromage et salade",
+    "emoji": "🍳",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 500,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Œufs",
+        "qty": "3",
+        "cat": "protéines"
+      },
+      {
+        "name": "Jambon blanc",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Emmental râpé",
+        "qty": "30 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Salade verte",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Vinaigre",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Battre les œufs, ajouter le jambon en dés",
+      "Cuire dans une poêle 4 minutes, ajouter le fromage et plier",
+      "Servir avec la salade assaisonnée"
+    ]
+  },
+  {
+    "id": "R026",
+    "name": "Wrap saumon fumé-fromage frais-roquette",
+    "emoji": "🌯",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 490,
+    "prepTime": "7 min",
+    "ingredients": [
+      {
+        "name": "Tortilla complète",
+        "qty": "1",
+        "cat": "féculents"
+      },
+      {
+        "name": "Saumon fumé",
+        "qty": "80 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Fromage frais light",
+        "qty": "40 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Roquette",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Avocat",
+        "qty": "1/4",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Étaler le fromage frais sur la tortilla",
+      "Déposer le saumon, l'avocat tranché et la roquette",
+      "Arroser d'un trait de citron, rouler serré"
+    ]
+  },
+  {
+    "id": "R027",
+    "name": "Bowl skyr, dinde, crudités et avoine",
+    "emoji": "🥣",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 510,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Blanc de dinde",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Skyr nature",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Concombre",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Tomates cerises",
+        "qty": "80 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Flocons d'avoine grillés",
+        "qty": "30 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Citron, sel, poivre",
+        "qty": "selon goût",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Couper la dinde, le concombre et les tomates en dés",
+      "Mélanger le skyr avec citron, sel et poivre",
+      "Disposer dans un bol et parsemer de flocons d'avoine grillés"
+    ]
+  },
+  {
+    "id": "R028",
+    "name": "Riz cantonais express œuf-jambon",
+    "emoji": "🍚",
+    "type": "dejeuner",
+    "fast": true,
+    "kcal": 540,
+    "prepTime": "12 min",
+    "ingredients": [
+      {
+        "name": "Riz basmati cuit (la veille)",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Œufs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Jambon blanc",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Petits pois surgelés",
+        "qty": "60 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Sauce soja",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Huile de sésame",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      }
+    ],
+    "steps": [
+      "Brouiller les œufs dans une poêle, réserver",
+      "Faire sauter le jambon en dés et les petits pois 3 minutes",
+      "Ajouter le riz, les œufs, la sauce soja et l'huile de sésame",
+      "Bien mélanger 2 minutes et servir"
+    ]
+  },
+  {
+    "id": "R029",
+    "name": "Energy balls dattes-amandes-cacao",
+    "emoji": "⚡",
+    "type": "collation",
+    "fast": false,
+    "kcal": 180,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Dattes dénoyautées",
+        "qty": "100 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Amandes",
+        "qty": "60 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Flocons d'avoine",
+        "qty": "30 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Cacao non sucré",
+        "qty": "1 c. à soupe",
+        "cat": "épices"
+      },
+      {
+        "name": "Noix de coco râpée",
+        "qty": "20 g",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Mixer les dattes, amandes, flocons et cacao",
+      "Former 8 boules avec les mains",
+      "Rouler chaque boule dans la noix de coco râpée",
+      "Réserver au frigo 30 min avant dégustation"
+    ]
+  },
+  {
+    "id": "R030",
+    "name": "Pudding chia, lait d'amande et fruits",
+    "emoji": "🧋",
+    "type": "collation",
+    "fast": false,
+    "kcal": 250,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Graines de chia",
+        "qty": "3 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "200 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Sirop d'érable",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Mangue",
+        "qty": "80 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Vanille",
+        "qty": "1/2 c. à café",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Mélanger chia, lait d'amande, sirop et vanille dans un bocal",
+      "Laisser au frigo minimum 2 heures (idéalement une nuit)",
+      "Au moment de servir, ajouter la mangue en cubes"
+    ]
+  },
+  {
+    "id": "R031",
+    "name": "Muffins protéinés banane-avoine",
+    "emoji": "🧁",
+    "type": "collation",
+    "fast": false,
+    "kcal": 190,
+    "prepTime": "25 min",
+    "ingredients": [
+      {
+        "name": "Banane mûre",
+        "qty": "2",
+        "cat": "fruits"
+      },
+      {
+        "name": "Œufs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Flocons d'avoine",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Whey vanille",
+        "qty": "30 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Levure chimique",
+        "qty": "1/2 sachet",
+        "cat": "épices"
+      },
+      {
+        "name": "Pépites de chocolat noir",
+        "qty": "30 g",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Mixer les bananes avec les œufs",
+      "Ajouter les flocons, la whey, la levure et les pépites",
+      "Verser dans 8 moules à muffins",
+      "Cuire 18 minutes à 180°C"
+    ]
+  },
+  {
+    "id": "R032",
+    "name": "Houmous maison et bâtonnets de légumes",
+    "emoji": "🥕",
+    "type": "collation",
+    "fast": false,
+    "kcal": 220,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Pois chiches cuits",
+        "qty": "200 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Tahini",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Citron",
+        "qty": "1",
+        "cat": "condiments"
+      },
+      {
+        "name": "Ail",
+        "qty": "1 gousse",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Carotte, concombre, céleri",
+        "qty": "200 g",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Mixer pois chiches, tahini, jus de citron, ail et huile",
+      "Ajouter un peu d'eau si nécessaire pour la texture",
+      "Couper les légumes en bâtonnets",
+      "Servir le houmous avec les crudités"
+    ]
+  },
+  {
+    "id": "R033",
+    "name": "Crêpes protéinées",
+    "emoji": "🥞",
+    "type": "collation",
+    "fast": false,
+    "kcal": 280,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Œuf",
+        "qty": "1",
+        "cat": "protéines"
+      },
+      {
+        "name": "Blancs d'œuf",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Flocons d'avoine moulus",
+        "qty": "40 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Whey vanille",
+        "qty": "20 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Lait d'amande",
+        "qty": "100 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Mixer tous les ingrédients pour obtenir une pâte lisse",
+      "Cuire 3 crêpes dans une poêle antiadhésive 1 min par face",
+      "Garnir au choix de fruits frais ou de pâte à tartiner light"
+    ]
+  },
+  {
+    "id": "R034",
+    "name": "Cookies avoine-banane sans sucre",
+    "emoji": "🍪",
+    "type": "collation",
+    "fast": false,
+    "kcal": 130,
+    "prepTime": "20 min",
+    "ingredients": [
+      {
+        "name": "Banane mûre",
+        "qty": "2",
+        "cat": "fruits"
+      },
+      {
+        "name": "Flocons d'avoine",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Pépites de chocolat noir",
+        "qty": "40 g",
+        "cat": "épices"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 c. à café",
+        "cat": "épices"
+      },
+      {
+        "name": "Beurre de cacahuète",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Écraser les bananes à la fourchette",
+      "Mélanger avec les flocons, le beurre de cacahuète, la cannelle et les pépites",
+      "Former 10 cookies sur une plaque",
+      "Cuire 15 minutes à 180°C"
+    ]
+  },
+  {
+    "id": "R035",
+    "name": "Yaourt grec, granola et fruits rouges",
+    "emoji": "🍓",
+    "type": "collation",
+    "fast": false,
+    "kcal": 290,
+    "prepTime": "5 min",
+    "ingredients": [
+      {
+        "name": "Yaourt grec",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Granola",
+        "qty": "30 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Fruits rouges",
+        "qty": "80 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Graines de courge",
+        "qty": "1 c. à café",
+        "cat": "oléagineux"
+      }
+    ],
+    "steps": [
+      "Verser le yaourt dans un bol",
+      "Ajouter granola, fruits rouges et graines",
+      "Arroser de miel"
+    ]
+  },
+  {
+    "id": "R036",
+    "name": "Shake protéiné chocolat-banane",
+    "emoji": "🥤",
+    "type": "collation",
+    "fast": true,
+    "kcal": 280,
+    "prepTime": "3 min",
+    "ingredients": [
+      {
+        "name": "Whey chocolat",
+        "qty": "30 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Banane",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Lait demi-écrémé",
+        "qty": "250 ml",
+        "cat": "protéines"
+      },
+      {
+        "name": "Glaçons",
+        "qty": "3",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Mettre tous les ingrédients dans un blender",
+      "Mixer 30 secondes",
+      "Servir aussitôt"
+    ]
+  },
+  {
+    "id": "R037",
+    "name": "Pomme et beurre d'amande",
+    "emoji": "🍎",
+    "type": "collation",
+    "fast": true,
+    "kcal": 220,
+    "prepTime": "2 min",
+    "ingredients": [
+      {
+        "name": "Pomme",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Beurre d'amande",
+        "qty": "1 c. à soupe",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Couper la pomme en quartiers",
+      "Saupoudrer de cannelle",
+      "Tremper dans le beurre d'amande"
+    ]
+  },
+  {
+    "id": "R038",
+    "name": "Mix de fruits secs et oléagineux",
+    "emoji": "🥜",
+    "type": "collation",
+    "fast": true,
+    "kcal": 260,
+    "prepTime": "1 min",
+    "ingredients": [
+      {
+        "name": "Amandes",
+        "qty": "15 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Noix de cajou",
+        "qty": "15 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Noisettes",
+        "qty": "10 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Cranberries séchées",
+        "qty": "15 g",
+        "cat": "fruits"
+      },
+      {
+        "name": "Raisins secs",
+        "qty": "10 g",
+        "cat": "fruits"
+      }
+    ],
+    "steps": [
+      "Mélanger tous les fruits secs et oléagineux",
+      "Verser dans un petit contenant et déguster"
+    ]
+  },
+  {
+    "id": "R039",
+    "name": "Tartine pain complet et fromage frais",
+    "emoji": "🍞",
+    "type": "collation",
+    "fast": true,
+    "kcal": 240,
+    "prepTime": "3 min",
+    "ingredients": [
+      {
+        "name": "Pain complet",
+        "qty": "2 tranches",
+        "cat": "féculents"
+      },
+      {
+        "name": "Fromage frais light",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Concombre",
+        "qty": "5 rondelles",
+        "cat": "légumes"
+      },
+      {
+        "name": "Aneth",
+        "qty": "1 pincée",
+        "cat": "épices"
+      },
+      {
+        "name": "Poivre",
+        "qty": "selon goût",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Toaster les tranches de pain",
+      "Étaler le fromage frais",
+      "Déposer les rondelles de concombre, l'aneth et le poivre"
+    ]
+  },
+  {
+    "id": "R040",
+    "name": "Skyr, miel et noix",
+    "emoji": "🫙",
+    "type": "collation",
+    "fast": true,
+    "kcal": 230,
+    "prepTime": "2 min",
+    "ingredients": [
+      {
+        "name": "Skyr nature",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à café",
+        "cat": "condiments"
+      },
+      {
+        "name": "Noix",
+        "qty": "15 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Cannelle",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Verser le skyr dans un bol",
+      "Ajouter les noix concassées et la cannelle",
+      "Arroser de miel"
+    ]
+  },
+  {
+    "id": "R041",
+    "name": "Œufs durs et tomates cerises",
+    "emoji": "🥚",
+    "type": "collation",
+    "fast": true,
+    "kcal": 200,
+    "prepTime": "5 min",
+    "ingredients": [
+      {
+        "name": "Œufs durs",
+        "qty": "2",
+        "cat": "protéines"
+      },
+      {
+        "name": "Tomates cerises",
+        "qty": "100 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Sel, poivre",
+        "qty": "selon goût",
+        "cat": "épices"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      }
+    ],
+    "steps": [
+      "Écaler les œufs durs",
+      "Couper les tomates cerises en deux",
+      "Assaisonner d'huile d'olive, sel et poivre"
+    ]
+  },
+  {
+    "id": "R042",
+    "name": "Banane et chocolat noir",
+    "emoji": "🍫",
+    "type": "collation",
+    "fast": true,
+    "kcal": 180,
+    "prepTime": "1 min",
+    "ingredients": [
+      {
+        "name": "Banane",
+        "qty": "1",
+        "cat": "fruits"
+      },
+      {
+        "name": "Chocolat noir 70%",
+        "qty": "20 g",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Éplucher la banane",
+      "Déguster avec 2 carrés de chocolat noir"
+    ]
+  },
+  {
+    "id": "R043",
+    "name": "Filet de poulet, patate douce et brocolis",
+    "emoji": "🍗",
+    "type": "diner",
+    "fast": false,
+    "kcal": 520,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Blanc de poulet",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Patate douce",
+        "qty": "200 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Brocolis",
+        "qty": "200 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Paprika fumé",
+        "qty": "1 c. à café",
+        "cat": "épices"
+      },
+      {
+        "name": "Ail",
+        "qty": "1 gousse",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Couper la patate douce en cubes, enfourner 25 min à 200°C avec huile et paprika",
+      "Cuire les brocolis à la vapeur 6 minutes",
+      "Saisir le poulet à la poêle 6 min par face avec l'ail",
+      "Servir le poulet avec patate douce et brocolis"
+    ]
+  },
+  {
+    "id": "R044",
+    "name": "Saumon mariné teriyaki et riz vapeur",
+    "emoji": "🍣",
+    "type": "diner",
+    "fast": false,
+    "kcal": 580,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Pavé de saumon",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Sauce soja",
+        "qty": "2 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Miel",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Gingembre frais",
+        "qty": "1 cm",
+        "cat": "épices"
+      },
+      {
+        "name": "Riz basmati cuit",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Edamame",
+        "qty": "100 g",
+        "cat": "protéines"
+      }
+    ],
+    "steps": [
+      "Préparer la marinade : sauce soja, miel, gingembre râpé",
+      "Mariner le saumon 15 minutes",
+      "Cuire le saumon à la poêle 4 min par face en arrosant de marinade",
+      "Servir avec le riz et les edamame cuits 4 min à l'eau salée"
+    ]
+  },
+  {
+    "id": "R045",
+    "name": "Chili sin carne aux haricots rouges",
+    "emoji": "🫘",
+    "type": "diner",
+    "fast": false,
+    "kcal": 480,
+    "prepTime": "35 min",
+    "ingredients": [
+      {
+        "name": "Haricots rouges cuits",
+        "qty": "200 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Tomates concassées",
+        "qty": "300 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Oignon",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Poivron rouge",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Maïs",
+        "qty": "80 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Cumin et paprika",
+        "qty": "1 c. à café chacun",
+        "cat": "épices"
+      },
+      {
+        "name": "Riz complet cuit",
+        "qty": "100 g",
+        "cat": "féculents"
+      }
+    ],
+    "steps": [
+      "Faire revenir l'oignon et le poivron 5 min",
+      "Ajouter haricots, tomates, maïs et épices",
+      "Mijoter 25 minutes en remuant régulièrement",
+      "Servir sur le lit de riz complet"
+    ]
+  },
+  {
+    "id": "R046",
+    "name": "Cabillaud en papillote, courgettes et riz",
+    "emoji": "🐟",
+    "type": "diner",
+    "fast": false,
+    "kcal": 460,
+    "prepTime": "25 min",
+    "ingredients": [
+      {
+        "name": "Pavé de cabillaud",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Courgette",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Citron",
+        "qty": "1/2",
+        "cat": "condiments"
+      },
+      {
+        "name": "Riz basmati cuit",
+        "qty": "120 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Thym",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Disposer cabillaud, courgette et tomate en rondelles dans une papillote",
+      "Arroser d'huile d'olive, citron et thym",
+      "Cuire 18 minutes à 200°C",
+      "Servir avec le riz"
+    ]
+  },
+  {
+    "id": "R047",
+    "name": "Soupe lentilles corail, lait de coco et épinards",
+    "emoji": "🍲",
+    "type": "diner",
+    "fast": false,
+    "kcal": 470,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Lentilles corail",
+        "qty": "100 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Lait de coco light",
+        "qty": "200 ml",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Bouillon de légumes",
+        "qty": "400 ml",
+        "cat": "condiments"
+      },
+      {
+        "name": "Pousses d'épinards",
+        "qty": "100 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Oignon",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Curry en poudre",
+        "qty": "1 c. à soupe",
+        "cat": "épices"
+      },
+      {
+        "name": "Gingembre frais",
+        "qty": "1 cm",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Faire revenir l'oignon, le gingembre et le curry 3 minutes",
+      "Ajouter les lentilles, le bouillon et le lait de coco",
+      "Cuire 20 minutes",
+      "Ajouter les épinards, mixer ou non, servir"
+    ]
+  },
+  {
+    "id": "R048",
+    "name": "Boulettes de dinde, sauce tomate et pâtes",
+    "emoji": "🍝",
+    "type": "diner",
+    "fast": false,
+    "kcal": 590,
+    "prepTime": "30 min",
+    "ingredients": [
+      {
+        "name": "Dinde hachée",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Œuf",
+        "qty": "1",
+        "cat": "protéines"
+      },
+      {
+        "name": "Chapelure",
+        "qty": "20 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Tomates concassées",
+        "qty": "250 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Pâtes complètes",
+        "qty": "80 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Ail et oignon",
+        "qty": "1 gousse + 1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Basilic",
+        "qty": "5 feuilles",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Mélanger dinde, œuf, chapelure et oignon, former des boulettes",
+      "Faire revenir les boulettes 8 min",
+      "Ajouter ail et tomates concassées, mijoter 15 min",
+      "Servir avec les pâtes cuites al dente et le basilic"
+    ]
+  },
+  {
+    "id": "R049",
+    "name": "Tofu mariné, légumes sautés au sésame",
+    "emoji": "🥢",
+    "type": "diner",
+    "fast": false,
+    "kcal": 510,
+    "prepTime": "25 min",
+    "ingredients": [
+      {
+        "name": "Tofu ferme",
+        "qty": "180 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Sauce soja",
+        "qty": "2 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Brocolis",
+        "qty": "150 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Carotte",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Poivron",
+        "qty": "1/2",
+        "cat": "légumes"
+      },
+      {
+        "name": "Riz basmati cuit",
+        "qty": "100 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Huile de sésame",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      }
+    ],
+    "steps": [
+      "Couper le tofu en cubes et le mariner 10 min dans la sauce soja",
+      "Faire sauter le tofu 5 min jusqu'à dorure",
+      "Ajouter brocolis, carotte et poivron émincés, cuire 8 min au wok",
+      "Servir avec le riz, arroser d'huile de sésame"
+    ]
+  },
+  {
+    "id": "R050",
+    "name": "Pâtes complètes au pesto et tomates cerises",
+    "emoji": "🍝",
+    "type": "diner",
+    "fast": true,
+    "kcal": 540,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Pâtes complètes",
+        "qty": "100 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Pesto vert",
+        "qty": "2 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Tomates cerises",
+        "qty": "150 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Mozzarella light",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pignons",
+        "qty": "10 g",
+        "cat": "oléagineux"
+      },
+      {
+        "name": "Roquette",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Cuire les pâtes selon les instructions",
+      "Couper les tomates cerises et la mozzarella",
+      "Mélanger les pâtes avec le pesto et les tomates",
+      "Ajouter mozzarella, pignons et roquette au moment de servir"
+    ]
+  },
+  {
+    "id": "R051",
+    "name": "Émincé de poulet sauté aux légumes",
+    "emoji": "🥘",
+    "type": "diner",
+    "fast": true,
+    "kcal": 480,
+    "prepTime": "18 min",
+    "ingredients": [
+      {
+        "name": "Blanc de poulet",
+        "qty": "150 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Mélange wok surgelé",
+        "qty": "250 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Sauce soja",
+        "qty": "2 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Riz basmati cuit",
+        "qty": "100 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Huile de sésame",
+        "qty": "1 c. à café",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Ail",
+        "qty": "1 gousse",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Émincer le poulet et le faire sauter 6 minutes avec l'ail",
+      "Ajouter le mélange wok, cuire 6 minutes à feu vif",
+      "Verser la sauce soja et l'huile de sésame",
+      "Servir avec le riz"
+    ]
+  },
+  {
+    "id": "R052",
+    "name": "Omelette aux champignons et fromage",
+    "emoji": "🍳",
+    "type": "diner",
+    "fast": true,
+    "kcal": 440,
+    "prepTime": "12 min",
+    "ingredients": [
+      {
+        "name": "Œufs",
+        "qty": "3",
+        "cat": "protéines"
+      },
+      {
+        "name": "Champignons de Paris",
+        "qty": "150 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Fromage râpé",
+        "qty": "30 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pain complet",
+        "qty": "1 tranche",
+        "cat": "féculents"
+      },
+      {
+        "name": "Huile d'olive",
+        "qty": "1 c. à soupe",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Persil",
+        "qty": "1 pincée",
+        "cat": "épices"
+      }
+    ],
+    "steps": [
+      "Faire revenir les champignons émincés 5 min",
+      "Battre les œufs, verser sur les champignons",
+      "Cuire 4 min, ajouter le fromage et plier",
+      "Servir avec la tranche de pain et le persil"
+    ]
+  },
+  {
+    "id": "R053",
+    "name": "Salade complète poulet-quinoa-avocat",
+    "emoji": "🥗",
+    "type": "diner",
+    "fast": true,
+    "kcal": 530,
+    "prepTime": "10 min",
+    "ingredients": [
+      {
+        "name": "Quinoa cuit (sachet prêt)",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Blanc de poulet cuit",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Avocat",
+        "qty": "1/2",
+        "cat": "matières grasses"
+      },
+      {
+        "name": "Tomate",
+        "qty": "1",
+        "cat": "légumes"
+      },
+      {
+        "name": "Mâche",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Huile d'olive et citron",
+        "qty": "1 c. à soupe + 1/2",
+        "cat": "matières grasses"
+      }
+    ],
+    "steps": [
+      "Disposer quinoa, poulet émincé, avocat et tomate dans un saladier",
+      "Ajouter la mâche",
+      "Assaisonner d'huile d'olive et de citron"
+    ]
+  },
+  {
+    "id": "R054",
+    "name": "Croque-madame complet et salade",
+    "emoji": "🥪",
+    "type": "diner",
+    "fast": true,
+    "kcal": 560,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Pain complet",
+        "qty": "2 tranches",
+        "cat": "féculents"
+      },
+      {
+        "name": "Jambon blanc",
+        "qty": "60 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Emmental râpé",
+        "qty": "40 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Œuf",
+        "qty": "1",
+        "cat": "protéines"
+      },
+      {
+        "name": "Salade verte",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Vinaigrette légère",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      }
+    ],
+    "steps": [
+      "Garnir une tranche de pain de jambon et de fromage",
+      "Couvrir avec l'autre tranche, passer au four 8 min à 200°C",
+      "Cuire un œuf au plat à la poêle, le déposer sur le croque",
+      "Servir avec la salade vinaigrée"
+    ]
+  },
+  {
+    "id": "R055",
+    "name": "Soupe miso, nouilles et œuf mollet",
+    "emoji": "🍜",
+    "type": "diner",
+    "fast": true,
+    "kcal": 460,
+    "prepTime": "15 min",
+    "ingredients": [
+      {
+        "name": "Pâte de miso",
+        "qty": "1 c. à soupe",
+        "cat": "condiments"
+      },
+      {
+        "name": "Bouillon",
+        "qty": "400 ml",
+        "cat": "condiments"
+      },
+      {
+        "name": "Nouilles soba",
+        "qty": "70 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Œuf",
+        "qty": "1",
+        "cat": "protéines"
+      },
+      {
+        "name": "Pousses d'épinards",
+        "qty": "50 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Champignons shiitake",
+        "qty": "60 g",
+        "cat": "légumes"
+      },
+      {
+        "name": "Oignon vert",
+        "qty": "1",
+        "cat": "légumes"
+      }
+    ],
+    "steps": [
+      "Cuire les nouilles selon les instructions",
+      "Cuire l'œuf 6 min puis l'écaler",
+      "Délayer le miso dans le bouillon chaud, ajouter shiitakes et épinards",
+      "Verser sur les nouilles, déposer l'œuf coupé en deux et l'oignon vert"
+    ]
+  },
+  {
+    "id": "R056",
+    "name": "Galettes de thon, salade et patate douce",
+    "emoji": "🥗",
+    "type": "diner",
+    "fast": true,
+    "kcal": 510,
+    "prepTime": "18 min",
+    "ingredients": [
+      {
+        "name": "Thon au naturel",
+        "qty": "120 g",
+        "cat": "protéines"
+      },
+      {
+        "name": "Œuf",
+        "qty": "1",
+        "cat": "protéines"
+      },
+      {
+        "name": "Chapelure",
+        "qty": "20 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Patate douce",
+        "qty": "150 g",
+        "cat": "féculents"
+      },
+      {
+        "name": "Salade verte",
+        "qty": "1 poignée",
+        "cat": "légumes"
+      },
+      {
+        "name": "Yaourt grec et citron",
+        "qty": "2 c. à soupe + 1/2",
+        "cat": "protéines"
+      }
+    ],
+    "steps": [
+      "Cuire la patate douce en cubes au micro-ondes 7 minutes",
+      "Mélanger thon, œuf et chapelure, former 3 galettes",
+      "Cuire les galettes 3 min par face à la poêle",
+      "Servir avec la salade et le yaourt-citron en sauce"
+    ]
+  }
 ];
 
 // ── STATE ──
@@ -5331,10 +7895,7 @@ function autoValidateRestDays() {
     const dayHome = getProgDayByScheduleId(sessionId, 'home');
     const day = dayGym || dayHome;
     if (day && day.rest === true) {
-      const exercises = day.blocks || day.exercises || [];
-      if (exercises.length === 0) {
-        state.weekLog[key] = 'rest_auto';
-      }
+      state.weekLog[key] = 'rest_auto';
     }
   }
   saveState();
@@ -5368,22 +7929,35 @@ function selectProfile(el) {
   selectedProfile = el.dataset.profile;
 }
 
-function openPDMModal(e) {
-  e.stopPropagation();
-  // Highlight the PDM card as selected
+function cancelPDMModal() {
+  document.getElementById('pdm-choice-modal').classList.remove('open');
+  selectedProfile = null;
+  modalSelectedProfile = null;
+  // Désélectionne dans le modal de changement de profil
+  document.querySelectorAll('.modal-profile').forEach(p => p.classList.remove('selected'));
+  const currentCard = document.querySelector(`.modal-profile[data-profile="${state.profile}"]`);
+  if (currentCard) {
+    currentCard.classList.add('selected');
+    modalSelectedProfile = state.profile;
+  }
+  // Dans l'onboarding : garde PDM sélectionné visuellement pour que Démarrer rouvre le modal
+  const pdmObCard = document.querySelector('.ob-profile[data-profile="pdm"]');
+  if (pdmObCard) pdmObCard.classList.add('selected');
+}
+
+function openPDMModal(e, el) {
+  if (e) e.stopPropagation();
   document.querySelectorAll('.ob-profile').forEach(p => p.classList.remove('selected'));
-  e.currentTarget.classList.add('selected');
-  // Pre-select pdm débutant by default so the button always works
-  selectedProfile = 'pdm';
-  // Reset card highlights
-  document.getElementById('pdm-card-debut').style.borderColor = 'var(--accent)';
+  const card = el || (e && e.currentTarget) || (e && e.target);
+  if (card) card.classList.add('selected');
+  document.getElementById('pdm-card-debut').style.borderColor = 'var(--border)';
   document.getElementById('pdm-card-inter').style.borderColor = 'var(--border)';
   document.getElementById('pdm-choice-modal').classList.add('open');
 }
 
 function selectPDMVariant(variant) {
   selectedProfile = variant;
-  // Highlight selected card
+  modalSelectedProfile = variant;
   const isInter = variant === 'pdm_inter';
   document.getElementById('pdm-card-debut').style.borderColor = isInter ? 'var(--border)' : 'var(--accent)';
   document.getElementById('pdm-card-inter').style.borderColor = isInter ? 'var(--accent)' : 'var(--border)';
@@ -5394,15 +7968,7 @@ function selectPDMVariant(variant) {
 }
 
 function finishOnboarding() {
-  if (!selectedProfile) {
-    // Check if PDM card is visually selected but no variant confirmed yet
-    const pdmCard = document.querySelector('.ob-profile[data-profile="pdm"]');
-    if (pdmCard && pdmCard.classList.contains('selected')) {
-      document.getElementById('pdm-choice-modal').classList.add('open');
-      return;
-    }
-    showToast('Choisis un profil !'); return;
-  }
+  if (!selectedProfile) { showToast('Choisis un profil !'); return; }
   const name = document.getElementById('ob-name').value.trim() || '';
   const poids = document.getElementById('ob-poids').value || '—';
   const taille = document.getElementById('ob-taille').value || '—';
@@ -6810,7 +9376,7 @@ function renderRecipes(filter) {
   const typeLabels = {'petit-dej':'Petit-déj','dejeuner':'Déjeuner','collation':'Collation','diner':'Dîner'};
   document.getElementById('recipes-list').innerHTML = filtered.map(r => `
     <div class="recipe-card" id="recipe-${r.id}">
-      <div class="recipe-card-header" onclick="toggleRecipe(${r.id})">
+      <div class="recipe-card-header" onclick="toggleRecipe('${r.id}')">
         <div class="recipe-emoji">${r.emoji}</div>
         <div class="recipe-info">
           <div class="recipe-name">${r.name}</div>
@@ -6830,7 +9396,7 @@ function renderRecipes(filter) {
           <h4>Préparation</h4>
           ${r.steps.map((s,i)=>`<div class="step-row"><span class="step-num">${i+1}</span><span>${s}</span></div>`).join('')}
         </div>
-        <button class="add-to-cart-btn" onclick="addToCart(${r.id})">🛒 Ajouter à la liste de courses</button>
+        <button class="add-to-cart-btn" onclick="addToCart('${r.id}')">🛒 Ajouter à la liste de courses</button>
       </div>
     </div>`).join('');
 }
@@ -7089,6 +9655,13 @@ function selectModalProfile(el) {
   document.querySelectorAll('.modal-profile').forEach(p => p.classList.remove('selected'));
   el.classList.add('selected');
   modalSelectedProfile = el.dataset.profile;
+  // Si PDM → ouvrir le choix débutant/intermédiaire
+  if (el.dataset.profile === 'pdm') {
+    document.getElementById('pdm-card-debut').style.borderColor = 'var(--accent)';
+    document.getElementById('pdm-card-inter').style.borderColor = 'var(--border)';
+    modalSelectedProfile = 'pdm';
+    document.getElementById('pdm-choice-modal').classList.add('open');
+  }
 }
 
 function closeChangeProfile(e) {
@@ -7099,6 +9672,14 @@ function closeChangeProfile(e) {
 
 function confirmChangeProfile() {
   if (!modalSelectedProfile) return;
+  // Si PDM sélectionné sans variante confirmée → ouvrir le modal
+  if (modalSelectedProfile === 'pdm' || modalSelectedProfile === 'pdm_inter') {
+    const pdmCard = document.querySelector('.modal-profile[data-profile="pdm"]');
+    if (pdmCard && pdmCard.classList.contains('selected') && !selectedProfile) {
+      document.getElementById('pdm-choice-modal').classList.add('open');
+      return;
+    }
+  }
   state.profile = modalSelectedProfile;
   state.currentSessionIdx = 0;
   state.currentLevel = 0;
@@ -7486,7 +10067,7 @@ function cancelTimerSW() {
       </div>
     </div>
     
-    <button class="modal-btn" onclick="document.getElementById('pdm-choice-modal').classList.remove('open')">Annuler</button>
+    <button class="modal-btn" onclick="cancelPDMModal()">Annuler</button>
   </div>
 </div>
 </body>
