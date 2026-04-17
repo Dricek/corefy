@@ -1,7 +1,13 @@
-const CACHE_NAME = 'corefy-v3';
+const CACHE_NAME = 'corefy-v4';
 const ASSETS = [
   '/corefy/',
   '/corefy/index.html',
+  '/corefy/manifest.json',
+  '/corefy/icon-192.png',
+  '/corefy/icon-512.png',
+  '/corefy/icon-maskable-512.png',
+  '/corefy/apple-touch-icon.png',
+  '/corefy/apple-touch-icon-192.png',
   'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 
