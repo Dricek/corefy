@@ -56,7 +56,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 }
 #onboarding.show { opacity: 1; pointer-events: all; }
 .ob-title { font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1.3; margin-bottom: 8px; }
-.ob-sub { font-size: 13px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+.ob-sub { font-size: 14px; color: var(--text); margin-bottom: 40px; line-height: 1.6; }
 .ob-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
 .ob-profiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; align-items: stretch; }
 .ob-profile { background: var(--surface); border: 2px solid var(--border); border-radius: 16px; padding: 16px 14px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; }
@@ -519,8 +519,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <!-- ONBOARDING -->
 <div id="onboarding">
-  <div class="ob-title">Tu sais ce que tu veux changer. On s'occupe du reste.</div>
-  <p class="ob-sub">Choisis et démarre.</p>
+  <div class="ob-title">Commence. Cette fois, tu tiens.</div>
+  <p class="ob-sub">👉 Choisis ton programme. On te guide.</p>
 
   <div class="ob-label">Ton profil</div>
   <div class="ob-profiles" id="ob-profiles-container">
@@ -898,7 +898,7 @@ const PROFILES = {
     name: 'SKINNY', 
     goal: '5 - TONIFICATION', 
     desc: 'Mince mais pas assez tonique ? Raffermis-toi sans prendre trop de volume !', 
-    icon: '🌟', 
+    icon: '🪶', 
     color: '#4fc3f7' 
   },
   sedentaire: { 
@@ -10994,34 +10994,15 @@ function startExtraWorkout(sessionId, location, dayOffset) {
   document.getElementById('workout-progress-fill').style.width = '0%';
   document.getElementById('workout-progress-text').textContent = `0 / ${sessionData.exercises.length} exercices`;
   
-  // Rendre les exercices via la fonction existante
+  // Rendre les exercices via buildExBlock pour avoir tous les détails
   const container = document.getElementById('workout-exercises');
   container.innerHTML = ''; // Vider d'abord
   
+  const weekIdx = Math.max(0, getProgWeek() - 1);
+  const isSF = prog.useSFProgram;
+  
   sessionData.exercises.forEach((ex, i) => {
-    const div = document.createElement('div');
-    div.className = 'ex-block';
-    div.id = `ex-${i}`;
-    div.innerHTML = `
-      <div class="ex-block-header" onclick="toggleEx(${i})">
-        <div class="ex-check" id="check-${i}"></div>
-        <div class="ex-block-name">${ex.name}</div>
-        <div class="ex-chevron">▾</div>
-      </div>
-      <div class="ex-detail">
-        <div class="ex-pills">
-          ${ex.sets ? `<span class="ex-pill">${ex.sets}</span>` : ''}
-          ${ex.detail ? `<span class="ex-pill">${ex.detail}</span>` : ''}
-          ${ex.rest > 0 ? `<span class="ex-pill">Repos : ${ex.rest}s</span>` : ''}
-        </div>
-        ${ex.focus ? `<div class="ex-focus">${ex.focus}</div>` : ''}
-        <div class="action-row" style="margin-top:10px;flex-wrap:wrap">
-          ${ex.rest > 0 ? `<button class="rest-timer-btn" onclick="openTimer(${ex.rest})">⏱ Repos</button>` : ''}
-          <button class="done-btn" onclick="markDoneCustom(${i}, ${sessionData.exercises.length})">✓ Fait</button>
-        </div>
-      </div>
-    `;
-    container.appendChild(div);
+    container.appendChild(buildExBlock(ex, i, weekIdx, isSF, false));
   });
 }
 
