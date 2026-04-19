@@ -538,6 +538,16 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
       <input type="number" id="user-age" placeholder="25">
     </div>
   </div>
+  <div class="ob-input-row">
+    <div class="ob-input-group">
+      <label for="user-weight">Poids (kg)</label>
+      <input type="number" id="user-weight" placeholder="70">
+    </div>
+    <div class="ob-input-group">
+      <label for="user-height">Taille (cm)</label>
+      <input type="number" id="user-height" placeholder="175">
+    </div>
+  </div>
   <button class="ob-btn" onclick="finishOnboarding()">Démarrer mon programme →</button>
 </div>
 
@@ -859,7 +869,7 @@ const PROFILES = {
   skinny_fat: { 
     name: 'SKINNY FAT', 
     goal: '1 - RECOMPOSITION', 
-    desc: 'Physique mince mais du ventre et des poignées d\'amour ? Ce programme est fait pour toi.', 
+    desc: 'Physique mince mais du ventre et des poignées d\'amour ? On y va !', 
     icon: '✨', 
     color: '#00f5a0' 
   },
@@ -8148,10 +8158,11 @@ function selectPDMVariant(variant) {
 
 function finishOnboarding() {
   if (!selectedProfile) { showToast('Choisis un profil !'); return; }
-  const name = document.getElementById('ob-name').value.trim() || '';
-  const poids = document.getElementById('ob-poids').value || '—';
-  const taille = document.getElementById('ob-taille').value || '—';
-  state.user = { name, poids, taille };
+  const name = document.getElementById('user-name').value.trim() || '';
+  const age = document.getElementById('user-age').value || '—';
+  const poids = document.getElementById('user-weight').value || '—';
+  const taille = document.getElementById('user-height').value || '—';
+  state.user = { name, age, poids, taille };
   state.profile = selectedProfile;
   state.streak = 0; state.totalSessions = 0; state.weekLog = {};
   state.cart = []; state.currentSessionIdx = 0; state.history = [];
