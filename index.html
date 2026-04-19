@@ -523,120 +523,21 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   <p class="ob-sub">Choisis et démarre.</p>
 
   <div class="ob-label">Ton profil</div>
-  <div class="ob-profiles">
-    <div class="ob-profile" data-profile="skinny_fat" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Recomposition</div>
-        <div class="ob-profile-icon">✨</div>
-      </div>
-      <div class="ob-profile-desc">Pas gros, mais du ventre et des poignées d'amour ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · 6j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Rééquilibrage · 6j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Définition · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Performance · 6j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="surpoids" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Perte de poids</div>
-        <div class="ob-profile-icon">🔥</div>
-      </div>
-      <div class="ob-profile-desc">Envie de perdre du gras et retrouver de l'énergie au quotidien ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Démarrage · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Progression · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Intensification · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Consolidation · 6j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="pdm" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Prise de masse · Débutant</div>
-        <div class="ob-profile-icon">💪</div>
-      </div>
-      <div class="ob-profile-desc">Envie de prendre du muscle et gagner en volume ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Full body ×3 · 3j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Upper/Lower · 4j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">PPL + U/L · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">PPL ×2 · 6j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="pdm_inter" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Prise de masse · Inter.</div>
-        <div class="ob-profile-icon">🏋️</div>
-      </div>
-      <div class="ob-profile-desc">Envie de prendre du muscle et gagner en volume ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Upper/Lower · 4j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">PPL + U/L · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">PPL intensité · 5j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">PPL ×2 · 6j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="skinny" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Galbe</div>
-        <div class="ob-profile-icon">🪶</div>
-      </div>
-      <div class="ob-profile-desc">Silhouette fine et envie de te tonifier, te raffermir, transformer ce petit excès en muscle ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · Full body ×3 · 3j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Galbe · Lower/Upper ×2 · 4j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Définition · Lower/Upper + cardio · 4j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Performance · Push/Pull/Legs · 5j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="sedentaire" onclick="selectProfile(this)">      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Éveil</div>
-        <div class="ob-profile-icon">🛋️</div>
-      </div>
-      <div class="ob-profile-desc">Marre de rester statique ? Fais le premier pas vers ta remise en forme. Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Éveil · 2j/sem · 25–35 min</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Découverte · 3j/sem · 35–45 min</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Ancrage · 3j/sem · 40–50 min</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Transition · 4j/sem · 45–55 min</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
-    <div class="ob-profile" data-profile="senior" onclick="selectProfile(this)">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
-        <div class="ob-profile-name" style="margin-bottom:0">Longévité</div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="ob-profile-icon">⭐</div>
-          <span style="font-size:9px;font-weight:700;color:#BA7517;background:#FAEEDA;padding:3px 8px;border-radius:20px;white-space:nowrap">✦ Idéal 50 ans +</span>
-        </div>
-      </div>
-      <div class="ob-profile-desc">Envie de rester mobile, fort et actif le plus longtemps possible ? Ce programme est fait pour toi.</div>
-      <div style="margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
-        <span style="color:var(--text);font-weight:600">Niveau 1</span> · <span style="color:var(--muted)">Fondations · Full body doux · 3j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 2</span> · <span style="color:var(--muted)">Construction · Full body renforcé · 3j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 3</span> · <span style="color:var(--muted)">Consolidation · Full body + cardio · 4j/sem</span><br>
-        <span style="color:var(--text);font-weight:600">Niveau 4</span> · <span style="color:var(--muted)">Longévité · Upper/Lower + cardio · 4j/sem</span><br>
-        <span style="color:var(--accent);font-weight:600">6 semaines par niveau</span>
-      </div>
-    </div>
+  <div class="ob-profiles" id="ob-profiles-container">
+    <!-- Les profils seront générés dynamiquement par JavaScript -->
   </div>
 
   <div class="ob-label">Tes infos</div>
   <div class="ob-input-row">
     <div class="ob-input-group">
-      <label>Prénom</label>
-      <input type="text" id="ob-name" placeholder="Ton prénom">
+      <label for="user-name">Prénom</label>
+      <input type="text" id="user-name" placeholder="Alex">
     </div>
     <div class="ob-input-group">
-      <label>Poids (kg)</label>
-      <input type="number" id="ob-poids" placeholder="Ton poids">
-    </div>
-    <div class="ob-input-group">
-      <label>Taille (cm)</label>
-      <input type="number" id="ob-taille" placeholder="Ta taille">
+      <label for="user-age">Âge</label>
+      <input type="number" id="user-age" placeholder="25">
     </div>
   </div>
-
   <button class="ob-btn" onclick="finishOnboarding()">Démarrer mon programme →</button>
 </div>
 
@@ -665,6 +566,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
           <h3>Jours consécutifs 🔥</h3>
           <p id="streak-sub">Lance ta première séance !</p>
         </div>
+      </div>
+      <div style="background:rgba(0,245,160,0.1);border:1px solid rgba(0,245,160,0.3);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:11px;color:var(--text);line-height:1.5">
+        💡 <strong>Astuce :</strong> N'hésite pas à sauter le Niveau 1 s'il est trop facile pour toi. Tu peux changer de niveau avec N1/N2/N3/N4 en bas de page et changer de semaine dans "Note de la semaine".
       </div>
       <div class="week-band" id="week-band"></div>
       <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:-12px;margin-bottom:16px;letter-spacing:0.3px">Appuie sur un jour pour faire du rab · la séance ne sera pas comptabilisée</div>
@@ -952,13 +856,121 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 <script>
 // ── PROFILES DATA ──
 const PROFILES = {
-  skinny_fat: { name: 'Skinny Fat', goal: 'Sculpter', desc: 'Perdre le gras, révéler le muscle', icon: '🪶', color: '#00f5a0' },
-  surpoids:   { name: 'Surpoids',   goal: 'Transformer', desc: 'Perdre du poids, retrouver l\'énergie', icon: '🔥', color: '#ff6b35' },
-  skinny:     { name: 'Skinny',     goal: 'Tonifier', desc: 'Raffermir, gagner du galbe sans prendre de la masse', icon: '✨', color: '#4fc3f7' },
-  pdm:        { name: 'PDM Débutant',  goal: 'Construire', desc: 'Prendre du muscle, gagner en volume', icon: '💪', color: '#7b5ea7' },
-  pdm_inter:  { name: 'PDM Intermédiaire', goal: 'Construire', desc: 'Volume augmenté, spécialisation musculaire', icon: '🏋️', color: '#7b5ea7' },
-  sedentaire: { name: 'Sédentaire', goal: 'Démarrer', desc: 'Reprendre une activité, bouger sans se blesser', icon: '🛋️', color: '#ffd32a' },
-  senior:     { name: 'Sénior',     goal: 'Longévité', desc: 'Maintenir la mobilité, rester fort et actif', icon: '⭐', color: '#6fcf78' }
+  skinny_fat: { 
+    name: 'SKINNY FAT', 
+    goal: '1 - RECOMPOSITION', 
+    desc: 'Physique mince mais du ventre et des poignées d\'amour ? Ce programme est fait pour toi.', 
+    icon: '✨', 
+    color: '#00f5a0' 
+  },
+  surpoids: { 
+    name: 'SURPOIDS', 
+    goal: '2 - PERTE DE POIDS', 
+    desc: 'Envie de perdre du gras et retrouver de l\'énergie au quotidien ? Let\'s go !', 
+    icon: '🔥', 
+    color: '#ff6b35' 
+  },
+  pdm: { 
+    name: 'PDM DÉBUTANT', 
+    goal: '3 - PRISE DE MASSE', 
+    desc: 'Prendre du muscle et gagner en volume ? C\'est parti !', 
+    icon: '💪', 
+    color: '#7b5ea7' 
+  },
+  pdm_inter: { 
+    name: 'PDM INTERMÉDIAIRE', 
+    goal: '4 - PRISE DE MASSE', 
+    desc: 'Déjà entraîné ? Optimise tes gains et pousse tes limites !', 
+    icon: '🏋️', 
+    color: '#7b5ea7' 
+  },
+  skinny: { 
+    name: 'SKINNY', 
+    goal: '5 - TONIFICATION', 
+    desc: 'Mince mais pas assez tonique ? Raffermis-toi sans prendre trop de volume !', 
+    icon: '🌟', 
+    color: '#4fc3f7' 
+  },
+  sedentaire: { 
+    name: 'SÉDENTAIRE', 
+    goal: '6 - REMISE EN FORME', 
+    desc: 'Pas fait de sport depuis longtemps ? Reprends l\'activité en douceur !', 
+    icon: '🛋️', 
+    color: '#ffd32a' 
+  },
+  senior: { 
+    name: 'SENIOR', 
+    goal: '7 - LONGÉVITÉ', 
+    desc: 'Maintiens ta forme et ta mobilité pour vieillir en bonne santé !', 
+    icon: '⭐', 
+    color: '#6fcf78' 
+  }
+};
+
+const PROFILES_DETAILS = {
+  skinny_fat: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Fondations', frequency: '6j/sem' },
+      { name: 'Niveau 2', desc: 'Rééquilibrage', frequency: '6j/sem' },
+      { name: 'Niveau 3', desc: 'Définition', frequency: '5j/sem' },
+      { name: 'Niveau 4', desc: 'Performance', frequency: '6j/sem' }
+    ],
+    duration: '6 semaines par niveau'
+  },
+  surpoids: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Démarrage', frequency: '5j/sem' },
+      { name: 'Niveau 2', desc: 'Progression', frequency: '5j/sem' },
+      { name: 'Niveau 3', desc: 'Intensification', frequency: '5j/sem' },
+      { name: 'Niveau 4', desc: 'Consolidation', frequency: '6j/sem' }
+    ],
+    duration: '6 semaines par niveau'
+  },
+  pdm: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Full body ×3', frequency: '3j/sem' },
+      { name: 'Niveau 2', desc: 'Upper/Lower', frequency: '4j/sem' },
+      { name: 'Niveau 3', desc: 'PPL + U/L', frequency: '5j/sem' },
+      { name: 'Niveau 4', desc: 'PPL ×2', frequency: '6j/sem' }
+    ],
+    duration: '6 semaines par niveau'
+  },
+  pdm_inter: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Upper/Lower', frequency: '4j/sem' },
+      { name: 'Niveau 2', desc: 'PPL + U/L', frequency: '5j/sem' },
+      { name: 'Niveau 3', desc: 'PPL intensé', frequency: '5j/sem' },
+      { name: 'Niveau 4', desc: 'PPL ×2', frequency: '6j/sem' }
+    ],
+    duration: '8 semaines par niveau'
+  },
+  skinny: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Découverte', frequency: '3j/sem' },
+      { name: 'Niveau 2', desc: 'Progression', frequency: '4j/sem' },
+      { name: 'Niveau 3', desc: 'Raffermissement', frequency: '4j/sem' },
+      { name: 'Niveau 4', desc: 'Tonification', frequency: '5j/sem' }
+    ],
+    duration: '6 semaines par niveau'
+  },
+  sedentaire: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Démarrage', frequency: '2j/sem' },
+      { name: 'Niveau 2', desc: 'Progression', frequency: '3j/sem' },
+      { name: 'Niveau 3', desc: 'Régularité', frequency: '3j/sem' },
+      { name: 'Niveau 4', desc: 'Autonomie', frequency: '4j/sem' }
+    ],
+    duration: '6 semaines par niveau'
+  },
+  senior: {
+    levels: [
+      { name: 'Niveau 1', desc: 'Mobilité', frequency: '3j/sem' },
+      { name: 'Niveau 2', desc: 'Renforcement', frequency: '3j/sem' },
+      { name: 'Niveau 3', desc: 'Équilibre', frequency: '4j/sem' },
+      { name: 'Niveau 4', desc: 'Vitalité', frequency: '4j/sem' }
+    ],
+    duration: '8 semaines par niveau'
+  }
 };
 
 const LEVELS = ['Débutant', 'Intermédiaire', 'Avancé'];
@@ -8016,6 +8028,7 @@ function init() {
       document.getElementById('splash').classList.add('hide');
       setTimeout(() => {
         document.getElementById('splash').classList.add('hidden');
+        generateOnboardingProfiles(); // Générer les profils dynamiquement
         document.getElementById('onboarding').classList.add('show');
       }, 500);
     }, 1800);
@@ -8359,7 +8372,7 @@ function renderHome() {
     d.setDate(today.getDate() + mondayOffset + i);
     const key = d.toISOString().split('T')[0];
     const todayKey = today.toISOString().split('T')[0];
-    const isToday = key === todayKey;
+    const isCurrentDay = key === todayKey;
     const done = state.weekLog[key];
     const schedIdx = prog.useSFProgram ? i : (state.currentSessionIdx + i) % schedule.length;
     const sessionId = schedule[schedIdx];
@@ -8380,7 +8393,7 @@ function renderHome() {
     const clickable = true;
     weekBand.innerHTML += `<div class="week-day">
       <div class="week-day-label">${dayLabels[i]}</div>
-      <div class="week-day-bubble ${done ? 'done' : ''} ${isToday && !done ? 'today' : ''} ${isRest ? 'rest' : ''}"
+      <div class="week-day-bubble ${done ? 'done' : ''} ${isCurrentDay && !done ? 'today' : ''} ${isRest ? 'rest' : ''}"
         onclick="previewDaySession(${i})" style="cursor:pointer">
         ${done ? '✓' : `<span class="week-day-type">${shortName}</span>`}
       </div>
@@ -8445,7 +8458,7 @@ function renderHome() {
     const noteIdx = progWeek === 0 ? 0 : progWeek;
     const weekInfoArr = getProgWeekInfo();
     noteEl.innerHTML = `<span style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px">Note de la semaine</span>${weekInfoArr[noteIdx] || weekInfoArr[1] || ''}
-      <button onclick="openSFWeekSelector()" style="position:absolute;top:10px;right:12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:Inter,sans-serif">Changer</button>`;
+      <button onclick="openSFWeekSelector()" style="position:absolute;top:10px;right:12px;background:var(--accent);border:none;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:#0a0a0f;cursor:pointer;font-family:Inter,sans-serif;box-shadow:0 2px 4px rgba(0,245,160,0.3);transition:all 0.2s">Changer</button>`;
   } else {
     document.getElementById('sf-week-note')?.remove();
     const levelName = LEVELS[state.currentLevel] || 'Débutant';
@@ -8614,14 +8627,86 @@ function selectGymMode(mode) {
 }
 
 function previewDaySession(dayOffset) {
+  console.log('previewDaySession called with dayOffset:', dayOffset);
+  
+  // Empêcher les clics multiples
+  if (document.querySelector('.modal-overlay.open')) {
+    console.log('Modal already open, ignoring click');
+    return;
+  }
+  
   const prog = PROGRAMS[state.profile];
+  console.log('Current profile:', state.profile);
+  console.log('Program schedule:', prog?.schedule);
+  console.log('Current session index:', state.currentSessionIdx);
+  console.log('dayOffset:', dayOffset);
   const isSF = prog.useSFProgram;
   const schedIdx = prog.useSFProgram ? dayOffset : (state.currentSessionIdx + dayOffset) % prog.schedule.length;
+  console.log('schedIdx calculated:', schedIdx);
   const sessionId = prog.schedule[schedIdx];
+  console.log('sessionId:', sessionId);
   const isRest = sessionId === 'rest_actif' || sessionId === 'rest_total' || sessionId === 'rest';
-  if (isRest) { showToast('Jour de repos 💤 — récupération active'); return; }
+  console.log('isRest:', isRest);
+  if (isRest) { 
+    // Si c'est un jour de repos ET que c'est aujourd'hui (dayOffset === 0), auto-valider
+    if (dayOffset === 0) {
+      const today = new Date().toISOString().split('T')[0];
+      if (!state.weekLog[today]) {
+        state.weekLog[today] = 'rest_auto';
+        saveState();
+        renderHome(); // Rafraîchir l'affichage
+        showToast('Jour de repos validé automatiquement 💤');
+        return;
+      }
+    }
+    showToast('Jour de repos 💤 — récupération active'); 
+    return; 
+  }
 
-  // Resolve session data
+  // Pour les séances de "rab" ET séances normales, demander le lieu d'entraînement
+  const dayLabels = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+  const currentDay = new Date().getDay();
+  const targetDay = (currentDay + dayOffset) % 7;
+  const isDayToday = dayOffset === 0;
+  
+  console.log('isDayToday:', isDayToday);
+  console.log('state.currentWorkout:', state.currentWorkout);
+  console.log('condition result:', (!isDayToday || !state.currentWorkout));
+  
+  // Afficher la modal pour TOUS les profils (sauf si c'est aujourd'hui ET déjà en cours)
+  if (!isDayToday || !state.currentWorkout) {
+    console.log('Entering modal creation...');
+    // Créer modal de choix salle/maison
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.zIndex = '1001';
+    console.log('Modal element created, setting innerHTML...');
+    modal.innerHTML = `
+      <div class="modal-sheet">
+        <div class="modal-title">${isDayToday ? 'Séance du jour' : `Séance de rab ${dayLabels[targetDay]}`}</div>
+        <div class="modal-sub">Où veux-tu t'entraîner ?</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
+          <button onclick="startExtraWorkout('${sessionId}', 'gym', ${dayOffset}); this.parentElement.parentElement.parentElement.remove();" 
+                  style="background:var(--surface2);border:2px solid var(--border);border-radius:16px;padding:20px 16px;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;transition:all 0.2s;font-family:Inter,sans-serif">
+            🏋️ Salle
+          </button>
+          <button onclick="startExtraWorkout('${sessionId}', 'home', ${dayOffset}); this.parentElement.parentElement.parentElement.remove();" 
+                  style="background:var(--surface2);border:2px solid var(--border);border-radius:16px;padding:20px 16px;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;transition:all 0.2s;font-family:Inter,sans-serif">
+            🏠 Maison
+          </button>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="modal-btn" style="background:var(--surface2);color:var(--text)">Annuler</button>
+      </div>
+    `;
+    console.log('innerHTML set, appending to body...');
+    document.body.appendChild(modal);
+    // Ajouter la classe 'open' pour rendre la modal visible
+    setTimeout(() => modal.classList.add('open'), 10);
+    console.log('Modal appended to body!');
+    return;
+  }
+
+  // Resolve session data pour séance normale
   let sessionName, exercises, duration;
   if (isSF) {
         const sfDay = getProgDayByScheduleId(sessionId, currentGymMode || 'gym');
@@ -8638,7 +8723,7 @@ function previewDaySession(dayOffset) {
   }
 
   const today = new Date().toISOString().split('T')[0];
-  const isToday = (() => {
+  const isTargetToday = (() => {
     const d = new Date();
     const dow = d.getDay();
     const mondayOffset = dow === 0 ? -6 : 1 - dow;
@@ -8648,7 +8733,7 @@ function previewDaySession(dayOffset) {
   })();
 
   // Si c'est aujourd'hui et pas encore validé → séance normale
-  if (isToday && !state.weekLog[today]) {
+  if (isTargetToday && !state.weekLog[today]) {
     startWorkout();
     return;
   }
@@ -9298,7 +9383,7 @@ function renderPlanning() {
     const d = new Date(today);
     d.setDate(today.getDate() + mondayOffset + i);
     const key = d.toISOString().split('T')[0];
-    const isToday = key === todayKey;
+    const isPlanningToday = key === todayKey;
     const done = state.weekLog[key];
     const schedIdx = isSF && prog.useSFProgram ? i : (state.currentSessionIdx + i) % schedule.length;
     const sessionId = schedule[schedIdx];
@@ -9318,13 +9403,13 @@ function renderPlanning() {
       }
     }
 
-    html += `<div class="planning-day ${isToday ? 'today' : ''} ${done ? 'done' : ''} ${isRest ? 'rest' : ''}">
+    html += `<div class="planning-day ${isPlanningToday ? 'today' : ''} ${done ? 'done' : ''} ${isRest ? 'rest' : ''}">
       <div class="planning-day-num">${d.getDate()}</div>
       <div class="planning-day-info">
         <div class="planning-day-name">${sessionName}</div>
-        <div class="planning-day-meta">${dayNames[i]}${isToday ? ' · Aujourd\'hui' : ''}${(!isRest && sessionDuration) ? ' · ' + sessionDuration : ''}</div>
+        <div class="planning-day-meta">${dayNames[i]}${isPlanningToday ? ' · Aujourd\'hui' : ''}${(!isRest && sessionDuration) ? ' · ' + sessionDuration : ''}</div>
       </div>
-      <div class="planning-day-status">${done ? '✅' : isRest ? '😴' : isToday ? '▶️' : '⬜'}</div>
+      <div class="planning-day-status">${done ? '✅' : isRest ? '😴' : isPlanningToday ? '▶️' : '⬜'}</div>
     </div>`;
   }
   html += '</div>';
@@ -9394,11 +9479,11 @@ function renderCustomPlanning() {
     const d = new Date(today);
     d.setDate(today.getDate() + mondayOffset + i);
     const key = d.toISOString().split('T')[0];
-    const isToday = key === todayKey;
+    const isCustomToday = key === todayKey;
     const assigned = customPlan[i] || '';
     const hasSession = !!assigned;
 
-    html += `<div class="custom-plan-day ${hasSession ? 'has-session' : ''} ${isToday ? 'today-plan' : ''}">
+    html += `<div class="custom-plan-day ${hasSession ? 'has-session' : ''} ${isCustomToday ? 'today-plan' : ''}">
       <div class="custom-plan-day-label">${dayNames[i].substring(0,3).toUpperCase()}<br><span style="font-family:Inter,sans-serif;font-size:11px;color:var(--muted);font-weight:400">${d.getDate()}</span></div>
       <select class="custom-plan-select" onchange="assignCustomPlanDay(${i}, this.value)">
         ${optionsHTML.replace(`value="${assigned}"`, `value="${assigned}" selected`)}
@@ -10404,14 +10489,106 @@ function renderWeightChart() {
 function openChangeProfile() {
   modalSelectedProfile = state.profile;
   const container = document.getElementById('modal-profiles');
-  container.innerHTML = Object.entries(PROFILES).map(([key, p]) => `
+  container.innerHTML = Object.entries(PROFILES).map(([key, p]) => {
+    const details = PROFILES_DETAILS[key];
+    const levelsHTML = details ? details.levels.map(level => `
+      <div style="margin-bottom:2px">
+        <span style="color:var(--text);font-weight:600">${level.name}</span> · 
+        <span style="color:var(--muted)">${level.desc} · ${level.frequency}</span>
+      </div>
+    `).join('') : '';
+    
+    return `
     <div class="modal-profile ${key === state.profile ? 'selected' : ''}" data-profile="${key}" onclick="selectModalProfile(this)">
-      <div style="font-size:24px;margin-bottom:6px">${p.icon}</div>
-      <div class="modal-profile-name">${p.name}</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="modal-profile-name" style="margin-bottom:0">${p.name}</div>
+        <div style="font-size:20px">${p.icon}</div>
+      </div>
       <div class="modal-profile-goal">${p.goal}</div>
-      <div class="modal-profile-desc">${p.desc}</div>
-    </div>`).join('');
+      <div class="modal-profile-desc" style="margin-bottom:8px">${p.desc}</div>
+      ${details ? `
+      <div style="border-top:1px solid var(--border);padding-top:8px">
+        <button onclick="toggleProfileDetails('${key}', event)" 
+                style="background:none;border:none;color:var(--accent);font-size:10px;font-weight:600;cursor:pointer;padding:0;font-family:Inter,sans-serif;display:flex;align-items:center;gap:4px">
+          <span id="details-text-${key}">Voir détails</span>
+          <span id="details-arrow-${key}" style="transform:rotate(0deg);transition:transform 0.2s">▼</span>
+        </button>
+        <div id="details-${key}" style="display:none;margin-top:8px;font-size:9px;color:var(--muted);line-height:1.6">
+          ${levelsHTML}
+          <div style="color:var(--accent);font-weight:600;margin-top:4px">${details.duration}</div>
+        </div>
+      </div>` : ''}
+    </div>`;
+  }).join('');
   document.getElementById('change-profile-modal').classList.add('open');
+}
+
+function toggleProfileDetails(profileKey, event) {
+  event.stopPropagation(); // Empêcher la sélection du profil
+  const detailsDiv = document.getElementById(`details-${profileKey}`);
+  const textSpan = document.getElementById(`details-text-${profileKey}`);
+  const arrowSpan = document.getElementById(`details-arrow-${profileKey}`);
+  
+  if (detailsDiv.style.display === 'none') {
+    detailsDiv.style.display = 'block';
+    textSpan.textContent = 'Masquer détails';
+    arrowSpan.style.transform = 'rotate(180deg)';
+  } else {
+    detailsDiv.style.display = 'none';
+    textSpan.textContent = 'Voir détails';
+    arrowSpan.style.transform = 'rotate(0deg)';
+  }
+}
+
+function toggleObProfileDetails(profileKey, event) {
+  event.stopPropagation(); // Empêcher la sélection du profil
+  const detailsDiv = document.getElementById(`ob-details-${profileKey}`);
+  const textSpan = document.getElementById(`ob-details-text-${profileKey}`);
+  const arrowSpan = document.getElementById(`ob-details-arrow-${profileKey}`);
+  
+  if (detailsDiv.style.display === 'none') {
+    detailsDiv.style.display = 'block';
+    textSpan.textContent = 'Masquer détails';
+    arrowSpan.style.transform = 'rotate(180deg)';
+  } else {
+    detailsDiv.style.display = 'none';
+    textSpan.textContent = 'Voir détails';
+    arrowSpan.style.transform = 'rotate(0deg)';
+  }
+}
+
+function generateOnboardingProfiles() {
+  const container = document.getElementById('ob-profiles-container');
+  if (!container) return; // Si pas dans l'onboarding, on fait rien
+  
+  container.innerHTML = Object.entries(PROFILES).map(([key, p]) => {
+    const details = PROFILES_DETAILS[key];
+    const levelsHTML = details ? details.levels.map(level => `
+      <span style="color:var(--text);font-weight:600">${level.name}</span> · <span style="color:var(--muted)">${level.desc} · ${level.frequency}</span><br>
+    `).join('') : '';
+    
+    return `
+    <div class="ob-profile" data-profile="${key}" onclick="selectProfile(this)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div class="ob-profile-name" style="margin-bottom:0">${p.name}</div>
+        <div class="ob-profile-icon" style="font-size:20px">${p.icon}</div>
+      </div>
+      <div class="ob-profile-goal">${p.goal}</div>
+      <div class="ob-profile-desc" style="margin-bottom:8px">${p.desc}</div>
+      ${details ? `
+      <div style="border-top:1px solid var(--border);padding-top:8px">
+        <button onclick="toggleObProfileDetails('${key}', event)" 
+                style="background:none;border:none;color:var(--accent);font-size:10px;font-weight:600;cursor:pointer;padding:0;font-family:Inter,sans-serif;display:flex;align-items:center;gap:4px">
+          <span id="ob-details-text-${key}">Voir détails</span>
+          <span id="ob-details-arrow-${key}" style="transform:rotate(0deg);transition:transform 0.2s">▼</span>
+        </button>
+        <div id="ob-details-${key}" style="display:none;margin-top:8px;font-size:10px;color:var(--muted);line-height:1.8">
+          ${levelsHTML}
+          <span style="color:var(--accent);font-weight:600">${details.duration}</span>
+        </div>
+      </div>` : ''}
+    </div>`;
+  }).join('');
 }
 
 function selectModalProfile(el) {
@@ -10767,6 +10944,74 @@ function markDoneCustom(i, total) {
   document.getElementById('workout-progress-fill').style.width = (done / total * 100) + '%';
   document.getElementById('workout-progress-text').textContent = `${done} / ${total} exercices`;
   saveState();
+}
+
+// ── FONCTION POUR SÉANCES DE RAB ──
+function startExtraWorkout(sessionId, location, dayOffset) {
+  const prog = PROGRAMS[state.profile];
+  const sfDay = getProgDayByScheduleId(sessionId, location);
+  
+  if (!sfDay) {
+    showToast('Séance introuvable pour ce lieu');
+    return;
+  }
+  
+  // Marquer le mode pour cette séance
+  currentGymMode = location;
+  viewOnlyMode = false; // C'est une vraie séance de rab
+  
+  const sessionData = {
+    name: sfDay.label || sfDay.name,
+    exercises: sfDay.blocks || sfDay.exercises || [],
+    duration: sfDay.duration,
+    isExtra: true, // Marquer comme séance de rab
+    location: location
+  };
+  
+  showToast(`Séance de rab · ${location === 'gym' ? 'Salle 🏋️' : 'Maison 🏠'}`);
+  
+  // Réinitialiser les exercices complétés
+  state.completedExercises = [];
+  
+  // Aller à l'écran d'entraînement
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('screen-workout').classList.add('active');
+  
+  // Configurer l'interface
+  document.getElementById('workout-screen-title').textContent = sessionData.name;
+  document.getElementById('workout-progress-fill').style.width = '0%';
+  document.getElementById('workout-progress-text').textContent = `0 / ${sessionData.exercises.length} exercices`;
+  
+  // Rendre les exercices via la fonction existante
+  const container = document.getElementById('workout-exercises');
+  container.innerHTML = ''; // Vider d'abord
+  
+  sessionData.exercises.forEach((ex, i) => {
+    const div = document.createElement('div');
+    div.className = 'ex-block';
+    div.id = `ex-${i}`;
+    div.innerHTML = `
+      <div class="ex-block-header" onclick="toggleEx(${i})">
+        <div class="ex-check" id="check-${i}"></div>
+        <div class="ex-block-name">${ex.name}</div>
+        <div class="ex-chevron">▾</div>
+      </div>
+      <div class="ex-detail">
+        <div class="ex-pills">
+          ${ex.sets ? `<span class="ex-pill">${ex.sets}</span>` : ''}
+          ${ex.detail ? `<span class="ex-pill">${ex.detail}</span>` : ''}
+          ${ex.rest > 0 ? `<span class="ex-pill">Repos : ${ex.rest}s</span>` : ''}
+        </div>
+        ${ex.focus ? `<div class="ex-focus">${ex.focus}</div>` : ''}
+        <div class="action-row" style="margin-top:10px;flex-wrap:wrap">
+          ${ex.rest > 0 ? `<button class="rest-timer-btn" onclick="openTimer(${ex.rest})">⏱ Repos</button>` : ''}
+          <button class="done-btn" onclick="markDoneCustom(${i}, ${sessionData.exercises.length})">✓ Fait</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
 }
 
 init();
